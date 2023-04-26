@@ -1,12 +1,9 @@
 <!-- Start SDK Example Usage -->
 ```typescript
-import {
-  ContractMonthsFetchRequest,
-  ContractMonthsFetchResponse
-} from "valueport/dist/sdk/models/operations";
-
 import { AxiosError } from "axios";
 import { SDK } from "valueport";
+import { ContractMonthsFetchRequest, ContractMonthsFetchResponse } from "valueport/dist/sdk/models/operations";
+
 const sdk = new SDK({
   security: {
     bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
@@ -18,7 +15,9 @@ const req: ContractMonthsFetchRequest = {
 };
 
 sdk.contract.contractMonthsFetch(req).then((res: ContractMonthsFetchResponse | AxiosError) => {
-   // handle response
+  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+    // handle response
+  }
 });
 ```
 <!-- End SDK Example Usage -->

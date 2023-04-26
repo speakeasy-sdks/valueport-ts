@@ -182,4 +182,8 @@ src/sdk/models/shared/tenantupdatebody.ts
 src/sdk/models/shared/tenantoptions.ts
 src/sdk/models/shared/security.ts
 src/sdk/models/shared/index.ts
+docs/sdk/README.md
+docs/contract/README.md
+docs/data/README.md
+docs/manage/README.md
 USAGE.md
