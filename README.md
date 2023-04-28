@@ -19,9 +19,8 @@ yarn add https://github.com/speakeasy-sdks/valueport-ts
 ## SDK Example Usage
 <!-- Start SDK Example Usage -->
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { ContractMonthsFetchRequest, ContractMonthsFetchResponse } from "valueport/dist/sdk/models/operations";
+import { ContractMonthsFetchResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -29,12 +28,10 @@ const sdk = new SDK({
   },
 });
 
-const req: ContractMonthsFetchRequest = {
+sdk.contract.contractMonthsFetch({
   id: "89bd9d8d-69a6-474e-8f46-7cc8796ed151",
-};
-
-sdk.contract.contractMonthsFetch(req).then((res: ContractMonthsFetchResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: ContractMonthsFetchResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });

@@ -40,7 +40,7 @@ export class Data {
    * @remarks
    * Create a single ingest entity.
    */
-  ingestCreate(
+  async ingestCreate(
     req: shared.IngestCreateBody,
     config?: AxiosRequestConfig
   ): Promise<operations.IngestCreateResponse> {
@@ -71,7 +71,8 @@ export class Data {
     if (reqBody == null || Object.keys(reqBody).length === 0)
       throw new Error("request body is required");
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "post",
       headers: headers,
@@ -79,39 +80,39 @@ export class Data {
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.IngestCreateResponse =
-        new operations.IngestCreateResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 201:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.ingestResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.IngestResponse
-            );
-          }
-          break;
-        case httpRes?.status == 400:
-          break;
-        case httpRes?.status == 422:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorDetailResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.ErrorDetailResponse
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.IngestCreateResponse =
+      new operations.IngestCreateResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 201:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.ingestResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.IngestResponse
+          );
+        }
+        break;
+      case httpRes?.status == 400:
+        break;
+      case httpRes?.status == 422:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.errorDetailResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.ErrorDetailResponse
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 }

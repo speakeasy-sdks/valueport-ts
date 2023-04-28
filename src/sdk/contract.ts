@@ -40,7 +40,7 @@ export class Contract {
    * @remarks
    * Retrieve a single contract months entity by ID.
    */
-  contractMonthsFetch(
+  async contractMonthsFetch(
     req: operations.ContractMonthsFetchRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.ContractMonthsFetchResponse> {
@@ -57,36 +57,37 @@ export class Contract {
 
     const client: AxiosInstance = this._securityClient || this._defaultClient;
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.ContractMonthsFetchResponse =
-        new operations.ContractMonthsFetchResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.contractMonthsResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.ContractMonthsResponse
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.ContractMonthsFetchResponse =
+      new operations.ContractMonthsFetchResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.contractMonthsResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.ContractMonthsResponse
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -95,7 +96,7 @@ export class Contract {
    * @remarks
    * Retrieve a list of contract months entities by continuation token and page size.
    */
-  contractMonthsList(
+  async contractMonthsList(
     req: operations.ContractMonthsListRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.ContractMonthsListResponse> {
@@ -110,36 +111,37 @@ export class Contract {
 
     const queryParams: string = utils.serializeQueryParams(req);
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url + queryParams,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.ContractMonthsListResponse =
-        new operations.ContractMonthsListResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.contractMonthsList = utils.objectToClass(
-              httpRes?.data,
-              shared.ContractMonthsList
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.ContractMonthsListResponse =
+      new operations.ContractMonthsListResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.contractMonthsList = utils.objectToClass(
+            httpRes?.data,
+            shared.ContractMonthsList
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -148,7 +150,7 @@ export class Contract {
    * @remarks
    * Retrieve a list of contract months entities by page number and page size.
    */
-  contractMonthsListPaged(
+  async contractMonthsListPaged(
     req: operations.ContractMonthsListPagedRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.ContractMonthsListPagedResponse> {
@@ -164,36 +166,37 @@ export class Contract {
 
     const queryParams: string = utils.serializeQueryParams(req);
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url + queryParams,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.ContractMonthsListPagedResponse =
-        new operations.ContractMonthsListPagedResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.contractMonthsPaged = utils.objectToClass(
-              httpRes?.data,
-              shared.ContractMonthsPaged
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.ContractMonthsListPagedResponse =
+      new operations.ContractMonthsListPagedResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.contractMonthsPaged = utils.objectToClass(
+            httpRes?.data,
+            shared.ContractMonthsPaged
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -202,7 +205,7 @@ export class Contract {
    * @remarks
    * Retrieve a single contract quarters entity by ID.
    */
-  contractQuartersFetch(
+  async contractQuartersFetch(
     req: operations.ContractQuartersFetchRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.ContractQuartersFetchResponse> {
@@ -219,36 +222,37 @@ export class Contract {
 
     const client: AxiosInstance = this._securityClient || this._defaultClient;
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.ContractQuartersFetchResponse =
-        new operations.ContractQuartersFetchResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.contractQuartersResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.ContractQuartersResponse
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.ContractQuartersFetchResponse =
+      new operations.ContractQuartersFetchResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.contractQuartersResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.ContractQuartersResponse
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -257,7 +261,7 @@ export class Contract {
    * @remarks
    * Retrieve a list of contract quarters entities by continuation token and page size.
    */
-  contractQuartersList(
+  async contractQuartersList(
     req: operations.ContractQuartersListRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.ContractQuartersListResponse> {
@@ -273,36 +277,37 @@ export class Contract {
 
     const queryParams: string = utils.serializeQueryParams(req);
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url + queryParams,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.ContractQuartersListResponse =
-        new operations.ContractQuartersListResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.contractQuartersList = utils.objectToClass(
-              httpRes?.data,
-              shared.ContractQuartersList
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.ContractQuartersListResponse =
+      new operations.ContractQuartersListResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.contractQuartersList = utils.objectToClass(
+            httpRes?.data,
+            shared.ContractQuartersList
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -311,7 +316,7 @@ export class Contract {
    * @remarks
    * Retrieve a list of contract quarters entities by page number and page size.
    */
-  contractQuartersListPaged(
+  async contractQuartersListPaged(
     req: operations.ContractQuartersListPagedRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.ContractQuartersListPagedResponse> {
@@ -327,36 +332,37 @@ export class Contract {
 
     const queryParams: string = utils.serializeQueryParams(req);
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url + queryParams,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.ContractQuartersListPagedResponse =
-        new operations.ContractQuartersListPagedResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.contractQuartersPaged = utils.objectToClass(
-              httpRes?.data,
-              shared.ContractQuartersPaged
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.ContractQuartersListPagedResponse =
+      new operations.ContractQuartersListPagedResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.contractQuartersPaged = utils.objectToClass(
+            httpRes?.data,
+            shared.ContractQuartersPaged
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -365,7 +371,7 @@ export class Contract {
    * @remarks
    * Retrieve a single grouped cost fixed hours entity by ID.
    */
-  groupedCostFixedHoursFetch(
+  async groupedCostFixedHoursFetch(
     req: operations.GroupedCostFixedHoursFetchRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.GroupedCostFixedHoursFetchResponse> {
@@ -382,36 +388,37 @@ export class Contract {
 
     const client: AxiosInstance = this._securityClient || this._defaultClient;
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.GroupedCostFixedHoursFetchResponse =
-        new operations.GroupedCostFixedHoursFetchResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.groupedCostFixedHoursResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.GroupedCostFixedHoursResponse
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.GroupedCostFixedHoursFetchResponse =
+      new operations.GroupedCostFixedHoursFetchResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.groupedCostFixedHoursResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.GroupedCostFixedHoursResponse
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -420,7 +427,7 @@ export class Contract {
    * @remarks
    * Retrieve a list of grouped cost fixed hours entities by continuation token and page size.
    */
-  groupedCostFixedHoursList(
+  async groupedCostFixedHoursList(
     req: operations.GroupedCostFixedHoursListRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.GroupedCostFixedHoursListResponse> {
@@ -436,36 +443,37 @@ export class Contract {
 
     const queryParams: string = utils.serializeQueryParams(req);
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url + queryParams,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.GroupedCostFixedHoursListResponse =
-        new operations.GroupedCostFixedHoursListResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.groupedCostFixedHoursList = utils.objectToClass(
-              httpRes?.data,
-              shared.GroupedCostFixedHoursList
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.GroupedCostFixedHoursListResponse =
+      new operations.GroupedCostFixedHoursListResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.groupedCostFixedHoursList = utils.objectToClass(
+            httpRes?.data,
+            shared.GroupedCostFixedHoursList
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -474,7 +482,7 @@ export class Contract {
    * @remarks
    * Retrieve a list of grouped cost fixed hours entities by page number and page size.
    */
-  groupedCostFixedHoursListPaged(
+  async groupedCostFixedHoursListPaged(
     req: operations.GroupedCostFixedHoursListPagedRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.GroupedCostFixedHoursListPagedResponse> {
@@ -491,36 +499,37 @@ export class Contract {
 
     const queryParams: string = utils.serializeQueryParams(req);
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url + queryParams,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.GroupedCostFixedHoursListPagedResponse =
-        new operations.GroupedCostFixedHoursListPagedResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.groupedCostFixedHoursPaged = utils.objectToClass(
-              httpRes?.data,
-              shared.GroupedCostFixedHoursPaged
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.GroupedCostFixedHoursListPagedResponse =
+      new operations.GroupedCostFixedHoursListPagedResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.groupedCostFixedHoursPaged = utils.objectToClass(
+            httpRes?.data,
+            shared.GroupedCostFixedHoursPaged
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -529,7 +538,7 @@ export class Contract {
    * @remarks
    * Retrieve a single grouped cost hours entity by ID.
    */
-  groupedCostHoursFetch(
+  async groupedCostHoursFetch(
     req: operations.GroupedCostHoursFetchRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.GroupedCostHoursFetchResponse> {
@@ -546,36 +555,37 @@ export class Contract {
 
     const client: AxiosInstance = this._securityClient || this._defaultClient;
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.GroupedCostHoursFetchResponse =
-        new operations.GroupedCostHoursFetchResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.groupedCostHoursResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.GroupedCostHoursResponse
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.GroupedCostHoursFetchResponse =
+      new operations.GroupedCostHoursFetchResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.groupedCostHoursResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.GroupedCostHoursResponse
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -584,7 +594,7 @@ export class Contract {
    * @remarks
    * Retrieve a list of grouped cost hours entities by continuation token and page size.
    */
-  groupedCostHoursList(
+  async groupedCostHoursList(
     req: operations.GroupedCostHoursListRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.GroupedCostHoursListResponse> {
@@ -600,36 +610,37 @@ export class Contract {
 
     const queryParams: string = utils.serializeQueryParams(req);
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url + queryParams,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.GroupedCostHoursListResponse =
-        new operations.GroupedCostHoursListResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.groupedCostHoursList = utils.objectToClass(
-              httpRes?.data,
-              shared.GroupedCostHoursList
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.GroupedCostHoursListResponse =
+      new operations.GroupedCostHoursListResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.groupedCostHoursList = utils.objectToClass(
+            httpRes?.data,
+            shared.GroupedCostHoursList
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -638,7 +649,7 @@ export class Contract {
    * @remarks
    * Retrieve a list of grouped cost hours entities by page number and page size.
    */
-  groupedCostHoursListPaged(
+  async groupedCostHoursListPaged(
     req: operations.GroupedCostHoursListPagedRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.GroupedCostHoursListPagedResponse> {
@@ -654,36 +665,37 @@ export class Contract {
 
     const queryParams: string = utils.serializeQueryParams(req);
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url + queryParams,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.GroupedCostHoursListPagedResponse =
-        new operations.GroupedCostHoursListPagedResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.groupedCostHoursPaged = utils.objectToClass(
-              httpRes?.data,
-              shared.GroupedCostHoursPaged
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.GroupedCostHoursListPagedResponse =
+      new operations.GroupedCostHoursListPagedResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.groupedCostHoursPaged = utils.objectToClass(
+            httpRes?.data,
+            shared.GroupedCostHoursPaged
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -692,7 +704,7 @@ export class Contract {
    * @remarks
    * Retrieve a single grouped debt hours entity by ID.
    */
-  groupedDebtHoursFetch(
+  async groupedDebtHoursFetch(
     req: operations.GroupedDebtHoursFetchRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.GroupedDebtHoursFetchResponse> {
@@ -709,36 +721,37 @@ export class Contract {
 
     const client: AxiosInstance = this._securityClient || this._defaultClient;
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.GroupedDebtHoursFetchResponse =
-        new operations.GroupedDebtHoursFetchResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.groupedDebtHoursResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.GroupedDebtHoursResponse
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.GroupedDebtHoursFetchResponse =
+      new operations.GroupedDebtHoursFetchResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.groupedDebtHoursResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.GroupedDebtHoursResponse
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -747,7 +760,7 @@ export class Contract {
    * @remarks
    * Retrieve a list of grouped debt hours entities by continuation token and page size.
    */
-  groupedDebtHoursList(
+  async groupedDebtHoursList(
     req: operations.GroupedDebtHoursListRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.GroupedDebtHoursListResponse> {
@@ -763,36 +776,37 @@ export class Contract {
 
     const queryParams: string = utils.serializeQueryParams(req);
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url + queryParams,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.GroupedDebtHoursListResponse =
-        new operations.GroupedDebtHoursListResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.groupedDebtHoursList = utils.objectToClass(
-              httpRes?.data,
-              shared.GroupedDebtHoursList
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.GroupedDebtHoursListResponse =
+      new operations.GroupedDebtHoursListResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.groupedDebtHoursList = utils.objectToClass(
+            httpRes?.data,
+            shared.GroupedDebtHoursList
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -801,7 +815,7 @@ export class Contract {
    * @remarks
    * Retrieve a list of grouped debt hours entities by page number and page size.
    */
-  groupedDebtHoursListPaged(
+  async groupedDebtHoursListPaged(
     req: operations.GroupedDebtHoursListPagedRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.GroupedDebtHoursListPagedResponse> {
@@ -817,36 +831,37 @@ export class Contract {
 
     const queryParams: string = utils.serializeQueryParams(req);
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url + queryParams,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.GroupedDebtHoursListPagedResponse =
-        new operations.GroupedDebtHoursListPagedResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.groupedDebtHoursPaged = utils.objectToClass(
-              httpRes?.data,
-              shared.GroupedDebtHoursPaged
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.GroupedDebtHoursListPagedResponse =
+      new operations.GroupedDebtHoursListPagedResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.groupedDebtHoursPaged = utils.objectToClass(
+            httpRes?.data,
+            shared.GroupedDebtHoursPaged
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -855,7 +870,7 @@ export class Contract {
    * @remarks
    * Retrieve a single grouped metric unit hours entity by ID.
    */
-  groupedMetricUnitHoursFetch(
+  async groupedMetricUnitHoursFetch(
     req: operations.GroupedMetricUnitHoursFetchRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.GroupedMetricUnitHoursFetchResponse> {
@@ -872,36 +887,37 @@ export class Contract {
 
     const client: AxiosInstance = this._securityClient || this._defaultClient;
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.GroupedMetricUnitHoursFetchResponse =
-        new operations.GroupedMetricUnitHoursFetchResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.groupedMetricUnitHoursResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.GroupedMetricUnitHoursResponse
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.GroupedMetricUnitHoursFetchResponse =
+      new operations.GroupedMetricUnitHoursFetchResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.groupedMetricUnitHoursResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.GroupedMetricUnitHoursResponse
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -910,7 +926,7 @@ export class Contract {
    * @remarks
    * Retrieve a list of grouped metric unit hours entities by continuation token and page size.
    */
-  groupedMetricUnitHoursList(
+  async groupedMetricUnitHoursList(
     req: operations.GroupedMetricUnitHoursListRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.GroupedMetricUnitHoursListResponse> {
@@ -926,36 +942,37 @@ export class Contract {
 
     const queryParams: string = utils.serializeQueryParams(req);
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url + queryParams,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.GroupedMetricUnitHoursListResponse =
-        new operations.GroupedMetricUnitHoursListResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.groupedMetricUnitHoursList = utils.objectToClass(
-              httpRes?.data,
-              shared.GroupedMetricUnitHoursList
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.GroupedMetricUnitHoursListResponse =
+      new operations.GroupedMetricUnitHoursListResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.groupedMetricUnitHoursList = utils.objectToClass(
+            httpRes?.data,
+            shared.GroupedMetricUnitHoursList
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -964,7 +981,7 @@ export class Contract {
    * @remarks
    * Retrieve a list of grouped metric unit hours entities by page number and page size.
    */
-  groupedMetricUnitHoursListPaged(
+  async groupedMetricUnitHoursListPaged(
     req: operations.GroupedMetricUnitHoursListPagedRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.GroupedMetricUnitHoursListPagedResponse> {
@@ -981,36 +998,37 @@ export class Contract {
 
     const queryParams: string = utils.serializeQueryParams(req);
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url + queryParams,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.GroupedMetricUnitHoursListPagedResponse =
-        new operations.GroupedMetricUnitHoursListPagedResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.groupedMetricUnitHoursPaged = utils.objectToClass(
-              httpRes?.data,
-              shared.GroupedMetricUnitHoursPaged
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.GroupedMetricUnitHoursListPagedResponse =
+      new operations.GroupedMetricUnitHoursListPagedResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.groupedMetricUnitHoursPaged = utils.objectToClass(
+            httpRes?.data,
+            shared.GroupedMetricUnitHoursPaged
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -1019,7 +1037,7 @@ export class Contract {
    * @remarks
    * Retrieve a single grouped use minute hours entity by ID.
    */
-  groupedUseMinuteHoursFetch(
+  async groupedUseMinuteHoursFetch(
     req: operations.GroupedUseMinuteHoursFetchRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.GroupedUseMinuteHoursFetchResponse> {
@@ -1036,36 +1054,37 @@ export class Contract {
 
     const client: AxiosInstance = this._securityClient || this._defaultClient;
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.GroupedUseMinuteHoursFetchResponse =
-        new operations.GroupedUseMinuteHoursFetchResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.groupedUseMinuteHoursResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.GroupedUseMinuteHoursResponse
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.GroupedUseMinuteHoursFetchResponse =
+      new operations.GroupedUseMinuteHoursFetchResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.groupedUseMinuteHoursResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.GroupedUseMinuteHoursResponse
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -1074,7 +1093,7 @@ export class Contract {
    * @remarks
    * Retrieve a list of grouped use minute hours entities by continuation token and page size.
    */
-  groupedUseMinuteHoursList(
+  async groupedUseMinuteHoursList(
     req: operations.GroupedUseMinuteHoursListRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.GroupedUseMinuteHoursListResponse> {
@@ -1090,36 +1109,37 @@ export class Contract {
 
     const queryParams: string = utils.serializeQueryParams(req);
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url + queryParams,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.GroupedUseMinuteHoursListResponse =
-        new operations.GroupedUseMinuteHoursListResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.groupedUseMinuteHoursList = utils.objectToClass(
-              httpRes?.data,
-              shared.GroupedUseMinuteHoursList
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.GroupedUseMinuteHoursListResponse =
+      new operations.GroupedUseMinuteHoursListResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.groupedUseMinuteHoursList = utils.objectToClass(
+            httpRes?.data,
+            shared.GroupedUseMinuteHoursList
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -1128,7 +1148,7 @@ export class Contract {
    * @remarks
    * Retrieve a list of grouped use minute hours entities by page number and page size.
    */
-  groupedUseMinuteHoursListPaged(
+  async groupedUseMinuteHoursListPaged(
     req: operations.GroupedUseMinuteHoursListPagedRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.GroupedUseMinuteHoursListPagedResponse> {
@@ -1145,36 +1165,37 @@ export class Contract {
 
     const queryParams: string = utils.serializeQueryParams(req);
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url + queryParams,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.GroupedUseMinuteHoursListPagedResponse =
-        new operations.GroupedUseMinuteHoursListPagedResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.groupedUseMinuteHoursPaged = utils.objectToClass(
-              httpRes?.data,
-              shared.GroupedUseMinuteHoursPaged
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.GroupedUseMinuteHoursListPagedResponse =
+      new operations.GroupedUseMinuteHoursListPagedResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.groupedUseMinuteHoursPaged = utils.objectToClass(
+            httpRes?.data,
+            shared.GroupedUseMinuteHoursPaged
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -1183,7 +1204,7 @@ export class Contract {
    * @remarks
    * Retrieve a single grouped value hours entity by ID.
    */
-  groupedValueHoursFetch(
+  async groupedValueHoursFetch(
     req: operations.GroupedValueHoursFetchRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.GroupedValueHoursFetchResponse> {
@@ -1200,36 +1221,37 @@ export class Contract {
 
     const client: AxiosInstance = this._securityClient || this._defaultClient;
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.GroupedValueHoursFetchResponse =
-        new operations.GroupedValueHoursFetchResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.groupedValueHoursResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.GroupedValueHoursResponse
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.GroupedValueHoursFetchResponse =
+      new operations.GroupedValueHoursFetchResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.groupedValueHoursResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.GroupedValueHoursResponse
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -1238,7 +1260,7 @@ export class Contract {
    * @remarks
    * Retrieve a list of grouped value hours entities by continuation token and page size.
    */
-  groupedValueHoursList(
+  async groupedValueHoursList(
     req: operations.GroupedValueHoursListRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.GroupedValueHoursListResponse> {
@@ -1254,36 +1276,37 @@ export class Contract {
 
     const queryParams: string = utils.serializeQueryParams(req);
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url + queryParams,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.GroupedValueHoursListResponse =
-        new operations.GroupedValueHoursListResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.groupedValueHoursList = utils.objectToClass(
-              httpRes?.data,
-              shared.GroupedValueHoursList
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.GroupedValueHoursListResponse =
+      new operations.GroupedValueHoursListResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.groupedValueHoursList = utils.objectToClass(
+            httpRes?.data,
+            shared.GroupedValueHoursList
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -1292,7 +1315,7 @@ export class Contract {
    * @remarks
    * Retrieve a list of grouped value hours entities by page number and page size.
    */
-  groupedValueHoursListPaged(
+  async groupedValueHoursListPaged(
     req: operations.GroupedValueHoursListPagedRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.GroupedValueHoursListPagedResponse> {
@@ -1308,35 +1331,36 @@ export class Contract {
 
     const queryParams: string = utils.serializeQueryParams(req);
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url + queryParams,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.GroupedValueHoursListPagedResponse =
-        new operations.GroupedValueHoursListPagedResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.groupedValueHoursPaged = utils.objectToClass(
-              httpRes?.data,
-              shared.GroupedValueHoursPaged
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.GroupedValueHoursListPagedResponse =
+      new operations.GroupedValueHoursListPagedResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.groupedValueHoursPaged = utils.objectToClass(
+            httpRes?.data,
+            shared.GroupedValueHoursPaged
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 }

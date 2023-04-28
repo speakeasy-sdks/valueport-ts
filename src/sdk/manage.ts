@@ -40,7 +40,7 @@ export class Manage {
    * @remarks
    * Create a single API key entity.
    */
-  apiKeyCreate(
+  async apiKeyCreate(
     req: shared.ApiKeyCreateBody,
     config?: AxiosRequestConfig
   ): Promise<operations.ApiKeyCreateResponse> {
@@ -71,7 +71,8 @@ export class Manage {
     if (reqBody == null || Object.keys(reqBody).length === 0)
       throw new Error("request body is required");
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "post",
       headers: headers,
@@ -79,40 +80,40 @@ export class Manage {
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.ApiKeyCreateResponse =
-        new operations.ApiKeyCreateResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 201:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.apiKeyResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.ApiKeyResponse
-            );
-          }
-          break;
-        case httpRes?.status == 400:
-          break;
-        case httpRes?.status == 422:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorDetailResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.ErrorDetailResponse
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.ApiKeyCreateResponse =
+      new operations.ApiKeyCreateResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 201:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.apiKeyResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.ApiKeyResponse
+          );
+        }
+        break;
+      case httpRes?.status == 400:
+        break;
+      case httpRes?.status == 422:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.errorDetailResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.ErrorDetailResponse
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -121,7 +122,7 @@ export class Manage {
    * @remarks
    * Delete a single API key entity by ID (soft deletion).
    */
-  apiKeyDelete(
+  async apiKeyDelete(
     req: operations.ApiKeyDeleteRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.ApiKeyDeleteResponse> {
@@ -138,30 +139,31 @@ export class Manage {
 
     const client: AxiosInstance = this._securityClient || this._defaultClient;
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "delete",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.ApiKeyDeleteResponse =
-        new operations.ApiKeyDeleteResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 204:
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.ApiKeyDeleteResponse =
+      new operations.ApiKeyDeleteResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 204:
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -170,7 +172,7 @@ export class Manage {
    * @remarks
    * Retrieve a single API key entity by ID.
    */
-  apiKeyFetch(
+  async apiKeyFetch(
     req: operations.ApiKeyFetchRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.ApiKeyFetchResponse> {
@@ -187,36 +189,37 @@ export class Manage {
 
     const client: AxiosInstance = this._securityClient || this._defaultClient;
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.ApiKeyFetchResponse =
-        new operations.ApiKeyFetchResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.apiKeyResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.ApiKeyResponse
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.ApiKeyFetchResponse =
+      new operations.ApiKeyFetchResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.apiKeyResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.ApiKeyResponse
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -226,7 +229,7 @@ export class Manage {
    * Update a single API key entity.
    * PATCH with `Content-Type: application/json-patch+json` supports a JSON Patch ([jsonpatch.com](http://jsonpatch.com)) document in `api_key` that has paths relative to schema `ApiKey`.
    */
-  apiKeyJsonPatch(
+  async apiKeyJsonPatch(
     req: operations.ApiKeyJsonPatchRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.ApiKeyJsonPatchResponse> {
@@ -261,7 +264,8 @@ export class Manage {
     if (reqBody == null || Object.keys(reqBody).length === 0)
       throw new Error("request body is required");
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "patch",
       headers: headers,
@@ -269,40 +273,40 @@ export class Manage {
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.ApiKeyJsonPatchResponse =
-        new operations.ApiKeyJsonPatchResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.apiKeyResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.ApiKeyResponse
-            );
-          }
-          break;
-        case httpRes?.status == 400:
-          break;
-        case httpRes?.status == 422:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorDetailResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.ErrorDetailResponse
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.ApiKeyJsonPatchResponse =
+      new operations.ApiKeyJsonPatchResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.apiKeyResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.ApiKeyResponse
+          );
+        }
+        break;
+      case httpRes?.status == 400:
+        break;
+      case httpRes?.status == 422:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.errorDetailResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.ErrorDetailResponse
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -311,7 +315,7 @@ export class Manage {
    * @remarks
    * Retrieve a list of API key entities by continuation token and page size.
    */
-  apiKeyList(
+  async apiKeyList(
     req: operations.ApiKeyListRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.ApiKeyListResponse> {
@@ -326,36 +330,37 @@ export class Manage {
 
     const queryParams: string = utils.serializeQueryParams(req);
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url + queryParams,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.ApiKeyListResponse =
-        new operations.ApiKeyListResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.apiKeysList = utils.objectToClass(
-              httpRes?.data,
-              shared.ApiKeysList
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.ApiKeyListResponse =
+      new operations.ApiKeyListResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.apiKeysList = utils.objectToClass(
+            httpRes?.data,
+            shared.ApiKeysList
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -364,7 +369,7 @@ export class Manage {
    * @remarks
    * Retrieve a list of API key entities by page number and page size.
    */
-  apiKeyListPaged(
+  async apiKeyListPaged(
     req: operations.ApiKeyListPagedRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.ApiKeyListPagedResponse> {
@@ -380,36 +385,37 @@ export class Manage {
 
     const queryParams: string = utils.serializeQueryParams(req);
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url + queryParams,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.ApiKeyListPagedResponse =
-        new operations.ApiKeyListPagedResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.apiKeysPaged = utils.objectToClass(
-              httpRes?.data,
-              shared.ApiKeysPaged
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.ApiKeyListPagedResponse =
+      new operations.ApiKeyListPagedResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.apiKeysPaged = utils.objectToClass(
+            httpRes?.data,
+            shared.ApiKeysPaged
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -423,7 +429,7 @@ export class Manage {
    *
    * See also: [API key - JSON Patch](#operation/api_key-json-patch)
    */
-  apiKeyUpdatePatch(
+  async apiKeyUpdatePatch(
     req: operations.ApiKeyUpdatePatchRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.ApiKeyUpdatePatchResponse> {
@@ -458,7 +464,8 @@ export class Manage {
     if (reqBody == null || Object.keys(reqBody).length === 0)
       throw new Error("request body is required");
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "patch",
       headers: headers,
@@ -466,40 +473,40 @@ export class Manage {
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.ApiKeyUpdatePatchResponse =
-        new operations.ApiKeyUpdatePatchResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.apiKeyResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.ApiKeyResponse
-            );
-          }
-          break;
-        case httpRes?.status == 400:
-          break;
-        case httpRes?.status == 422:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorDetailResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.ErrorDetailResponse
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.ApiKeyUpdatePatchResponse =
+      new operations.ApiKeyUpdatePatchResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.apiKeyResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.ApiKeyResponse
+          );
+        }
+        break;
+      case httpRes?.status == 400:
+        break;
+      case httpRes?.status == 422:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.errorDetailResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.ErrorDetailResponse
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -513,7 +520,7 @@ export class Manage {
    *
    * See also: [API key - JSON Patch](#operation/api_key-json-patch)
    */
-  apiKeyUpdatePut(
+  async apiKeyUpdatePut(
     req: operations.ApiKeyUpdatePutRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.ApiKeyUpdatePutResponse> {
@@ -548,7 +555,8 @@ export class Manage {
     if (reqBody == null || Object.keys(reqBody).length === 0)
       throw new Error("request body is required");
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "put",
       headers: headers,
@@ -556,40 +564,40 @@ export class Manage {
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.ApiKeyUpdatePutResponse =
-        new operations.ApiKeyUpdatePutResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.apiKeyResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.ApiKeyResponse
-            );
-          }
-          break;
-        case httpRes?.status == 400:
-          break;
-        case httpRes?.status == 422:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorDetailResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.ErrorDetailResponse
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.ApiKeyUpdatePutResponse =
+      new operations.ApiKeyUpdatePutResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.apiKeyResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.ApiKeyResponse
+          );
+        }
+        break;
+      case httpRes?.status == 400:
+        break;
+      case httpRes?.status == 422:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.errorDetailResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.ErrorDetailResponse
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -598,7 +606,7 @@ export class Manage {
    * @remarks
    * Create a single contract entity.
    */
-  contractCreate(
+  async contractCreate(
     req: shared.ContractCreateBody,
     config?: AxiosRequestConfig
   ): Promise<operations.ContractCreateResponse> {
@@ -629,7 +637,8 @@ export class Manage {
     if (reqBody == null || Object.keys(reqBody).length === 0)
       throw new Error("request body is required");
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "post",
       headers: headers,
@@ -637,40 +646,40 @@ export class Manage {
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.ContractCreateResponse =
-        new operations.ContractCreateResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 201:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.contractResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.ContractResponse
-            );
-          }
-          break;
-        case httpRes?.status == 400:
-          break;
-        case httpRes?.status == 422:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorDetailResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.ErrorDetailResponse
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.ContractCreateResponse =
+      new operations.ContractCreateResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 201:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.contractResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.ContractResponse
+          );
+        }
+        break;
+      case httpRes?.status == 400:
+        break;
+      case httpRes?.status == 422:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.errorDetailResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.ErrorDetailResponse
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -679,7 +688,7 @@ export class Manage {
    * @remarks
    * Delete a single contract entity by ID (soft deletion).
    */
-  contractDelete(
+  async contractDelete(
     req: operations.ContractDeleteRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.ContractDeleteResponse> {
@@ -696,30 +705,31 @@ export class Manage {
 
     const client: AxiosInstance = this._securityClient || this._defaultClient;
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "delete",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.ContractDeleteResponse =
-        new operations.ContractDeleteResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 204:
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.ContractDeleteResponse =
+      new operations.ContractDeleteResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 204:
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -728,7 +738,7 @@ export class Manage {
    * @remarks
    * Retrieve a single contract entity by ID.
    */
-  contractFetch(
+  async contractFetch(
     req: operations.ContractFetchRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.ContractFetchResponse> {
@@ -745,36 +755,37 @@ export class Manage {
 
     const client: AxiosInstance = this._securityClient || this._defaultClient;
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.ContractFetchResponse =
-        new operations.ContractFetchResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.contractResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.ContractResponse
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.ContractFetchResponse =
+      new operations.ContractFetchResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.contractResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.ContractResponse
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -784,7 +795,7 @@ export class Manage {
    * Update a single contract entity.
    * PATCH with `Content-Type: application/json-patch+json` supports a JSON Patch ([jsonpatch.com](http://jsonpatch.com)) document in `contract` that has paths relative to schema `Contract`.
    */
-  contractJsonPatch(
+  async contractJsonPatch(
     req: operations.ContractJsonPatchRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.ContractJsonPatchResponse> {
@@ -819,7 +830,8 @@ export class Manage {
     if (reqBody == null || Object.keys(reqBody).length === 0)
       throw new Error("request body is required");
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "patch",
       headers: headers,
@@ -827,40 +839,40 @@ export class Manage {
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.ContractJsonPatchResponse =
-        new operations.ContractJsonPatchResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.contractResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.ContractResponse
-            );
-          }
-          break;
-        case httpRes?.status == 400:
-          break;
-        case httpRes?.status == 422:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorDetailResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.ErrorDetailResponse
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.ContractJsonPatchResponse =
+      new operations.ContractJsonPatchResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.contractResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.ContractResponse
+          );
+        }
+        break;
+      case httpRes?.status == 400:
+        break;
+      case httpRes?.status == 422:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.errorDetailResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.ErrorDetailResponse
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -869,7 +881,7 @@ export class Manage {
    * @remarks
    * Retrieve a list of contract entities by continuation token and page size.
    */
-  contractList(
+  async contractList(
     req: operations.ContractListRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.ContractListResponse> {
@@ -884,36 +896,37 @@ export class Manage {
 
     const queryParams: string = utils.serializeQueryParams(req);
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url + queryParams,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.ContractListResponse =
-        new operations.ContractListResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.contractsList = utils.objectToClass(
-              httpRes?.data,
-              shared.ContractsList
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.ContractListResponse =
+      new operations.ContractListResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.contractsList = utils.objectToClass(
+            httpRes?.data,
+            shared.ContractsList
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -922,7 +935,7 @@ export class Manage {
    * @remarks
    * Retrieve a list of contract entities by page number and page size.
    */
-  contractListPaged(
+  async contractListPaged(
     req: operations.ContractListPagedRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.ContractListPagedResponse> {
@@ -938,36 +951,37 @@ export class Manage {
 
     const queryParams: string = utils.serializeQueryParams(req);
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url + queryParams,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.ContractListPagedResponse =
-        new operations.ContractListPagedResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.contractsPaged = utils.objectToClass(
-              httpRes?.data,
-              shared.ContractsPaged
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.ContractListPagedResponse =
+      new operations.ContractListPagedResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.contractsPaged = utils.objectToClass(
+            httpRes?.data,
+            shared.ContractsPaged
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -981,7 +995,7 @@ export class Manage {
    *
    * See also: [Contract - JSON Patch](#operation/contract-json-patch)
    */
-  contractUpdatePatch(
+  async contractUpdatePatch(
     req: operations.ContractUpdatePatchRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.ContractUpdatePatchResponse> {
@@ -1016,7 +1030,8 @@ export class Manage {
     if (reqBody == null || Object.keys(reqBody).length === 0)
       throw new Error("request body is required");
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "patch",
       headers: headers,
@@ -1024,40 +1039,40 @@ export class Manage {
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.ContractUpdatePatchResponse =
-        new operations.ContractUpdatePatchResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.contractResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.ContractResponse
-            );
-          }
-          break;
-        case httpRes?.status == 400:
-          break;
-        case httpRes?.status == 422:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorDetailResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.ErrorDetailResponse
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.ContractUpdatePatchResponse =
+      new operations.ContractUpdatePatchResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.contractResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.ContractResponse
+          );
+        }
+        break;
+      case httpRes?.status == 400:
+        break;
+      case httpRes?.status == 422:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.errorDetailResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.ErrorDetailResponse
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -1071,7 +1086,7 @@ export class Manage {
    *
    * See also: [Contract - JSON Patch](#operation/contract-json-patch)
    */
-  contractUpdatePut(
+  async contractUpdatePut(
     req: operations.ContractUpdatePutRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.ContractUpdatePutResponse> {
@@ -1106,7 +1121,8 @@ export class Manage {
     if (reqBody == null || Object.keys(reqBody).length === 0)
       throw new Error("request body is required");
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "put",
       headers: headers,
@@ -1114,40 +1130,40 @@ export class Manage {
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.ContractUpdatePutResponse =
-        new operations.ContractUpdatePutResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.contractResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.ContractResponse
-            );
-          }
-          break;
-        case httpRes?.status == 400:
-          break;
-        case httpRes?.status == 422:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorDetailResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.ErrorDetailResponse
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.ContractUpdatePutResponse =
+      new operations.ContractUpdatePutResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.contractResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.ContractResponse
+          );
+        }
+        break;
+      case httpRes?.status == 400:
+        break;
+      case httpRes?.status == 422:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.errorDetailResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.ErrorDetailResponse
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -1156,7 +1172,7 @@ export class Manage {
    * @remarks
    * Create a single customer entity.
    */
-  customerCreate(
+  async customerCreate(
     req: shared.CustomerCreateBody,
     config?: AxiosRequestConfig
   ): Promise<operations.CustomerCreateResponse> {
@@ -1187,7 +1203,8 @@ export class Manage {
     if (reqBody == null || Object.keys(reqBody).length === 0)
       throw new Error("request body is required");
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "post",
       headers: headers,
@@ -1195,40 +1212,40 @@ export class Manage {
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.CustomerCreateResponse =
-        new operations.CustomerCreateResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 201:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.customerResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.CustomerResponse
-            );
-          }
-          break;
-        case httpRes?.status == 400:
-          break;
-        case httpRes?.status == 422:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorDetailResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.ErrorDetailResponse
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.CustomerCreateResponse =
+      new operations.CustomerCreateResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 201:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.customerResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.CustomerResponse
+          );
+        }
+        break;
+      case httpRes?.status == 400:
+        break;
+      case httpRes?.status == 422:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.errorDetailResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.ErrorDetailResponse
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -1237,7 +1254,7 @@ export class Manage {
    * @remarks
    * Delete a single customer entity by ID (soft deletion).
    */
-  customerDelete(
+  async customerDelete(
     req: operations.CustomerDeleteRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.CustomerDeleteResponse> {
@@ -1254,30 +1271,31 @@ export class Manage {
 
     const client: AxiosInstance = this._securityClient || this._defaultClient;
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "delete",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.CustomerDeleteResponse =
-        new operations.CustomerDeleteResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 204:
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.CustomerDeleteResponse =
+      new operations.CustomerDeleteResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 204:
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -1286,7 +1304,7 @@ export class Manage {
    * @remarks
    * Retrieve a single customer entity by ID.
    */
-  customerFetch(
+  async customerFetch(
     req: operations.CustomerFetchRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.CustomerFetchResponse> {
@@ -1303,36 +1321,37 @@ export class Manage {
 
     const client: AxiosInstance = this._securityClient || this._defaultClient;
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.CustomerFetchResponse =
-        new operations.CustomerFetchResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.customerResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.CustomerResponse
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.CustomerFetchResponse =
+      new operations.CustomerFetchResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.customerResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.CustomerResponse
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -1342,7 +1361,7 @@ export class Manage {
    * Update a single customer entity.
    * PATCH with `Content-Type: application/json-patch+json` supports a JSON Patch ([jsonpatch.com](http://jsonpatch.com)) document in `customer` that has paths relative to schema `Customer`.
    */
-  customerJsonPatch(
+  async customerJsonPatch(
     req: operations.CustomerJsonPatchRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.CustomerJsonPatchResponse> {
@@ -1377,7 +1396,8 @@ export class Manage {
     if (reqBody == null || Object.keys(reqBody).length === 0)
       throw new Error("request body is required");
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "patch",
       headers: headers,
@@ -1385,40 +1405,40 @@ export class Manage {
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.CustomerJsonPatchResponse =
-        new operations.CustomerJsonPatchResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.customerResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.CustomerResponse
-            );
-          }
-          break;
-        case httpRes?.status == 400:
-          break;
-        case httpRes?.status == 422:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorDetailResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.ErrorDetailResponse
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.CustomerJsonPatchResponse =
+      new operations.CustomerJsonPatchResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.customerResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.CustomerResponse
+          );
+        }
+        break;
+      case httpRes?.status == 400:
+        break;
+      case httpRes?.status == 422:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.errorDetailResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.ErrorDetailResponse
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -1427,7 +1447,7 @@ export class Manage {
    * @remarks
    * Retrieve a list of customer entities by continuation token and page size.
    */
-  customerList(
+  async customerList(
     req: operations.CustomerListRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.CustomerListResponse> {
@@ -1442,36 +1462,37 @@ export class Manage {
 
     const queryParams: string = utils.serializeQueryParams(req);
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url + queryParams,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.CustomerListResponse =
-        new operations.CustomerListResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.customersList = utils.objectToClass(
-              httpRes?.data,
-              shared.CustomersList
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.CustomerListResponse =
+      new operations.CustomerListResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.customersList = utils.objectToClass(
+            httpRes?.data,
+            shared.CustomersList
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -1480,7 +1501,7 @@ export class Manage {
    * @remarks
    * Retrieve a list of customer entities by page number and page size.
    */
-  customerListPaged(
+  async customerListPaged(
     req: operations.CustomerListPagedRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.CustomerListPagedResponse> {
@@ -1496,36 +1517,37 @@ export class Manage {
 
     const queryParams: string = utils.serializeQueryParams(req);
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url + queryParams,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.CustomerListPagedResponse =
-        new operations.CustomerListPagedResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.customersPaged = utils.objectToClass(
-              httpRes?.data,
-              shared.CustomersPaged
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.CustomerListPagedResponse =
+      new operations.CustomerListPagedResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.customersPaged = utils.objectToClass(
+            httpRes?.data,
+            shared.CustomersPaged
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -1539,7 +1561,7 @@ export class Manage {
    *
    * See also: [Customer - JSON Patch](#operation/customer-json-patch)
    */
-  customerUpdatePatch(
+  async customerUpdatePatch(
     req: operations.CustomerUpdatePatchRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.CustomerUpdatePatchResponse> {
@@ -1574,7 +1596,8 @@ export class Manage {
     if (reqBody == null || Object.keys(reqBody).length === 0)
       throw new Error("request body is required");
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "patch",
       headers: headers,
@@ -1582,40 +1605,40 @@ export class Manage {
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.CustomerUpdatePatchResponse =
-        new operations.CustomerUpdatePatchResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.customerResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.CustomerResponse
-            );
-          }
-          break;
-        case httpRes?.status == 400:
-          break;
-        case httpRes?.status == 422:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorDetailResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.ErrorDetailResponse
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.CustomerUpdatePatchResponse =
+      new operations.CustomerUpdatePatchResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.customerResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.CustomerResponse
+          );
+        }
+        break;
+      case httpRes?.status == 400:
+        break;
+      case httpRes?.status == 422:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.errorDetailResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.ErrorDetailResponse
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -1629,7 +1652,7 @@ export class Manage {
    *
    * See also: [Customer - JSON Patch](#operation/customer-json-patch)
    */
-  customerUpdatePut(
+  async customerUpdatePut(
     req: operations.CustomerUpdatePutRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.CustomerUpdatePutResponse> {
@@ -1664,7 +1687,8 @@ export class Manage {
     if (reqBody == null || Object.keys(reqBody).length === 0)
       throw new Error("request body is required");
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "put",
       headers: headers,
@@ -1672,40 +1696,40 @@ export class Manage {
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.CustomerUpdatePutResponse =
-        new operations.CustomerUpdatePutResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.customerResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.CustomerResponse
-            );
-          }
-          break;
-        case httpRes?.status == 400:
-          break;
-        case httpRes?.status == 422:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorDetailResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.ErrorDetailResponse
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.CustomerUpdatePutResponse =
+      new operations.CustomerUpdatePutResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.customerResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.CustomerResponse
+          );
+        }
+        break;
+      case httpRes?.status == 400:
+        break;
+      case httpRes?.status == 422:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.errorDetailResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.ErrorDetailResponse
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -1714,7 +1738,7 @@ export class Manage {
    * @remarks
    * Create a single equipment entity.
    */
-  equipmentCreate(
+  async equipmentCreate(
     req: shared.EquipmentCreateBody,
     config?: AxiosRequestConfig
   ): Promise<operations.EquipmentCreateResponse> {
@@ -1745,7 +1769,8 @@ export class Manage {
     if (reqBody == null || Object.keys(reqBody).length === 0)
       throw new Error("request body is required");
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "post",
       headers: headers,
@@ -1753,40 +1778,40 @@ export class Manage {
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.EquipmentCreateResponse =
-        new operations.EquipmentCreateResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 201:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.equipmentResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.EquipmentResponse
-            );
-          }
-          break;
-        case httpRes?.status == 400:
-          break;
-        case httpRes?.status == 422:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorDetailResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.ErrorDetailResponse
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.EquipmentCreateResponse =
+      new operations.EquipmentCreateResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 201:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.equipmentResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.EquipmentResponse
+          );
+        }
+        break;
+      case httpRes?.status == 400:
+        break;
+      case httpRes?.status == 422:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.errorDetailResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.ErrorDetailResponse
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -1795,7 +1820,7 @@ export class Manage {
    * @remarks
    * Delete a single equipment entity by ID (soft deletion).
    */
-  equipmentDelete(
+  async equipmentDelete(
     req: operations.EquipmentDeleteRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.EquipmentDeleteResponse> {
@@ -1812,30 +1837,31 @@ export class Manage {
 
     const client: AxiosInstance = this._securityClient || this._defaultClient;
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "delete",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.EquipmentDeleteResponse =
-        new operations.EquipmentDeleteResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 204:
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.EquipmentDeleteResponse =
+      new operations.EquipmentDeleteResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 204:
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -1844,7 +1870,7 @@ export class Manage {
    * @remarks
    * Retrieve a single equipment entity by ID.
    */
-  equipmentFetch(
+  async equipmentFetch(
     req: operations.EquipmentFetchRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.EquipmentFetchResponse> {
@@ -1861,36 +1887,37 @@ export class Manage {
 
     const client: AxiosInstance = this._securityClient || this._defaultClient;
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.EquipmentFetchResponse =
-        new operations.EquipmentFetchResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.equipmentResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.EquipmentResponse
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.EquipmentFetchResponse =
+      new operations.EquipmentFetchResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.equipmentResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.EquipmentResponse
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -1900,7 +1927,7 @@ export class Manage {
    * Update a single equipment entity.
    * PATCH with `Content-Type: application/json-patch+json` supports a JSON Patch ([jsonpatch.com](http://jsonpatch.com)) document in `equipment` that has paths relative to schema `Equipment`.
    */
-  equipmentJsonPatch(
+  async equipmentJsonPatch(
     req: operations.EquipmentJsonPatchRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.EquipmentJsonPatchResponse> {
@@ -1935,7 +1962,8 @@ export class Manage {
     if (reqBody == null || Object.keys(reqBody).length === 0)
       throw new Error("request body is required");
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "patch",
       headers: headers,
@@ -1943,40 +1971,40 @@ export class Manage {
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.EquipmentJsonPatchResponse =
-        new operations.EquipmentJsonPatchResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.equipmentResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.EquipmentResponse
-            );
-          }
-          break;
-        case httpRes?.status == 400:
-          break;
-        case httpRes?.status == 422:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorDetailResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.ErrorDetailResponse
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.EquipmentJsonPatchResponse =
+      new operations.EquipmentJsonPatchResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.equipmentResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.EquipmentResponse
+          );
+        }
+        break;
+      case httpRes?.status == 400:
+        break;
+      case httpRes?.status == 422:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.errorDetailResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.ErrorDetailResponse
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -1985,7 +2013,7 @@ export class Manage {
    * @remarks
    * Retrieve a list of equipment entities by continuation token and page size.
    */
-  equipmentList(
+  async equipmentList(
     req: operations.EquipmentListRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.EquipmentListResponse> {
@@ -2000,36 +2028,37 @@ export class Manage {
 
     const queryParams: string = utils.serializeQueryParams(req);
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url + queryParams,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.EquipmentListResponse =
-        new operations.EquipmentListResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.equipmentList = utils.objectToClass(
-              httpRes?.data,
-              shared.EquipmentList
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.EquipmentListResponse =
+      new operations.EquipmentListResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.equipmentList = utils.objectToClass(
+            httpRes?.data,
+            shared.EquipmentList
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -2038,7 +2067,7 @@ export class Manage {
    * @remarks
    * Retrieve a list of equipment entities by page number and page size.
    */
-  equipmentListPaged(
+  async equipmentListPaged(
     req: operations.EquipmentListPagedRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.EquipmentListPagedResponse> {
@@ -2054,36 +2083,37 @@ export class Manage {
 
     const queryParams: string = utils.serializeQueryParams(req);
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url + queryParams,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.EquipmentListPagedResponse =
-        new operations.EquipmentListPagedResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.equipmentPaged = utils.objectToClass(
-              httpRes?.data,
-              shared.EquipmentPaged
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.EquipmentListPagedResponse =
+      new operations.EquipmentListPagedResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.equipmentPaged = utils.objectToClass(
+            httpRes?.data,
+            shared.EquipmentPaged
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -2092,7 +2122,7 @@ export class Manage {
    * @remarks
    * Create a single equipment type entity.
    */
-  equipmentTypeCreate(
+  async equipmentTypeCreate(
     req: shared.EquipmentTypeCreateBody,
     config?: AxiosRequestConfig
   ): Promise<operations.EquipmentTypeCreateResponse> {
@@ -2124,7 +2154,8 @@ export class Manage {
     if (reqBody == null || Object.keys(reqBody).length === 0)
       throw new Error("request body is required");
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "post",
       headers: headers,
@@ -2132,40 +2163,40 @@ export class Manage {
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.EquipmentTypeCreateResponse =
-        new operations.EquipmentTypeCreateResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 201:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.equipmentTypeResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.EquipmentTypeResponse
-            );
-          }
-          break;
-        case httpRes?.status == 400:
-          break;
-        case httpRes?.status == 422:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorDetailResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.ErrorDetailResponse
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.EquipmentTypeCreateResponse =
+      new operations.EquipmentTypeCreateResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 201:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.equipmentTypeResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.EquipmentTypeResponse
+          );
+        }
+        break;
+      case httpRes?.status == 400:
+        break;
+      case httpRes?.status == 422:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.errorDetailResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.ErrorDetailResponse
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -2174,7 +2205,7 @@ export class Manage {
    * @remarks
    * Delete a single equipment type entity by ID (soft deletion).
    */
-  equipmentTypeDelete(
+  async equipmentTypeDelete(
     req: operations.EquipmentTypeDeleteRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.EquipmentTypeDeleteResponse> {
@@ -2191,30 +2222,31 @@ export class Manage {
 
     const client: AxiosInstance = this._securityClient || this._defaultClient;
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "delete",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.EquipmentTypeDeleteResponse =
-        new operations.EquipmentTypeDeleteResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 204:
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.EquipmentTypeDeleteResponse =
+      new operations.EquipmentTypeDeleteResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 204:
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -2223,7 +2255,7 @@ export class Manage {
    * @remarks
    * Retrieve a single equipment type entity by ID.
    */
-  equipmentTypeFetch(
+  async equipmentTypeFetch(
     req: operations.EquipmentTypeFetchRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.EquipmentTypeFetchResponse> {
@@ -2240,36 +2272,37 @@ export class Manage {
 
     const client: AxiosInstance = this._securityClient || this._defaultClient;
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.EquipmentTypeFetchResponse =
-        new operations.EquipmentTypeFetchResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.equipmentTypeResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.EquipmentTypeResponse
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.EquipmentTypeFetchResponse =
+      new operations.EquipmentTypeFetchResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.equipmentTypeResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.EquipmentTypeResponse
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -2279,7 +2312,7 @@ export class Manage {
    * Update a single equipment type entity.
    * PATCH with `Content-Type: application/json-patch+json` supports a JSON Patch ([jsonpatch.com](http://jsonpatch.com)) document in `equipment_type` that has paths relative to schema `EquipmentType`.
    */
-  equipmentTypeJsonPatch(
+  async equipmentTypeJsonPatch(
     req: operations.EquipmentTypeJsonPatchRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.EquipmentTypeJsonPatchResponse> {
@@ -2314,7 +2347,8 @@ export class Manage {
     if (reqBody == null || Object.keys(reqBody).length === 0)
       throw new Error("request body is required");
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "patch",
       headers: headers,
@@ -2322,40 +2356,40 @@ export class Manage {
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.EquipmentTypeJsonPatchResponse =
-        new operations.EquipmentTypeJsonPatchResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.equipmentTypeResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.EquipmentTypeResponse
-            );
-          }
-          break;
-        case httpRes?.status == 400:
-          break;
-        case httpRes?.status == 422:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorDetailResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.ErrorDetailResponse
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.EquipmentTypeJsonPatchResponse =
+      new operations.EquipmentTypeJsonPatchResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.equipmentTypeResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.EquipmentTypeResponse
+          );
+        }
+        break;
+      case httpRes?.status == 400:
+        break;
+      case httpRes?.status == 422:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.errorDetailResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.ErrorDetailResponse
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -2364,7 +2398,7 @@ export class Manage {
    * @remarks
    * Retrieve a list of equipment type entities by continuation token and page size.
    */
-  equipmentTypeList(
+  async equipmentTypeList(
     req: operations.EquipmentTypeListRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.EquipmentTypeListResponse> {
@@ -2380,36 +2414,37 @@ export class Manage {
 
     const queryParams: string = utils.serializeQueryParams(req);
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url + queryParams,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.EquipmentTypeListResponse =
-        new operations.EquipmentTypeListResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.equipmentTypesList = utils.objectToClass(
-              httpRes?.data,
-              shared.EquipmentTypesList
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.EquipmentTypeListResponse =
+      new operations.EquipmentTypeListResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.equipmentTypesList = utils.objectToClass(
+            httpRes?.data,
+            shared.EquipmentTypesList
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -2418,7 +2453,7 @@ export class Manage {
    * @remarks
    * Retrieve a list of equipment type entities by page number and page size.
    */
-  equipmentTypeListPaged(
+  async equipmentTypeListPaged(
     req: operations.EquipmentTypeListPagedRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.EquipmentTypeListPagedResponse> {
@@ -2434,36 +2469,37 @@ export class Manage {
 
     const queryParams: string = utils.serializeQueryParams(req);
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url + queryParams,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.EquipmentTypeListPagedResponse =
-        new operations.EquipmentTypeListPagedResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.equipmentTypesPaged = utils.objectToClass(
-              httpRes?.data,
-              shared.EquipmentTypesPaged
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.EquipmentTypeListPagedResponse =
+      new operations.EquipmentTypeListPagedResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.equipmentTypesPaged = utils.objectToClass(
+            httpRes?.data,
+            shared.EquipmentTypesPaged
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -2477,7 +2513,7 @@ export class Manage {
    *
    * See also: [Equipment type - JSON Patch](#operation/equipment_type-json-patch)
    */
-  equipmentTypeUpdatePatch(
+  async equipmentTypeUpdatePatch(
     req: operations.EquipmentTypeUpdatePatchRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.EquipmentTypeUpdatePatchResponse> {
@@ -2512,7 +2548,8 @@ export class Manage {
     if (reqBody == null || Object.keys(reqBody).length === 0)
       throw new Error("request body is required");
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "patch",
       headers: headers,
@@ -2520,40 +2557,40 @@ export class Manage {
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.EquipmentTypeUpdatePatchResponse =
-        new operations.EquipmentTypeUpdatePatchResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.equipmentTypeResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.EquipmentTypeResponse
-            );
-          }
-          break;
-        case httpRes?.status == 400:
-          break;
-        case httpRes?.status == 422:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorDetailResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.ErrorDetailResponse
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.EquipmentTypeUpdatePatchResponse =
+      new operations.EquipmentTypeUpdatePatchResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.equipmentTypeResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.EquipmentTypeResponse
+          );
+        }
+        break;
+      case httpRes?.status == 400:
+        break;
+      case httpRes?.status == 422:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.errorDetailResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.ErrorDetailResponse
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -2567,7 +2604,7 @@ export class Manage {
    *
    * See also: [Equipment type - JSON Patch](#operation/equipment_type-json-patch)
    */
-  equipmentTypeUpdatePut(
+  async equipmentTypeUpdatePut(
     req: operations.EquipmentTypeUpdatePutRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.EquipmentTypeUpdatePutResponse> {
@@ -2602,7 +2639,8 @@ export class Manage {
     if (reqBody == null || Object.keys(reqBody).length === 0)
       throw new Error("request body is required");
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "put",
       headers: headers,
@@ -2610,40 +2648,40 @@ export class Manage {
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.EquipmentTypeUpdatePutResponse =
-        new operations.EquipmentTypeUpdatePutResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.equipmentTypeResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.EquipmentTypeResponse
-            );
-          }
-          break;
-        case httpRes?.status == 400:
-          break;
-        case httpRes?.status == 422:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorDetailResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.ErrorDetailResponse
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.EquipmentTypeUpdatePutResponse =
+      new operations.EquipmentTypeUpdatePutResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.equipmentTypeResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.EquipmentTypeResponse
+          );
+        }
+        break;
+      case httpRes?.status == 400:
+        break;
+      case httpRes?.status == 422:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.errorDetailResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.ErrorDetailResponse
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -2657,7 +2695,7 @@ export class Manage {
    *
    * See also: [Equipment - JSON Patch](#operation/equipment-json-patch)
    */
-  equipmentUpdatePatch(
+  async equipmentUpdatePatch(
     req: operations.EquipmentUpdatePatchRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.EquipmentUpdatePatchResponse> {
@@ -2692,7 +2730,8 @@ export class Manage {
     if (reqBody == null || Object.keys(reqBody).length === 0)
       throw new Error("request body is required");
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "patch",
       headers: headers,
@@ -2700,40 +2739,40 @@ export class Manage {
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.EquipmentUpdatePatchResponse =
-        new operations.EquipmentUpdatePatchResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.equipmentResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.EquipmentResponse
-            );
-          }
-          break;
-        case httpRes?.status == 400:
-          break;
-        case httpRes?.status == 422:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorDetailResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.ErrorDetailResponse
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.EquipmentUpdatePatchResponse =
+      new operations.EquipmentUpdatePatchResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.equipmentResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.EquipmentResponse
+          );
+        }
+        break;
+      case httpRes?.status == 400:
+        break;
+      case httpRes?.status == 422:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.errorDetailResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.ErrorDetailResponse
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -2747,7 +2786,7 @@ export class Manage {
    *
    * See also: [Equipment - JSON Patch](#operation/equipment-json-patch)
    */
-  equipmentUpdatePut(
+  async equipmentUpdatePut(
     req: operations.EquipmentUpdatePutRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.EquipmentUpdatePutResponse> {
@@ -2782,7 +2821,8 @@ export class Manage {
     if (reqBody == null || Object.keys(reqBody).length === 0)
       throw new Error("request body is required");
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "put",
       headers: headers,
@@ -2790,40 +2830,40 @@ export class Manage {
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.EquipmentUpdatePutResponse =
-        new operations.EquipmentUpdatePutResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.equipmentResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.EquipmentResponse
-            );
-          }
-          break;
-        case httpRes?.status == 400:
-          break;
-        case httpRes?.status == 422:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorDetailResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.ErrorDetailResponse
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.EquipmentUpdatePutResponse =
+      new operations.EquipmentUpdatePutResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.equipmentResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.EquipmentResponse
+          );
+        }
+        break;
+      case httpRes?.status == 400:
+        break;
+      case httpRes?.status == 422:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.errorDetailResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.ErrorDetailResponse
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -2832,7 +2872,7 @@ export class Manage {
    * @remarks
    * Retrieve a single tenant entity by ID.
    */
-  tenantFetch(
+  async tenantFetch(
     req: operations.TenantFetchRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.TenantFetchResponse> {
@@ -2849,36 +2889,37 @@ export class Manage {
 
     const client: AxiosInstance = this._securityClient || this._defaultClient;
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.TenantFetchResponse =
-        new operations.TenantFetchResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.tenantResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.TenantResponse
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.TenantFetchResponse =
+      new operations.TenantFetchResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.tenantResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.TenantResponse
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -2888,7 +2929,7 @@ export class Manage {
    * Update a single tenant entity.
    * PATCH with `Content-Type: application/json-patch+json` supports a JSON Patch ([jsonpatch.com](http://jsonpatch.com)) document in `tenant` that has paths relative to schema `Tenant`.
    */
-  tenantJsonPatch(
+  async tenantJsonPatch(
     req: operations.TenantJsonPatchRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.TenantJsonPatchResponse> {
@@ -2923,7 +2964,8 @@ export class Manage {
     if (reqBody == null || Object.keys(reqBody).length === 0)
       throw new Error("request body is required");
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "patch",
       headers: headers,
@@ -2931,40 +2973,40 @@ export class Manage {
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.TenantJsonPatchResponse =
-        new operations.TenantJsonPatchResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.tenantResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.TenantResponse
-            );
-          }
-          break;
-        case httpRes?.status == 400:
-          break;
-        case httpRes?.status == 422:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorDetailResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.ErrorDetailResponse
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.TenantJsonPatchResponse =
+      new operations.TenantJsonPatchResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.tenantResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.TenantResponse
+          );
+        }
+        break;
+      case httpRes?.status == 400:
+        break;
+      case httpRes?.status == 422:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.errorDetailResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.ErrorDetailResponse
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -2973,7 +3015,7 @@ export class Manage {
    * @remarks
    * Retrieve a list of tenant entities by continuation token and page size.
    */
-  tenantList(
+  async tenantList(
     req: operations.TenantListRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.TenantListResponse> {
@@ -2988,36 +3030,37 @@ export class Manage {
 
     const queryParams: string = utils.serializeQueryParams(req);
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url + queryParams,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.TenantListResponse =
-        new operations.TenantListResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.tenantsList = utils.objectToClass(
-              httpRes?.data,
-              shared.TenantsList
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.TenantListResponse =
+      new operations.TenantListResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.tenantsList = utils.objectToClass(
+            httpRes?.data,
+            shared.TenantsList
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -3026,7 +3069,7 @@ export class Manage {
    * @remarks
    * Retrieve a list of tenant entities by page number and page size.
    */
-  tenantListPaged(
+  async tenantListPaged(
     req: operations.TenantListPagedRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.TenantListPagedResponse> {
@@ -3042,36 +3085,37 @@ export class Manage {
 
     const queryParams: string = utils.serializeQueryParams(req);
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url + queryParams,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.TenantListPagedResponse =
-        new operations.TenantListPagedResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.tenantsPaged = utils.objectToClass(
-              httpRes?.data,
-              shared.TenantsPaged
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.TenantListPagedResponse =
+      new operations.TenantListPagedResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.tenantsPaged = utils.objectToClass(
+            httpRes?.data,
+            shared.TenantsPaged
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -3085,7 +3129,7 @@ export class Manage {
    *
    * See also: [Tenant - JSON Patch](#operation/tenant-json-patch)
    */
-  tenantUpdatePatch(
+  async tenantUpdatePatch(
     req: operations.TenantUpdatePatchRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.TenantUpdatePatchResponse> {
@@ -3120,7 +3164,8 @@ export class Manage {
     if (reqBody == null || Object.keys(reqBody).length === 0)
       throw new Error("request body is required");
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "patch",
       headers: headers,
@@ -3128,40 +3173,40 @@ export class Manage {
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.TenantUpdatePatchResponse =
-        new operations.TenantUpdatePatchResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.tenantResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.TenantResponse
-            );
-          }
-          break;
-        case httpRes?.status == 400:
-          break;
-        case httpRes?.status == 422:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorDetailResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.ErrorDetailResponse
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.TenantUpdatePatchResponse =
+      new operations.TenantUpdatePatchResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.tenantResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.TenantResponse
+          );
+        }
+        break;
+      case httpRes?.status == 400:
+        break;
+      case httpRes?.status == 422:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.errorDetailResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.ErrorDetailResponse
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
@@ -3175,7 +3220,7 @@ export class Manage {
    *
    * See also: [Tenant - JSON Patch](#operation/tenant-json-patch)
    */
-  tenantUpdatePut(
+  async tenantUpdatePut(
     req: operations.TenantUpdatePutRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.TenantUpdatePutResponse> {
@@ -3210,7 +3255,8 @@ export class Manage {
     if (reqBody == null || Object.keys(reqBody).length === 0)
       throw new Error("request body is required");
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "put",
       headers: headers,
@@ -3218,39 +3264,39 @@ export class Manage {
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.TenantUpdatePutResponse =
-        new operations.TenantUpdatePutResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.tenantResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.TenantResponse
-            );
-          }
-          break;
-        case httpRes?.status == 400:
-          break;
-        case httpRes?.status == 422:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorDetailResponse = utils.objectToClass(
-              httpRes?.data,
-              shared.ErrorDetailResponse
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.TenantUpdatePutResponse =
+      new operations.TenantUpdatePutResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.tenantResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.TenantResponse
+          );
+        }
+        break;
+      case httpRes?.status == 400:
+        break;
+      case httpRes?.status == 422:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.errorDetailResponse = utils.objectToClass(
+            httpRes?.data,
+            shared.ErrorDetailResponse
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 }

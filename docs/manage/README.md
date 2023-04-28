@@ -60,9 +60,8 @@ Create a single API key entity.
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { ApiKeyCreateBody, ApiKeyCreateResponse } from "valueport/dist/sdk/models/operations";
+import { ApiKeyCreateResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -70,7 +69,7 @@ const sdk = new SDK({
   },
 });
 
-const req: shared.ApiKeyCreateBody = {
+sdk.manage.apiKeyCreate({
   apiKey: {
     deletedAt: new Date("2022-06-29T07:40:27.174Z"),
     grantedPermissions: [
@@ -89,10 +88,8 @@ const req: shared.ApiKeyCreateBody = {
     },
     updatedAt: new Date("2022-11-16T10:27:43.717Z"),
   },
-};
-
-sdk.manage.apiKeyCreate(req).then((res: ApiKeyCreateResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: ApiKeyCreateResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -105,9 +102,8 @@ Delete a single API key entity by ID (soft deletion).
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { ApiKeyDeleteRequest, ApiKeyDeleteResponse } from "valueport/dist/sdk/models/operations";
+import { ApiKeyDeleteResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -115,12 +111,10 @@ const sdk = new SDK({
   },
 });
 
-const req: ApiKeyDeleteRequest = {
+sdk.manage.apiKeyDelete({
   id: "5bf0cbb1-e31b-48b9-8f34-43a1108e0adc",
-};
-
-sdk.manage.apiKeyDelete(req).then((res: ApiKeyDeleteResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: ApiKeyDeleteResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -133,9 +127,8 @@ Retrieve a single API key entity by ID.
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { ApiKeyFetchRequest, ApiKeyFetchResponse } from "valueport/dist/sdk/models/operations";
+import { ApiKeyFetchResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -143,12 +136,10 @@ const sdk = new SDK({
   },
 });
 
-const req: ApiKeyFetchRequest = {
+sdk.manage.apiKeyFetch({
   id: "f4b92187-9fce-4953-b73e-f7fbc7abd74d",
-};
-
-sdk.manage.apiKeyFetch(req).then((res: ApiKeyFetchResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: ApiKeyFetchResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -162,9 +153,8 @@ PATCH with `Content-Type: application/json-patch+json` supports a JSON Patch ([j
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { ApiKeyJsonPatchRequest, ApiKeyJsonPatchResponse } from "valueport/dist/sdk/models/operations";
+import { ApiKeyJsonPatchResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -172,7 +162,7 @@ const sdk = new SDK({
   },
 });
 
-const req: ApiKeyJsonPatchRequest = {
+sdk.manage.apiKeyJsonPatch({
   apiKeyJsonPatchBody: {
     apiKey: [
       {
@@ -202,10 +192,8 @@ const req: ApiKeyJsonPatchRequest = {
     ],
   },
   id: "45626d43-6813-4f16-99f5-fce6c556146c",
-};
-
-sdk.manage.apiKeyJsonPatch(req).then((res: ApiKeyJsonPatchResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: ApiKeyJsonPatchResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -218,9 +206,8 @@ Retrieve a list of API key entities by continuation token and page size.
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { ApiKeyListRequest, ApiKeyListResponse } from "valueport/dist/sdk/models/operations";
+import { ApiKeyListResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -228,13 +215,11 @@ const sdk = new SDK({
   },
 });
 
-const req: ApiKeyListRequest = {
+sdk.manage.apiKeyList({
   continuationToken: "consectetur",
   limit: "recusandae",
-};
-
-sdk.manage.apiKeyList(req).then((res: ApiKeyListResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: ApiKeyListResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -247,9 +232,8 @@ Retrieve a list of API key entities by page number and page size.
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { ApiKeyListPagedRequest, ApiKeyListPagedResponse } from "valueport/dist/sdk/models/operations";
+import { ApiKeyListPagedResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -257,13 +241,11 @@ const sdk = new SDK({
   },
 });
 
-const req: ApiKeyListPagedRequest = {
+sdk.manage.apiKeyListPaged({
   page: "aspernatur",
   pageSize: "minima",
-};
-
-sdk.manage.apiKeyListPaged(req).then((res: ApiKeyListPagedResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: ApiKeyListPagedResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -281,9 +263,8 @@ See also: [API key - JSON Patch](#operation/api_key-json-patch)
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { ApiKeyUpdatePatchRequest, ApiKeyUpdatePatchResponse } from "valueport/dist/sdk/models/operations";
+import { ApiKeyUpdatePatchResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -291,7 +272,7 @@ const sdk = new SDK({
   },
 });
 
-const req: ApiKeyUpdatePatchRequest = {
+sdk.manage.apiKeyUpdatePatch({
   apiKeyUpdateBody: {
     apiKey: {
       deletedAt: new Date("2022-01-18T04:51:10.466Z"),
@@ -315,10 +296,8 @@ const req: ApiKeyUpdatePatchRequest = {
     },
   },
   id: "9817ee17-cbe6-41e6-b7b9-5bc0ab3c20c4",
-};
-
-sdk.manage.apiKeyUpdatePatch(req).then((res: ApiKeyUpdatePatchResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: ApiKeyUpdatePatchResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -336,9 +315,8 @@ See also: [API key - JSON Patch](#operation/api_key-json-patch)
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { ApiKeyUpdatePutRequest, ApiKeyUpdatePutResponse } from "valueport/dist/sdk/models/operations";
+import { ApiKeyUpdatePutResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -346,7 +324,7 @@ const sdk = new SDK({
   },
 });
 
-const req: ApiKeyUpdatePutRequest = {
+sdk.manage.apiKeyUpdatePut({
   apiKeyUpdateBody: {
     apiKey: {
       deletedAt: new Date("2022-04-21T00:17:42.407Z"),
@@ -369,10 +347,8 @@ const req: ApiKeyUpdatePutRequest = {
     },
   },
   id: "a63aae8d-6786-44db-b675-fd5e60b375ed",
-};
-
-sdk.manage.apiKeyUpdatePut(req).then((res: ApiKeyUpdatePutResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: ApiKeyUpdatePutResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -385,9 +361,8 @@ Create a single contract entity.
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { ContractCreateBody, ContractCreateResponse } from "valueport/dist/sdk/models/operations";
+import { ContractCreateResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -395,7 +370,7 @@ const sdk = new SDK({
   },
 });
 
-const req: shared.ContractCreateBody = {
+sdk.manage.contractCreate({
   contract: {
     customer: {
       id: "4f6fbee4-1f33-4317-be35-b60eb1ea4265",
@@ -411,10 +386,8 @@ const req: shared.ContractCreateBody = {
     },
     updatedAt: new Date("2021-10-18T02:58:04.604Z"),
   },
-};
-
-sdk.manage.contractCreate(req).then((res: ContractCreateResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: ContractCreateResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -427,9 +400,8 @@ Delete a single contract entity by ID (soft deletion).
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { ContractDeleteRequest, ContractDeleteResponse } from "valueport/dist/sdk/models/operations";
+import { ContractDeleteResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -437,12 +409,10 @@ const sdk = new SDK({
   },
 });
 
-const req: ContractDeleteRequest = {
+sdk.manage.contractDelete({
   id: "03e8b445-e80c-4a55-afd2-0e457e1858b6",
-};
-
-sdk.manage.contractDelete(req).then((res: ContractDeleteResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: ContractDeleteResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -455,9 +425,8 @@ Retrieve a single contract entity by ID.
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { ContractFetchRequest, ContractFetchResponse } from "valueport/dist/sdk/models/operations";
+import { ContractFetchResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -465,12 +434,10 @@ const sdk = new SDK({
   },
 });
 
-const req: ContractFetchRequest = {
+sdk.manage.contractFetch({
   id: "a89fbe3a-5aa8-4e48-a4d0-ab4075088e51",
-};
-
-sdk.manage.contractFetch(req).then((res: ContractFetchResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: ContractFetchResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -484,9 +451,8 @@ PATCH with `Content-Type: application/json-patch+json` supports a JSON Patch ([j
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { ContractJsonPatchRequest, ContractJsonPatchResponse } from "valueport/dist/sdk/models/operations";
+import { ContractJsonPatchResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -494,7 +460,7 @@ const sdk = new SDK({
   },
 });
 
-const req: ContractJsonPatchRequest = {
+sdk.manage.contractJsonPatch({
   contractJsonPatchBody: {
     contract: [
       {
@@ -518,10 +484,8 @@ const req: ContractJsonPatchRequest = {
     ],
   },
   id: "1194b8ab-f603-4a79-b9df-e0ab7da8a50c",
-};
-
-sdk.manage.contractJsonPatch(req).then((res: ContractJsonPatchResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: ContractJsonPatchResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -534,9 +498,8 @@ Retrieve a list of contract entities by continuation token and page size.
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { ContractListRequest, ContractListResponse } from "valueport/dist/sdk/models/operations";
+import { ContractListResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -544,13 +507,11 @@ const sdk = new SDK({
   },
 });
 
-const req: ContractListRequest = {
+sdk.manage.contractList({
   continuationToken: "repudiandae",
   limit: "quasi",
-};
-
-sdk.manage.contractList(req).then((res: ContractListResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: ContractListResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -563,9 +524,8 @@ Retrieve a list of contract entities by page number and page size.
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { ContractListPagedRequest, ContractListPagedResponse } from "valueport/dist/sdk/models/operations";
+import { ContractListPagedResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -573,13 +533,11 @@ const sdk = new SDK({
   },
 });
 
-const req: ContractListPagedRequest = {
+sdk.manage.contractListPaged({
   page: "atque",
   pageSize: "reprehenderit",
-};
-
-sdk.manage.contractListPaged(req).then((res: ContractListPagedResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: ContractListPagedResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -597,9 +555,8 @@ See also: [Contract - JSON Patch](#operation/contract-json-patch)
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { ContractUpdatePatchRequest, ContractUpdatePatchResponse } from "valueport/dist/sdk/models/operations";
+import { ContractUpdatePatchResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -607,7 +564,7 @@ const sdk = new SDK({
   },
 });
 
-const req: ContractUpdatePatchRequest = {
+sdk.manage.contractUpdatePatch({
   contractUpdateBody: {
     contract: {
       customer: {
@@ -628,10 +585,8 @@ const req: ContractUpdatePatchRequest = {
     },
   },
   id: "64a3e865-e795-46f9-a51a-5a9da660ff57",
-};
-
-sdk.manage.contractUpdatePatch(req).then((res: ContractUpdatePatchResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: ContractUpdatePatchResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -649,9 +604,8 @@ See also: [Contract - JSON Patch](#operation/contract-json-patch)
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { ContractUpdatePutRequest, ContractUpdatePutResponse } from "valueport/dist/sdk/models/operations";
+import { ContractUpdatePutResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -659,7 +613,7 @@ const sdk = new SDK({
   },
 });
 
-const req: ContractUpdatePutRequest = {
+sdk.manage.contractUpdatePut({
   contractUpdateBody: {
     contract: {
       customer: {
@@ -678,10 +632,8 @@ const req: ContractUpdatePutRequest = {
     },
   },
   id: "9a1adeaa-b585-41d6-8645-b08b61891baa",
-};
-
-sdk.manage.contractUpdatePut(req).then((res: ContractUpdatePutResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: ContractUpdatePutResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -694,9 +646,8 @@ Create a single customer entity.
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { CustomerCreateBody, CustomerCreateResponse } from "valueport/dist/sdk/models/operations";
+import { CustomerCreateResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -704,7 +655,7 @@ const sdk = new SDK({
   },
 });
 
-const req: shared.CustomerCreateBody = {
+sdk.manage.customerCreate({
   customer: {
     deletedAt: new Date("2022-01-15T21:54:49.962Z"),
     email: "Beatrice_Parker2@hotmail.com",
@@ -716,10 +667,8 @@ const req: shared.CustomerCreateBody = {
     },
     updatedAt: new Date("2021-08-14T17:27:02.277Z"),
   },
-};
-
-sdk.manage.customerCreate(req).then((res: CustomerCreateResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: CustomerCreateResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -732,9 +681,8 @@ Delete a single customer entity by ID (soft deletion).
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { CustomerDeleteRequest, CustomerDeleteResponse } from "valueport/dist/sdk/models/operations";
+import { CustomerDeleteResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -742,12 +690,10 @@ const sdk = new SDK({
   },
 });
 
-const req: CustomerDeleteRequest = {
+sdk.manage.customerDelete({
   id: "3fec9578-a645-4842-b3a8-418d162309fb",
-};
-
-sdk.manage.customerDelete(req).then((res: CustomerDeleteResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: CustomerDeleteResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -760,9 +706,8 @@ Retrieve a single customer entity by ID.
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { CustomerFetchRequest, CustomerFetchResponse } from "valueport/dist/sdk/models/operations";
+import { CustomerFetchResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -770,12 +715,10 @@ const sdk = new SDK({
   },
 });
 
-const req: CustomerFetchRequest = {
+sdk.manage.customerFetch({
   id: "0929921a-efb9-4f58-84d8-6e68e4be0560",
-};
-
-sdk.manage.customerFetch(req).then((res: CustomerFetchResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: CustomerFetchResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -789,9 +732,8 @@ PATCH with `Content-Type: application/json-patch+json` supports a JSON Patch ([j
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { CustomerJsonPatchRequest, CustomerJsonPatchResponse } from "valueport/dist/sdk/models/operations";
+import { CustomerJsonPatchResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -799,7 +741,7 @@ const sdk = new SDK({
   },
 });
 
-const req: CustomerJsonPatchRequest = {
+sdk.manage.customerJsonPatch({
   customerJsonPatchBody: {
     customer: [
       {
@@ -811,10 +753,8 @@ const req: CustomerJsonPatchRequest = {
     ],
   },
   id: "da757a59-ecfe-4f66-af1c-aa3383c2beb4",
-};
-
-sdk.manage.customerJsonPatch(req).then((res: CustomerJsonPatchResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: CustomerJsonPatchResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -827,9 +767,8 @@ Retrieve a list of customer entities by continuation token and page size.
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { CustomerListRequest, CustomerListResponse } from "valueport/dist/sdk/models/operations";
+import { CustomerListResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -837,13 +776,11 @@ const sdk = new SDK({
   },
 });
 
-const req: CustomerListRequest = {
+sdk.manage.customerList({
   continuationToken: "iusto",
   limit: "voluptate",
-};
-
-sdk.manage.customerList(req).then((res: CustomerListResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: CustomerListResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -856,9 +793,8 @@ Retrieve a list of customer entities by page number and page size.
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { CustomerListPagedRequest, CustomerListPagedResponse } from "valueport/dist/sdk/models/operations";
+import { CustomerListPagedResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -866,13 +802,11 @@ const sdk = new SDK({
   },
 });
 
-const req: CustomerListPagedRequest = {
+sdk.manage.customerListPaged({
   page: "sequi",
   pageSize: "dignissimos",
-};
-
-sdk.manage.customerListPaged(req).then((res: CustomerListPagedResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: CustomerListPagedResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -890,9 +824,8 @@ See also: [Customer - JSON Patch](#operation/customer-json-patch)
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { CustomerUpdatePatchRequest, CustomerUpdatePatchResponse } from "valueport/dist/sdk/models/operations";
+import { CustomerUpdatePatchResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -900,7 +833,7 @@ const sdk = new SDK({
   },
 });
 
-const req: CustomerUpdatePatchRequest = {
+sdk.manage.customerUpdatePatch({
   customerUpdateBody: {
     customer: {
       deletedAt: new Date("2022-03-22T23:13:00.381Z"),
@@ -915,10 +848,8 @@ const req: CustomerUpdatePatchRequest = {
     },
   },
   id: "2965bb8a-7202-4611-835e-139dbc2259b1",
-};
-
-sdk.manage.customerUpdatePatch(req).then((res: CustomerUpdatePatchResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: CustomerUpdatePatchResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -936,9 +867,8 @@ See also: [Customer - JSON Patch](#operation/customer-json-patch)
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { CustomerUpdatePutRequest, CustomerUpdatePutResponse } from "valueport/dist/sdk/models/operations";
+import { CustomerUpdatePutResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -946,7 +876,7 @@ const sdk = new SDK({
   },
 });
 
-const req: CustomerUpdatePutRequest = {
+sdk.manage.customerUpdatePut({
   customerUpdateBody: {
     customer: {
       deletedAt: new Date("2021-07-18T15:23:57.911Z"),
@@ -961,10 +891,8 @@ const req: CustomerUpdatePutRequest = {
     },
   },
   id: "52b895c5-37c6-4454-afb0-b34896c3ca5a",
-};
-
-sdk.manage.customerUpdatePut(req).then((res: CustomerUpdatePutResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: CustomerUpdatePutResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -977,9 +905,8 @@ Create a single equipment entity.
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { EquipmentCreateBody, EquipmentCreateResponse } from "valueport/dist/sdk/models/operations";
+import { EquipmentCreateResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -987,7 +914,7 @@ const sdk = new SDK({
   },
 });
 
-const req: shared.EquipmentCreateBody = {
+sdk.manage.equipmentCreate({
   equipment: {
     contract: {
       id: "cfbe2fd5-7075-4779-a917-7deac646ecb5",
@@ -1008,10 +935,8 @@ const req: shared.EquipmentCreateBody = {
     },
     updatedAt: new Date("2022-08-27T21:22:12.876Z"),
   },
-};
-
-sdk.manage.equipmentCreate(req).then((res: EquipmentCreateResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: EquipmentCreateResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -1024,9 +949,8 @@ Delete a single equipment entity by ID (soft deletion).
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { EquipmentDeleteRequest, EquipmentDeleteResponse } from "valueport/dist/sdk/models/operations";
+import { EquipmentDeleteResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -1034,12 +958,10 @@ const sdk = new SDK({
   },
 });
 
-const req: EquipmentDeleteRequest = {
+sdk.manage.equipmentDelete({
   id: "37a8cd9e-7319-4c17-bd52-5f77b114eeb5",
-};
-
-sdk.manage.equipmentDelete(req).then((res: EquipmentDeleteResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: EquipmentDeleteResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -1052,9 +974,8 @@ Retrieve a single equipment entity by ID.
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { EquipmentFetchRequest, EquipmentFetchResponse } from "valueport/dist/sdk/models/operations";
+import { EquipmentFetchResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -1062,12 +983,10 @@ const sdk = new SDK({
   },
 });
 
-const req: EquipmentFetchRequest = {
+sdk.manage.equipmentFetch({
   id: "2ff785fc-3781-44d4-898e-0c2bb89eb75d",
-};
-
-sdk.manage.equipmentFetch(req).then((res: EquipmentFetchResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: EquipmentFetchResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -1081,9 +1000,8 @@ PATCH with `Content-Type: application/json-patch+json` supports a JSON Patch ([j
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { EquipmentJsonPatchRequest, EquipmentJsonPatchResponse } from "valueport/dist/sdk/models/operations";
+import { EquipmentJsonPatchResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -1091,7 +1009,7 @@ const sdk = new SDK({
   },
 });
 
-const req: EquipmentJsonPatchRequest = {
+sdk.manage.equipmentJsonPatch({
   equipmentJsonPatchBody: {
     equipment: [
       {
@@ -1115,10 +1033,8 @@ const req: EquipmentJsonPatchRequest = {
     ],
   },
   id: "8bb31180-f739-4ae9-a057-eb809e281033",
-};
-
-sdk.manage.equipmentJsonPatch(req).then((res: EquipmentJsonPatchResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: EquipmentJsonPatchResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -1131,9 +1047,8 @@ Retrieve a list of equipment entities by continuation token and page size.
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { EquipmentListRequest, EquipmentListResponse } from "valueport/dist/sdk/models/operations";
+import { EquipmentListResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -1141,13 +1056,11 @@ const sdk = new SDK({
   },
 });
 
-const req: EquipmentListRequest = {
+sdk.manage.equipmentList({
   continuationToken: "sunt",
   limit: "a",
-};
-
-sdk.manage.equipmentList(req).then((res: EquipmentListResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: EquipmentListResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -1160,9 +1073,8 @@ Retrieve a list of equipment entities by page number and page size.
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { EquipmentListPagedRequest, EquipmentListPagedResponse } from "valueport/dist/sdk/models/operations";
+import { EquipmentListPagedResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -1170,13 +1082,11 @@ const sdk = new SDK({
   },
 });
 
-const req: EquipmentListPagedRequest = {
+sdk.manage.equipmentListPaged({
   page: "dolor",
   pageSize: "occaecati",
-};
-
-sdk.manage.equipmentListPaged(req).then((res: EquipmentListPagedResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: EquipmentListPagedResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -1189,9 +1099,8 @@ Create a single equipment type entity.
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { EquipmentTypeCreateBody, EquipmentTypeCreateResponse } from "valueport/dist/sdk/models/operations";
+import { EquipmentTypeCreateResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -1199,7 +1108,7 @@ const sdk = new SDK({
   },
 });
 
-const req: shared.EquipmentTypeCreateBody = {
+sdk.manage.equipmentTypeCreate({
   equipmentType: {
     deletedAt: new Date("2022-10-14T13:04:49.369Z"),
     id: "d4c700b6-07f3-4c93-873b-9da3f2ceda7e",
@@ -1209,10 +1118,8 @@ const req: shared.EquipmentTypeCreateBody = {
     },
     updatedAt: new Date("2022-05-07T23:23:18.376Z"),
   },
-};
-
-sdk.manage.equipmentTypeCreate(req).then((res: EquipmentTypeCreateResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: EquipmentTypeCreateResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -1225,9 +1132,8 @@ Delete a single equipment type entity by ID (soft deletion).
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { EquipmentTypeDeleteRequest, EquipmentTypeDeleteResponse } from "valueport/dist/sdk/models/operations";
+import { EquipmentTypeDeleteResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -1235,12 +1141,10 @@ const sdk = new SDK({
   },
 });
 
-const req: EquipmentTypeDeleteRequest = {
+sdk.manage.equipmentTypeDelete({
   id: "7d575f14-00e7-464a-9733-4ec1b781b36a",
-};
-
-sdk.manage.equipmentTypeDelete(req).then((res: EquipmentTypeDeleteResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: EquipmentTypeDeleteResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -1253,9 +1157,8 @@ Retrieve a single equipment type entity by ID.
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { EquipmentTypeFetchRequest, EquipmentTypeFetchResponse } from "valueport/dist/sdk/models/operations";
+import { EquipmentTypeFetchResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -1263,12 +1166,10 @@ const sdk = new SDK({
   },
 });
 
-const req: EquipmentTypeFetchRequest = {
+sdk.manage.equipmentTypeFetch({
   id: "08088d10-0efa-4da2-80ef-0422eb2164cf",
-};
-
-sdk.manage.equipmentTypeFetch(req).then((res: EquipmentTypeFetchResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: EquipmentTypeFetchResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -1282,9 +1183,8 @@ PATCH with `Content-Type: application/json-patch+json` supports a JSON Patch ([j
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { EquipmentTypeJsonPatchRequest, EquipmentTypeJsonPatchResponse } from "valueport/dist/sdk/models/operations";
+import { EquipmentTypeJsonPatchResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -1292,7 +1192,7 @@ const sdk = new SDK({
   },
 });
 
-const req: EquipmentTypeJsonPatchRequest = {
+sdk.manage.equipmentTypeJsonPatch({
   equipmentTypeJsonPatchBody: {
     equipmentType: [
       {
@@ -1316,10 +1216,8 @@ const req: EquipmentTypeJsonPatchRequest = {
     ],
   },
   id: "da9e06be-e482-45c1-bc0e-115c80bff918",
-};
-
-sdk.manage.equipmentTypeJsonPatch(req).then((res: EquipmentTypeJsonPatchResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: EquipmentTypeJsonPatchResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -1332,9 +1230,8 @@ Retrieve a list of equipment type entities by continuation token and page size.
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { EquipmentTypeListRequest, EquipmentTypeListResponse } from "valueport/dist/sdk/models/operations";
+import { EquipmentTypeListResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -1342,13 +1239,11 @@ const sdk = new SDK({
   },
 });
 
-const req: EquipmentTypeListRequest = {
+sdk.manage.equipmentTypeList({
   continuationToken: "ullam",
   limit: "dolore",
-};
-
-sdk.manage.equipmentTypeList(req).then((res: EquipmentTypeListResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: EquipmentTypeListResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -1361,9 +1256,8 @@ Retrieve a list of equipment type entities by page number and page size.
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { EquipmentTypeListPagedRequest, EquipmentTypeListPagedResponse } from "valueport/dist/sdk/models/operations";
+import { EquipmentTypeListPagedResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -1371,13 +1265,11 @@ const sdk = new SDK({
   },
 });
 
-const req: EquipmentTypeListPagedRequest = {
+sdk.manage.equipmentTypeListPaged({
   page: "modi",
   pageSize: "itaque",
-};
-
-sdk.manage.equipmentTypeListPaged(req).then((res: EquipmentTypeListPagedResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: EquipmentTypeListPagedResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -1395,9 +1287,8 @@ See also: [Equipment type - JSON Patch](#operation/equipment_type-json-patch)
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { EquipmentTypeUpdatePatchRequest, EquipmentTypeUpdatePatchResponse } from "valueport/dist/sdk/models/operations";
+import { EquipmentTypeUpdatePatchResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -1405,7 +1296,7 @@ const sdk = new SDK({
   },
 });
 
-const req: EquipmentTypeUpdatePatchRequest = {
+sdk.manage.equipmentTypeUpdatePatch({
   equipmentTypeUpdateBody: {
     equipmentType: {
       deletedAt: new Date("2022-03-15T19:59:59.350Z"),
@@ -1418,10 +1309,8 @@ const req: EquipmentTypeUpdatePatchRequest = {
     },
   },
   id: "b756c11f-6c37-4a51-a624-3835bbc05a23",
-};
-
-sdk.manage.equipmentTypeUpdatePatch(req).then((res: EquipmentTypeUpdatePatchResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: EquipmentTypeUpdatePatchResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -1439,9 +1328,8 @@ See also: [Equipment type - JSON Patch](#operation/equipment_type-json-patch)
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { EquipmentTypeUpdatePutRequest, EquipmentTypeUpdatePutResponse } from "valueport/dist/sdk/models/operations";
+import { EquipmentTypeUpdatePutResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -1449,7 +1337,7 @@ const sdk = new SDK({
   },
 });
 
-const req: EquipmentTypeUpdatePutRequest = {
+sdk.manage.equipmentTypeUpdatePut({
   equipmentTypeUpdateBody: {
     equipmentType: {
       deletedAt: new Date("2022-06-18T20:13:03.373Z"),
@@ -1462,10 +1350,8 @@ const req: EquipmentTypeUpdatePutRequest = {
     },
   },
   id: "ebd5daea-4c50-46a8-aa94-c02644cf5e9d",
-};
-
-sdk.manage.equipmentTypeUpdatePut(req).then((res: EquipmentTypeUpdatePutResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: EquipmentTypeUpdatePutResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -1483,9 +1369,8 @@ See also: [Equipment - JSON Patch](#operation/equipment-json-patch)
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { EquipmentUpdatePatchRequest, EquipmentUpdatePatchResponse } from "valueport/dist/sdk/models/operations";
+import { EquipmentUpdatePatchResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -1493,7 +1378,7 @@ const sdk = new SDK({
   },
 });
 
-const req: EquipmentUpdatePatchRequest = {
+sdk.manage.equipmentUpdatePatch({
   equipmentUpdateBody: {
     equipment: {
       contract: {
@@ -1518,10 +1403,8 @@ const req: EquipmentUpdatePatchRequest = {
     },
   },
   id: "c2b9c247-c883-473a-80e1-942f32e55055",
-};
-
-sdk.manage.equipmentUpdatePatch(req).then((res: EquipmentUpdatePatchResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: EquipmentUpdatePatchResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -1539,9 +1422,8 @@ See also: [Equipment - JSON Patch](#operation/equipment-json-patch)
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { EquipmentUpdatePutRequest, EquipmentUpdatePutResponse } from "valueport/dist/sdk/models/operations";
+import { EquipmentUpdatePutResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -1549,7 +1431,7 @@ const sdk = new SDK({
   },
 });
 
-const req: EquipmentUpdatePutRequest = {
+sdk.manage.equipmentUpdatePut({
   equipmentUpdateBody: {
     equipment: {
       contract: {
@@ -1573,10 +1455,8 @@ const req: EquipmentUpdatePutRequest = {
     },
   },
   id: "db1cf4b8-88eb-4dfc-8ccc-a99bc7fc0b2d",
-};
-
-sdk.manage.equipmentUpdatePut(req).then((res: EquipmentUpdatePutResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: EquipmentUpdatePutResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -1589,9 +1469,8 @@ Retrieve a single tenant entity by ID.
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { TenantFetchRequest, TenantFetchResponse } from "valueport/dist/sdk/models/operations";
+import { TenantFetchResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -1599,12 +1478,10 @@ const sdk = new SDK({
   },
 });
 
-const req: TenantFetchRequest = {
+sdk.manage.tenantFetch({
   id: "ce10873e-42b0-406d-a788-78ba8581a582",
-};
-
-sdk.manage.tenantFetch(req).then((res: TenantFetchResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: TenantFetchResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -1618,9 +1495,8 @@ PATCH with `Content-Type: application/json-patch+json` supports a JSON Patch ([j
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { TenantJsonPatchRequest, TenantJsonPatchResponse } from "valueport/dist/sdk/models/operations";
+import { TenantJsonPatchResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -1628,7 +1504,7 @@ const sdk = new SDK({
   },
 });
 
-const req: TenantJsonPatchRequest = {
+sdk.manage.tenantJsonPatch({
   tenantJsonPatchBody: {
     tenant: [
       {
@@ -1640,10 +1516,8 @@ const req: TenantJsonPatchRequest = {
     ],
   },
   id: "fefa9c95-f2ea-4c55-a5d3-07cfee81206e",
-};
-
-sdk.manage.tenantJsonPatch(req).then((res: TenantJsonPatchResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: TenantJsonPatchResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -1656,9 +1530,8 @@ Retrieve a list of tenant entities by continuation token and page size.
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { TenantListRequest, TenantListResponse } from "valueport/dist/sdk/models/operations";
+import { TenantListResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -1666,13 +1539,11 @@ const sdk = new SDK({
   },
 });
 
-const req: TenantListRequest = {
+sdk.manage.tenantList({
   continuationToken: "sed",
   limit: "deleniti",
-};
-
-sdk.manage.tenantList(req).then((res: TenantListResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: TenantListResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -1685,9 +1556,8 @@ Retrieve a list of tenant entities by page number and page size.
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { TenantListPagedRequest, TenantListPagedResponse } from "valueport/dist/sdk/models/operations";
+import { TenantListPagedResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -1695,13 +1565,11 @@ const sdk = new SDK({
   },
 });
 
-const req: TenantListPagedRequest = {
+sdk.manage.tenantListPaged({
   page: "sunt",
   pageSize: "nesciunt",
-};
-
-sdk.manage.tenantListPaged(req).then((res: TenantListPagedResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: TenantListPagedResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -1719,9 +1587,8 @@ See also: [Tenant - JSON Patch](#operation/tenant-json-patch)
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { TenantUpdatePatchRequest, TenantUpdatePatchResponse } from "valueport/dist/sdk/models/operations";
+import { TenantUpdatePatchResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -1729,7 +1596,7 @@ const sdk = new SDK({
   },
 });
 
-const req: TenantUpdatePatchRequest = {
+sdk.manage.tenantUpdatePatch({
   tenantUpdateBody: {
     tenant: {
       deletedAt: new Date("2020-12-24T08:23:31.094Z"),
@@ -1739,10 +1606,8 @@ const req: TenantUpdatePatchRequest = {
     },
   },
   id: "21a6a4f7-7a87-4ee3-a4be-752c65b34418",
-};
-
-sdk.manage.tenantUpdatePatch(req).then((res: TenantUpdatePatchResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: TenantUpdatePatchResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -1760,9 +1625,8 @@ See also: [Tenant - JSON Patch](#operation/tenant-json-patch)
 ### Example Usage
 
 ```typescript
-import { AxiosError } from "axios";
 import { SDK } from "valueport";
-import { TenantUpdatePutRequest, TenantUpdatePutResponse } from "valueport/dist/sdk/models/operations";
+import { TenantUpdatePutResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
@@ -1770,7 +1634,7 @@ const sdk = new SDK({
   },
 });
 
-const req: TenantUpdatePutRequest = {
+sdk.manage.tenantUpdatePut({
   tenantUpdateBody: {
     tenant: {
       deletedAt: new Date("2022-05-03T03:35:37.503Z"),
@@ -1780,10 +1644,8 @@ const req: TenantUpdatePutRequest = {
     },
   },
   id: "5f3cabd9-05a9-472e-8567-28227b2d3094",
-};
-
-sdk.manage.tenantUpdatePut(req).then((res: TenantUpdatePutResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: TenantUpdatePutResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });

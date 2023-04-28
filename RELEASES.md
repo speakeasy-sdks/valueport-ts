@@ -17,3 +17,9 @@ Based on:
 Based on:
 - OpenAPI Doc v1 https://prod.speakeasyapi.dev/v1/apis/Valueport/version/v1/schema/download
 - Speakeasy CLI 1.25.1 (2.22.0) https://github.com/speakeasy-api/speakeasy
+
+## 2023-04-28 01:25:19
+### Changes
+Based on:
+- OpenAPI Doc v1 https://prod.speakeasyapi.dev/v1/apis/Valueport/version/v1/schema/download
+- Speakeasy CLI 1.26.2 (2.23.2) https://github.com/speakeasy-api/speakeasy
