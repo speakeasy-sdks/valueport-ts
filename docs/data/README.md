@@ -20,7 +20,7 @@ import { IngestCreateResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 

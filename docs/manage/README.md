@@ -65,7 +65,7 @@ import { ApiKeyCreateResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -107,7 +107,7 @@ import { ApiKeyDeleteResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -132,7 +132,7 @@ import { ApiKeyFetchResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -158,7 +158,7 @@ import { ApiKeyJsonPatchResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -211,7 +211,7 @@ import { ApiKeyListResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -237,7 +237,7 @@ import { ApiKeyListPagedResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -268,7 +268,7 @@ import { ApiKeyUpdatePatchResponse } from "valueport/dist/sdk/models/operations"
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -320,7 +320,7 @@ import { ApiKeyUpdatePutResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -366,7 +366,7 @@ import { ContractCreateResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -405,7 +405,7 @@ import { ContractDeleteResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -430,7 +430,7 @@ import { ContractFetchResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -456,7 +456,7 @@ import { ContractJsonPatchResponse } from "valueport/dist/sdk/models/operations"
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -503,7 +503,7 @@ import { ContractListResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -529,7 +529,7 @@ import { ContractListPagedResponse } from "valueport/dist/sdk/models/operations"
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -560,7 +560,7 @@ import { ContractUpdatePatchResponse } from "valueport/dist/sdk/models/operation
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -609,7 +609,7 @@ import { ContractUpdatePutResponse } from "valueport/dist/sdk/models/operations"
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -651,7 +651,7 @@ import { CustomerCreateResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -686,7 +686,7 @@ import { CustomerDeleteResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -711,7 +711,7 @@ import { CustomerFetchResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -737,7 +737,7 @@ import { CustomerJsonPatchResponse } from "valueport/dist/sdk/models/operations"
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -772,7 +772,7 @@ import { CustomerListResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -798,7 +798,7 @@ import { CustomerListPagedResponse } from "valueport/dist/sdk/models/operations"
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -829,7 +829,7 @@ import { CustomerUpdatePatchResponse } from "valueport/dist/sdk/models/operation
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -872,7 +872,7 @@ import { CustomerUpdatePutResponse } from "valueport/dist/sdk/models/operations"
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -910,7 +910,7 @@ import { EquipmentCreateResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -954,7 +954,7 @@ import { EquipmentDeleteResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -979,7 +979,7 @@ import { EquipmentFetchResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -1005,7 +1005,7 @@ import { EquipmentJsonPatchResponse } from "valueport/dist/sdk/models/operations
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -1052,7 +1052,7 @@ import { EquipmentListResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -1078,7 +1078,7 @@ import { EquipmentListPagedResponse } from "valueport/dist/sdk/models/operations
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -1104,7 +1104,7 @@ import { EquipmentTypeCreateResponse } from "valueport/dist/sdk/models/operation
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -1137,7 +1137,7 @@ import { EquipmentTypeDeleteResponse } from "valueport/dist/sdk/models/operation
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -1162,7 +1162,7 @@ import { EquipmentTypeFetchResponse } from "valueport/dist/sdk/models/operations
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -1188,7 +1188,7 @@ import { EquipmentTypeJsonPatchResponse } from "valueport/dist/sdk/models/operat
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -1235,7 +1235,7 @@ import { EquipmentTypeListResponse } from "valueport/dist/sdk/models/operations"
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -1261,7 +1261,7 @@ import { EquipmentTypeListPagedResponse } from "valueport/dist/sdk/models/operat
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -1292,7 +1292,7 @@ import { EquipmentTypeUpdatePatchResponse } from "valueport/dist/sdk/models/oper
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -1333,7 +1333,7 @@ import { EquipmentTypeUpdatePutResponse } from "valueport/dist/sdk/models/operat
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -1374,7 +1374,7 @@ import { EquipmentUpdatePatchResponse } from "valueport/dist/sdk/models/operatio
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -1427,7 +1427,7 @@ import { EquipmentUpdatePutResponse } from "valueport/dist/sdk/models/operations
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -1474,7 +1474,7 @@ import { TenantFetchResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -1500,7 +1500,7 @@ import { TenantJsonPatchResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -1535,7 +1535,7 @@ import { TenantListResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -1561,7 +1561,7 @@ import { TenantListPagedResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -1592,7 +1592,7 @@ import { TenantUpdatePatchResponse } from "valueport/dist/sdk/models/operations"
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
@@ -1630,7 +1630,7 @@ import { TenantUpdatePutResponse } from "valueport/dist/sdk/models/operations";
 
 const sdk = new SDK({
   security: {
-    bearer: "Bearer YOUR_BEARER_TOKEN_HERE",
+    bearer: "YOUR_BEARER_TOKEN_HERE",
   },
 });
 
