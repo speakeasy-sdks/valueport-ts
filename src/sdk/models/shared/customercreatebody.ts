@@ -10,8 +10,8 @@ import { Expose, Type } from "class-transformer";
  * Request body for creating a single customer.
  */
 export class CustomerCreateBody extends SpeakeasyBase {
-  @SpeakeasyMetadata()
-  @Expose({ name: "customer" })
-  @Type(() => Customer)
-  customer: Customer;
+    @SpeakeasyMetadata()
+    @Expose({ name: "customer" })
+    @Type(() => Customer)
+    customer: Customer;
 }

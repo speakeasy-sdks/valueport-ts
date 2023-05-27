@@ -7,26 +7,26 @@ import * as shared from "../shared";
 import { AxiosResponse } from "axios";
 
 export class CustomerFetchRequest extends SpeakeasyBase {
-  /**
-   * Customer ID.
-   */
-  @SpeakeasyMetadata({ data: "pathParam, style=simple;explode=false;name=id" })
-  id: string;
+    /**
+     * Customer ID.
+     */
+    @SpeakeasyMetadata({ data: "pathParam, style=simple;explode=false;name=id" })
+    id: string;
 }
 
 export class CustomerFetchResponse extends SpeakeasyBase {
-  @SpeakeasyMetadata()
-  contentType: string;
+    @SpeakeasyMetadata()
+    contentType: string;
 
-  /**
-   * Success
-   */
-  @SpeakeasyMetadata()
-  customerResponse?: shared.CustomerResponse;
+    /**
+     * Success
+     */
+    @SpeakeasyMetadata()
+    customerResponse?: shared.CustomerResponse;
 
-  @SpeakeasyMetadata()
-  statusCode: number;
+    @SpeakeasyMetadata()
+    statusCode: number;
 
-  @SpeakeasyMetadata()
-  rawResponse?: AxiosResponse;
+    @SpeakeasyMetadata()
+    rawResponse?: AxiosResponse;
 }

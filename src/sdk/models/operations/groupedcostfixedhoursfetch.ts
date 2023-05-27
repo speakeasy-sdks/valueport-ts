@@ -7,26 +7,26 @@ import * as shared from "../shared";
 import { AxiosResponse } from "axios";
 
 export class GroupedCostFixedHoursFetchRequest extends SpeakeasyBase {
-  /**
-   * Grouped cost fixed hours ID.
-   */
-  @SpeakeasyMetadata({ data: "pathParam, style=simple;explode=false;name=id" })
-  id: string;
+    /**
+     * Grouped cost fixed hours ID.
+     */
+    @SpeakeasyMetadata({ data: "pathParam, style=simple;explode=false;name=id" })
+    id: string;
 }
 
 export class GroupedCostFixedHoursFetchResponse extends SpeakeasyBase {
-  @SpeakeasyMetadata()
-  contentType: string;
+    @SpeakeasyMetadata()
+    contentType: string;
 
-  /**
-   * Success
-   */
-  @SpeakeasyMetadata()
-  groupedCostFixedHoursResponse?: shared.GroupedCostFixedHoursResponse;
+    /**
+     * Success
+     */
+    @SpeakeasyMetadata()
+    groupedCostFixedHoursResponse?: shared.GroupedCostFixedHoursResponse;
 
-  @SpeakeasyMetadata()
-  statusCode: number;
+    @SpeakeasyMetadata()
+    statusCode: number;
 
-  @SpeakeasyMetadata()
-  rawResponse?: AxiosResponse;
+    @SpeakeasyMetadata()
+    rawResponse?: AxiosResponse;
 }

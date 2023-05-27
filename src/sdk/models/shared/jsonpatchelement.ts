@@ -9,31 +9,31 @@ import { Expose } from "class-transformer";
  * JSON Patch element.
  */
 export class JsonPatchElement extends SpeakeasyBase {
-  /**
-   * A JSON Pointer path.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "from" })
-  from?: string;
+    /**
+     * A JSON Pointer path.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "from" })
+    from?: string;
 
-  /**
-   * The operation to perform. One of 'add', 'replace', 'test', 'remove', 'move', 'copy'.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "op" })
-  op: string;
+    /**
+     * The operation to perform. One of 'add', 'replace', 'test', 'remove', 'move', 'copy'.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "op" })
+    op: string;
 
-  /**
-   * A JSON Pointer path.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "path" })
-  path: string;
+    /**
+     * A JSON Pointer path.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "path" })
+    path: string;
 
-  /**
-   * The value to add, replace or test. Here typed as a string, but other primitive types are also accepted.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "value" })
-  value?: string;
+    /**
+     * The value to add, replace or test. Here typed as a string, but other primitive types are also accepted.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "value" })
+    value?: string;
 }

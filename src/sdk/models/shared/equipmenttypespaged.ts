@@ -10,12 +10,12 @@ import { Expose, Type } from "class-transformer";
  * Success
  */
 export class EquipmentTypesPaged extends SpeakeasyBase {
-  @SpeakeasyMetadata({ elemType: EquipmentType })
-  @Expose({ name: "data" })
-  @Type(() => EquipmentType)
-  data: EquipmentType[];
+    @SpeakeasyMetadata({ elemType: EquipmentType })
+    @Expose({ name: "data" })
+    @Type(() => EquipmentType)
+    data: EquipmentType[];
 
-  @SpeakeasyMetadata()
-  @Expose({ name: "meta" })
-  meta: Record<string, any>;
+    @SpeakeasyMetadata()
+    @Expose({ name: "meta" })
+    meta: Record<string, any>;
 }

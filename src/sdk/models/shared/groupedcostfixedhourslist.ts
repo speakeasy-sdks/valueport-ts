@@ -10,12 +10,12 @@ import { Expose, Type } from "class-transformer";
  * Success
  */
 export class GroupedCostFixedHoursList extends SpeakeasyBase {
-  @SpeakeasyMetadata({ elemType: GroupedCostFixedHours })
-  @Expose({ name: "data" })
-  @Type(() => GroupedCostFixedHours)
-  data: GroupedCostFixedHours[];
+    @SpeakeasyMetadata({ elemType: GroupedCostFixedHours })
+    @Expose({ name: "data" })
+    @Type(() => GroupedCostFixedHours)
+    data: GroupedCostFixedHours[];
 
-  @SpeakeasyMetadata()
-  @Expose({ name: "meta" })
-  meta: Record<string, any>;
+    @SpeakeasyMetadata()
+    @Expose({ name: "meta" })
+    meta: Record<string, any>;
 }

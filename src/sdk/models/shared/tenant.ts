@@ -6,33 +6,33 @@ import { SpeakeasyBase, SpeakeasyMetadata } from "../../../internal/utils";
 import { Expose, Transform } from "class-transformer";
 
 export class Tenant extends SpeakeasyBase {
-  /**
-   * Soft-delete timestamp.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "deleted_at" })
-  @Transform(({ value }) => new Date(value), { toClassOnly: true })
-  deletedAt?: Date;
+    /**
+     * Soft-delete timestamp.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "deleted_at" })
+    @Transform(({ value }) => new Date(value), { toClassOnly: true })
+    deletedAt?: Date;
 
-  /**
-   * Tenant ID.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "id" })
-  id?: string;
+    /**
+     * Tenant ID.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "id" })
+    id?: string;
 
-  /**
-   * OEM tenant name.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "name" })
-  name: string;
+    /**
+     * OEM tenant name.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "name" })
+    name: string;
 
-  /**
-   * Last updated timestamp.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "updated_at" })
-  @Transform(({ value }) => new Date(value), { toClassOnly: true })
-  updatedAt?: Date;
+    /**
+     * Last updated timestamp.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "updated_at" })
+    @Transform(({ value }) => new Date(value), { toClassOnly: true })
+    updatedAt?: Date;
 }

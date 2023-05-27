@@ -7,24 +7,24 @@ import * as shared from "../shared";
 import { AxiosResponse } from "axios";
 
 export class ContractCreateResponse extends SpeakeasyBase {
-  @SpeakeasyMetadata()
-  contentType: string;
+    @SpeakeasyMetadata()
+    contentType: string;
 
-  /**
-   * Success
-   */
-  @SpeakeasyMetadata()
-  contractResponse?: shared.ContractResponse;
+    /**
+     * Success
+     */
+    @SpeakeasyMetadata()
+    contractResponse?: shared.ContractResponse;
 
-  /**
-   * Unprocessable Entity
-   */
-  @SpeakeasyMetadata()
-  errorDetailResponse?: shared.ErrorDetailResponse;
+    /**
+     * Unprocessable Entity
+     */
+    @SpeakeasyMetadata()
+    errorDetailResponse?: shared.ErrorDetailResponse;
 
-  @SpeakeasyMetadata()
-  statusCode: number;
+    @SpeakeasyMetadata()
+    statusCode: number;
 
-  @SpeakeasyMetadata()
-  rawResponse?: AxiosResponse;
+    @SpeakeasyMetadata()
+    rawResponse?: AxiosResponse;
 }

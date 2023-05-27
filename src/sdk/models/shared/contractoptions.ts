@@ -8,43 +8,43 @@ import { TenantsIdOnly } from "./tenantsidonly";
 import { Expose, Transform, Type } from "class-transformer";
 
 export class ContractOptions extends SpeakeasyBase {
-  @SpeakeasyMetadata()
-  @Expose({ name: "customer" })
-  @Type(() => CustomersIdOnly)
-  customer?: CustomersIdOnly;
+    @SpeakeasyMetadata()
+    @Expose({ name: "customer" })
+    @Type(() => CustomersIdOnly)
+    customer?: CustomersIdOnly;
 
-  /**
-   * JSON object of data.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "data" })
-  data: Record<string, any>;
+    /**
+     * JSON object of data.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "data" })
+    data: Record<string, any>;
 
-  /**
-   * Soft-delete timestamp.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "deleted_at" })
-  @Transform(({ value }) => new Date(value), { toClassOnly: true })
-  deletedAt?: Date;
+    /**
+     * Soft-delete timestamp.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "deleted_at" })
+    @Transform(({ value }) => new Date(value), { toClassOnly: true })
+    deletedAt?: Date;
 
-  /**
-   * Contract ID.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "id" })
-  id?: string;
+    /**
+     * Contract ID.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "id" })
+    id?: string;
 
-  @SpeakeasyMetadata()
-  @Expose({ name: "tenant" })
-  @Type(() => TenantsIdOnly)
-  tenant?: TenantsIdOnly;
+    @SpeakeasyMetadata()
+    @Expose({ name: "tenant" })
+    @Type(() => TenantsIdOnly)
+    tenant?: TenantsIdOnly;
 
-  /**
-   * Last updated timestamp.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "updated_at" })
-  @Transform(({ value }) => new Date(value), { toClassOnly: true })
-  updatedAt?: Date;
+    /**
+     * Last updated timestamp.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "updated_at" })
+    @Transform(({ value }) => new Date(value), { toClassOnly: true })
+    updatedAt?: Date;
 }

@@ -10,8 +10,8 @@ import { Expose, Type } from "class-transformer";
  * Request body for creating a single ingest.
  */
 export class IngestCreateBody extends SpeakeasyBase {
-  @SpeakeasyMetadata()
-  @Expose({ name: "ingest" })
-  @Type(() => Ingest)
-  ingest: Ingest;
+    @SpeakeasyMetadata()
+    @Expose({ name: "ingest" })
+    @Type(() => Ingest)
+    ingest: Ingest;
 }

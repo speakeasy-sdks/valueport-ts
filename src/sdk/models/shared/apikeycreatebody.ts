@@ -10,8 +10,8 @@ import { Expose, Type } from "class-transformer";
  * Request body for creating a single API key.
  */
 export class ApiKeyCreateBody extends SpeakeasyBase {
-  @SpeakeasyMetadata()
-  @Expose({ name: "api_key" })
-  @Type(() => ApiKey)
-  apiKey: ApiKey;
+    @SpeakeasyMetadata()
+    @Expose({ name: "api_key" })
+    @Type(() => ApiKey)
+    apiKey: ApiKey;
 }

@@ -7,26 +7,26 @@ import * as shared from "../shared";
 import { AxiosResponse } from "axios";
 
 export class EquipmentFetchRequest extends SpeakeasyBase {
-  /**
-   * Equipment ID.
-   */
-  @SpeakeasyMetadata({ data: "pathParam, style=simple;explode=false;name=id" })
-  id: string;
+    /**
+     * Equipment ID.
+     */
+    @SpeakeasyMetadata({ data: "pathParam, style=simple;explode=false;name=id" })
+    id: string;
 }
 
 export class EquipmentFetchResponse extends SpeakeasyBase {
-  @SpeakeasyMetadata()
-  contentType: string;
+    @SpeakeasyMetadata()
+    contentType: string;
 
-  /**
-   * Success
-   */
-  @SpeakeasyMetadata()
-  equipmentResponse?: shared.EquipmentResponse;
+    /**
+     * Success
+     */
+    @SpeakeasyMetadata()
+    equipmentResponse?: shared.EquipmentResponse;
 
-  @SpeakeasyMetadata()
-  statusCode: number;
+    @SpeakeasyMetadata()
+    statusCode: number;
 
-  @SpeakeasyMetadata()
-  rawResponse?: AxiosResponse;
+    @SpeakeasyMetadata()
+    rawResponse?: AxiosResponse;
 }

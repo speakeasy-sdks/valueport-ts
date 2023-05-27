@@ -10,12 +10,12 @@ import { Expose, Type } from "class-transformer";
  * Success
  */
 export class ContractsList extends SpeakeasyBase {
-  @SpeakeasyMetadata({ elemType: Contract })
-  @Expose({ name: "data" })
-  @Type(() => Contract)
-  data: Contract[];
+    @SpeakeasyMetadata({ elemType: Contract })
+    @Expose({ name: "data" })
+    @Type(() => Contract)
+    data: Contract[];
 
-  @SpeakeasyMetadata()
-  @Expose({ name: "meta" })
-  meta: Record<string, any>;
+    @SpeakeasyMetadata()
+    @Expose({ name: "meta" })
+    meta: Record<string, any>;
 }

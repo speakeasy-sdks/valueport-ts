@@ -9,62 +9,62 @@ import { TenantsIdOnly } from "./tenantsidonly";
 import { Expose, Transform, Type } from "class-transformer";
 
 export class EquipmentOptions extends SpeakeasyBase {
-  @SpeakeasyMetadata()
-  @Expose({ name: "contract" })
-  @Type(() => ContractsIdOnly)
-  contract?: ContractsIdOnly;
+    @SpeakeasyMetadata()
+    @Expose({ name: "contract" })
+    @Type(() => ContractsIdOnly)
+    contract?: ContractsIdOnly;
 
-  @SpeakeasyMetadata()
-  @Expose({ name: "customer" })
-  @Type(() => CustomersIdOnly)
-  customer?: CustomersIdOnly;
+    @SpeakeasyMetadata()
+    @Expose({ name: "customer" })
+    @Type(() => CustomersIdOnly)
+    customer?: CustomersIdOnly;
 
-  /**
-   * JSON object of data.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "data" })
-  data: Record<string, any>;
+    /**
+     * JSON object of data.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "data" })
+    data: Record<string, any>;
 
-  /**
-   * Soft-delete timestamp.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "deleted_at" })
-  @Transform(({ value }) => new Date(value), { toClassOnly: true })
-  deletedAt?: Date;
+    /**
+     * Soft-delete timestamp.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "deleted_at" })
+    @Transform(({ value }) => new Date(value), { toClassOnly: true })
+    deletedAt?: Date;
 
-  /**
-   * Equipment ID.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "id" })
-  id?: string;
+    /**
+     * Equipment ID.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "id" })
+    id?: string;
 
-  /**
-   * Display name.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "name" })
-  name: string;
+    /**
+     * Display name.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "name" })
+    name: string;
 
-  /**
-   * The remote identifier, eg. equipment serial number or IoT provisioned ID.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "remote_id" })
-  remoteId: string;
+    /**
+     * The remote identifier, eg. equipment serial number or IoT provisioned ID.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "remote_id" })
+    remoteId: string;
 
-  @SpeakeasyMetadata()
-  @Expose({ name: "tenant" })
-  @Type(() => TenantsIdOnly)
-  tenant?: TenantsIdOnly;
+    @SpeakeasyMetadata()
+    @Expose({ name: "tenant" })
+    @Type(() => TenantsIdOnly)
+    tenant?: TenantsIdOnly;
 
-  /**
-   * Last updated timestamp.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "updated_at" })
-  @Transform(({ value }) => new Date(value), { toClassOnly: true })
-  updatedAt?: Date;
+    /**
+     * Last updated timestamp.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "updated_at" })
+    @Transform(({ value }) => new Date(value), { toClassOnly: true })
+    updatedAt?: Date;
 }

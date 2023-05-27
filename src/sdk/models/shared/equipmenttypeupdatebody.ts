@@ -10,8 +10,8 @@ import { Expose, Type } from "class-transformer";
  * Request body for updating a single equipment type.
  */
 export class EquipmentTypeUpdateBody extends SpeakeasyBase {
-  @SpeakeasyMetadata()
-  @Expose({ name: "equipment_type" })
-  @Type(() => EquipmentTypeOptions)
-  equipmentType: EquipmentTypeOptions;
+    @SpeakeasyMetadata()
+    @Expose({ name: "equipment_type" })
+    @Type(() => EquipmentTypeOptions)
+    equipmentType: EquipmentTypeOptions;
 }

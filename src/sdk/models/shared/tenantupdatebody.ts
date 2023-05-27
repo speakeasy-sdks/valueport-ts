@@ -10,8 +10,8 @@ import { Expose, Type } from "class-transformer";
  * Request body for updating a single tenant.
  */
 export class TenantUpdateBody extends SpeakeasyBase {
-  @SpeakeasyMetadata()
-  @Expose({ name: "tenant" })
-  @Type(() => TenantOptions)
-  tenant: TenantOptions;
+    @SpeakeasyMetadata()
+    @Expose({ name: "tenant" })
+    @Type(() => TenantOptions)
+    tenant: TenantOptions;
 }

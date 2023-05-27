@@ -7,26 +7,26 @@ import * as shared from "../shared";
 import { AxiosResponse } from "axios";
 
 export class GroupedMetricUnitHoursFetchRequest extends SpeakeasyBase {
-  /**
-   * Grouped metric unit hours ID.
-   */
-  @SpeakeasyMetadata({ data: "pathParam, style=simple;explode=false;name=id" })
-  id: string;
+    /**
+     * Grouped metric unit hours ID.
+     */
+    @SpeakeasyMetadata({ data: "pathParam, style=simple;explode=false;name=id" })
+    id: string;
 }
 
 export class GroupedMetricUnitHoursFetchResponse extends SpeakeasyBase {
-  @SpeakeasyMetadata()
-  contentType: string;
+    @SpeakeasyMetadata()
+    contentType: string;
 
-  /**
-   * Success
-   */
-  @SpeakeasyMetadata()
-  groupedMetricUnitHoursResponse?: shared.GroupedMetricUnitHoursResponse;
+    /**
+     * Success
+     */
+    @SpeakeasyMetadata()
+    groupedMetricUnitHoursResponse?: shared.GroupedMetricUnitHoursResponse;
 
-  @SpeakeasyMetadata()
-  statusCode: number;
+    @SpeakeasyMetadata()
+    statusCode: number;
 
-  @SpeakeasyMetadata()
-  rawResponse?: AxiosResponse;
+    @SpeakeasyMetadata()
+    rawResponse?: AxiosResponse;
 }

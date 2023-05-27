@@ -10,12 +10,12 @@ import { Expose, Type } from "class-transformer";
  * Success
  */
 export class ApiKeysList extends SpeakeasyBase {
-  @SpeakeasyMetadata({ elemType: ApiKey })
-  @Expose({ name: "data" })
-  @Type(() => ApiKey)
-  data: ApiKey[];
+    @SpeakeasyMetadata({ elemType: ApiKey })
+    @Expose({ name: "data" })
+    @Type(() => ApiKey)
+    data: ApiKey[];
 
-  @SpeakeasyMetadata()
-  @Expose({ name: "meta" })
-  meta: Record<string, any>;
+    @SpeakeasyMetadata()
+    @Expose({ name: "meta" })
+    meta: Record<string, any>;
 }

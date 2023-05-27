@@ -7,40 +7,38 @@ import * as shared from "../shared";
 import { AxiosResponse } from "axios";
 
 export class ApiKeyJsonPatchRequest extends SpeakeasyBase {
-  /**
-   * Request body with API key details as a JSON Patch.
-   */
-  @SpeakeasyMetadata({
-    data: "request, media_type=application/json-patch+json",
-  })
-  apiKeyJsonPatchBody: shared.ApiKeyJsonPatchBody;
+    /**
+     * Request body with API key details as a JSON Patch.
+     */
+    @SpeakeasyMetadata({ data: "request, media_type=application/json-patch+json" })
+    apiKeyJsonPatchBody: shared.ApiKeyJsonPatchBody;
 
-  /**
-   * API key ID.
-   */
-  @SpeakeasyMetadata({ data: "pathParam, style=simple;explode=false;name=id" })
-  id: string;
+    /**
+     * API key ID.
+     */
+    @SpeakeasyMetadata({ data: "pathParam, style=simple;explode=false;name=id" })
+    id: string;
 }
 
 export class ApiKeyJsonPatchResponse extends SpeakeasyBase {
-  /**
-   * Success
-   */
-  @SpeakeasyMetadata()
-  apiKeyResponse?: shared.ApiKeyResponse;
+    /**
+     * Success
+     */
+    @SpeakeasyMetadata()
+    apiKeyResponse?: shared.ApiKeyResponse;
 
-  @SpeakeasyMetadata()
-  contentType: string;
+    @SpeakeasyMetadata()
+    contentType: string;
 
-  /**
-   * Unprocessable Entity
-   */
-  @SpeakeasyMetadata()
-  errorDetailResponse?: shared.ErrorDetailResponse;
+    /**
+     * Unprocessable Entity
+     */
+    @SpeakeasyMetadata()
+    errorDetailResponse?: shared.ErrorDetailResponse;
 
-  @SpeakeasyMetadata()
-  statusCode: number;
+    @SpeakeasyMetadata()
+    statusCode: number;
 
-  @SpeakeasyMetadata()
-  rawResponse?: AxiosResponse;
+    @SpeakeasyMetadata()
+    rawResponse?: AxiosResponse;
 }

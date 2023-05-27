@@ -11,1508 +11,1491 @@ import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
  * Current and historical contract information.
  */
 export class Contract {
-  _defaultClient: AxiosInstance;
-  _securityClient: AxiosInstance;
-  _serverURL: string;
-  _language: string;
-  _sdkVersion: string;
-  _genVersion: string;
+    _defaultClient: AxiosInstance;
+    _securityClient: AxiosInstance;
+    _serverURL: string;
+    _language: string;
+    _sdkVersion: string;
+    _genVersion: string;
 
-  constructor(
-    defaultClient: AxiosInstance,
-    securityClient: AxiosInstance,
-    serverURL: string,
-    language: string,
-    sdkVersion: string,
-    genVersion: string
-  ) {
-    this._defaultClient = defaultClient;
-    this._securityClient = securityClient;
-    this._serverURL = serverURL;
-    this._language = language;
-    this._sdkVersion = sdkVersion;
-    this._genVersion = genVersion;
-  }
-
-  /**
-   * Contract months - Fetch
-   *
-   * @remarks
-   * Retrieve a single contract months entity by ID.
-   */
-  async contractMonthsFetch(
-    req: operations.ContractMonthsFetchRequest,
-    config?: AxiosRequestConfig
-  ): Promise<operations.ContractMonthsFetchResponse> {
-    if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.ContractMonthsFetchRequest(req);
+    constructor(
+        defaultClient: AxiosInstance,
+        securityClient: AxiosInstance,
+        serverURL: string,
+        language: string,
+        sdkVersion: string,
+        genVersion: string
+    ) {
+        this._defaultClient = defaultClient;
+        this._securityClient = securityClient;
+        this._serverURL = serverURL;
+        this._language = language;
+        this._sdkVersion = sdkVersion;
+        this._genVersion = genVersion;
     }
 
-    const baseURL: string = this._serverURL;
-    const url: string = utils.generateURL(
-      baseURL,
-      "/api/v1/contract/months/{id}",
-      req
-    );
-
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
-
-    const headers = { ...config?.headers };
-    headers["Accept"] = "application/json";
-    headers[
-      "user-agent"
-    ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
-
-    const httpRes: AxiosResponse = await client.request({
-      validateStatus: () => true,
-      url: url,
-      method: "get",
-      headers: headers,
-      ...config,
-    });
-
-    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-    if (httpRes?.status == null) {
-      throw new Error(`status code not found in response: ${httpRes}`);
-    }
-
-    const res: operations.ContractMonthsFetchResponse =
-      new operations.ContractMonthsFetchResponse({
-        statusCode: httpRes.status,
-        contentType: contentType,
-        rawResponse: httpRes,
-      });
-    switch (true) {
-      case httpRes?.status == 200:
-        if (utils.matchContentType(contentType, `application/json`)) {
-          res.contractMonthsResponse = utils.objectToClass(
-            httpRes?.data,
-            shared.ContractMonthsResponse
-          );
+    /**
+     * Contract months - Fetch
+     *
+     * @remarks
+     * Retrieve a single contract months entity by ID.
+     */
+    async contractMonthsFetch(
+        req: operations.ContractMonthsFetchRequest,
+        config?: AxiosRequestConfig
+    ): Promise<operations.ContractMonthsFetchResponse> {
+        if (!(req instanceof utils.SpeakeasyBase)) {
+            req = new operations.ContractMonthsFetchRequest(req);
         }
-        break;
-    }
 
-    return res;
-  }
+        const baseURL: string = this._serverURL;
+        const url: string = utils.generateURL(baseURL, "/api/v1/contract/months/{id}", req);
 
-  /**
-   * Contract months - List
-   *
-   * @remarks
-   * Retrieve a list of contract months entities by continuation token and page size.
-   */
-  async contractMonthsList(
-    req: operations.ContractMonthsListRequest,
-    config?: AxiosRequestConfig
-  ): Promise<operations.ContractMonthsListResponse> {
-    if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.ContractMonthsListRequest(req);
-    }
+        const client: AxiosInstance = this._securityClient || this._defaultClient;
 
-    const baseURL: string = this._serverURL;
-    const url: string = baseURL.replace(/\/$/, "") + "/api/v1/contract/months";
+        const headers = { ...config?.headers };
+        headers["Accept"] = "application/json";
+        headers[
+            "user-agent"
+        ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
 
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
+        const httpRes: AxiosResponse = await client.request({
+            validateStatus: () => true,
+            url: url,
+            method: "get",
+            headers: headers,
+            ...config,
+        });
 
-    const headers = { ...config?.headers };
-    const queryParams: string = utils.serializeQueryParams(req);
-    headers["Accept"] = "application/json";
-    headers[
-      "user-agent"
-    ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
+        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-    const httpRes: AxiosResponse = await client.request({
-      validateStatus: () => true,
-      url: url + queryParams,
-      method: "get",
-      headers: headers,
-      ...config,
-    });
-
-    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-    if (httpRes?.status == null) {
-      throw new Error(`status code not found in response: ${httpRes}`);
-    }
-
-    const res: operations.ContractMonthsListResponse =
-      new operations.ContractMonthsListResponse({
-        statusCode: httpRes.status,
-        contentType: contentType,
-        rawResponse: httpRes,
-      });
-    switch (true) {
-      case httpRes?.status == 200:
-        if (utils.matchContentType(contentType, `application/json`)) {
-          res.contractMonthsList = utils.objectToClass(
-            httpRes?.data,
-            shared.ContractMonthsList
-          );
+        if (httpRes?.status == null) {
+            throw new Error(`status code not found in response: ${httpRes}`);
         }
-        break;
-    }
 
-    return res;
-  }
-
-  /**
-   * Contract months - Paged
-   *
-   * @remarks
-   * Retrieve a list of contract months entities by page number and page size.
-   */
-  async contractMonthsListPaged(
-    req: operations.ContractMonthsListPagedRequest,
-    config?: AxiosRequestConfig
-  ): Promise<operations.ContractMonthsListPagedResponse> {
-    if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.ContractMonthsListPagedRequest(req);
-    }
-
-    const baseURL: string = this._serverURL;
-    const url: string =
-      baseURL.replace(/\/$/, "") + "/api/v1/contract/months/paged";
-
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
-
-    const headers = { ...config?.headers };
-    const queryParams: string = utils.serializeQueryParams(req);
-    headers["Accept"] = "application/json";
-    headers[
-      "user-agent"
-    ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
-
-    const httpRes: AxiosResponse = await client.request({
-      validateStatus: () => true,
-      url: url + queryParams,
-      method: "get",
-      headers: headers,
-      ...config,
-    });
-
-    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-    if (httpRes?.status == null) {
-      throw new Error(`status code not found in response: ${httpRes}`);
-    }
-
-    const res: operations.ContractMonthsListPagedResponse =
-      new operations.ContractMonthsListPagedResponse({
-        statusCode: httpRes.status,
-        contentType: contentType,
-        rawResponse: httpRes,
-      });
-    switch (true) {
-      case httpRes?.status == 200:
-        if (utils.matchContentType(contentType, `application/json`)) {
-          res.contractMonthsPaged = utils.objectToClass(
-            httpRes?.data,
-            shared.ContractMonthsPaged
-          );
+        const res: operations.ContractMonthsFetchResponse =
+            new operations.ContractMonthsFetchResponse({
+                statusCode: httpRes.status,
+                contentType: contentType,
+                rawResponse: httpRes,
+            });
+        switch (true) {
+            case httpRes?.status == 200:
+                if (utils.matchContentType(contentType, `application/json`)) {
+                    res.contractMonthsResponse = utils.objectToClass(
+                        httpRes?.data,
+                        shared.ContractMonthsResponse
+                    );
+                }
+                break;
         }
-        break;
+
+        return res;
     }
 
-    return res;
-  }
-
-  /**
-   * Contract quarters - Fetch
-   *
-   * @remarks
-   * Retrieve a single contract quarters entity by ID.
-   */
-  async contractQuartersFetch(
-    req: operations.ContractQuartersFetchRequest,
-    config?: AxiosRequestConfig
-  ): Promise<operations.ContractQuartersFetchResponse> {
-    if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.ContractQuartersFetchRequest(req);
-    }
-
-    const baseURL: string = this._serverURL;
-    const url: string = utils.generateURL(
-      baseURL,
-      "/api/v1/contract/quarters/{id}",
-      req
-    );
-
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
-
-    const headers = { ...config?.headers };
-    headers["Accept"] = "application/json";
-    headers[
-      "user-agent"
-    ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
-
-    const httpRes: AxiosResponse = await client.request({
-      validateStatus: () => true,
-      url: url,
-      method: "get",
-      headers: headers,
-      ...config,
-    });
-
-    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-    if (httpRes?.status == null) {
-      throw new Error(`status code not found in response: ${httpRes}`);
-    }
-
-    const res: operations.ContractQuartersFetchResponse =
-      new operations.ContractQuartersFetchResponse({
-        statusCode: httpRes.status,
-        contentType: contentType,
-        rawResponse: httpRes,
-      });
-    switch (true) {
-      case httpRes?.status == 200:
-        if (utils.matchContentType(contentType, `application/json`)) {
-          res.contractQuartersResponse = utils.objectToClass(
-            httpRes?.data,
-            shared.ContractQuartersResponse
-          );
+    /**
+     * Contract months - List
+     *
+     * @remarks
+     * Retrieve a list of contract months entities by continuation token and page size.
+     */
+    async contractMonthsList(
+        req: operations.ContractMonthsListRequest,
+        config?: AxiosRequestConfig
+    ): Promise<operations.ContractMonthsListResponse> {
+        if (!(req instanceof utils.SpeakeasyBase)) {
+            req = new operations.ContractMonthsListRequest(req);
         }
-        break;
-    }
 
-    return res;
-  }
+        const baseURL: string = this._serverURL;
+        const url: string = baseURL.replace(/\/$/, "") + "/api/v1/contract/months";
 
-  /**
-   * Contract quarters - List
-   *
-   * @remarks
-   * Retrieve a list of contract quarters entities by continuation token and page size.
-   */
-  async contractQuartersList(
-    req: operations.ContractQuartersListRequest,
-    config?: AxiosRequestConfig
-  ): Promise<operations.ContractQuartersListResponse> {
-    if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.ContractQuartersListRequest(req);
-    }
+        const client: AxiosInstance = this._securityClient || this._defaultClient;
 
-    const baseURL: string = this._serverURL;
-    const url: string =
-      baseURL.replace(/\/$/, "") + "/api/v1/contract/quarters";
+        const headers = { ...config?.headers };
+        const queryParams: string = utils.serializeQueryParams(req);
+        headers["Accept"] = "application/json";
+        headers[
+            "user-agent"
+        ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
 
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
+        const httpRes: AxiosResponse = await client.request({
+            validateStatus: () => true,
+            url: url + queryParams,
+            method: "get",
+            headers: headers,
+            ...config,
+        });
 
-    const headers = { ...config?.headers };
-    const queryParams: string = utils.serializeQueryParams(req);
-    headers["Accept"] = "application/json";
-    headers[
-      "user-agent"
-    ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
+        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-    const httpRes: AxiosResponse = await client.request({
-      validateStatus: () => true,
-      url: url + queryParams,
-      method: "get",
-      headers: headers,
-      ...config,
-    });
-
-    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-    if (httpRes?.status == null) {
-      throw new Error(`status code not found in response: ${httpRes}`);
-    }
-
-    const res: operations.ContractQuartersListResponse =
-      new operations.ContractQuartersListResponse({
-        statusCode: httpRes.status,
-        contentType: contentType,
-        rawResponse: httpRes,
-      });
-    switch (true) {
-      case httpRes?.status == 200:
-        if (utils.matchContentType(contentType, `application/json`)) {
-          res.contractQuartersList = utils.objectToClass(
-            httpRes?.data,
-            shared.ContractQuartersList
-          );
+        if (httpRes?.status == null) {
+            throw new Error(`status code not found in response: ${httpRes}`);
         }
-        break;
-    }
 
-    return res;
-  }
-
-  /**
-   * Contract quarters - Paged
-   *
-   * @remarks
-   * Retrieve a list of contract quarters entities by page number and page size.
-   */
-  async contractQuartersListPaged(
-    req: operations.ContractQuartersListPagedRequest,
-    config?: AxiosRequestConfig
-  ): Promise<operations.ContractQuartersListPagedResponse> {
-    if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.ContractQuartersListPagedRequest(req);
-    }
-
-    const baseURL: string = this._serverURL;
-    const url: string =
-      baseURL.replace(/\/$/, "") + "/api/v1/contract/quarters/paged";
-
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
-
-    const headers = { ...config?.headers };
-    const queryParams: string = utils.serializeQueryParams(req);
-    headers["Accept"] = "application/json";
-    headers[
-      "user-agent"
-    ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
-
-    const httpRes: AxiosResponse = await client.request({
-      validateStatus: () => true,
-      url: url + queryParams,
-      method: "get",
-      headers: headers,
-      ...config,
-    });
-
-    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-    if (httpRes?.status == null) {
-      throw new Error(`status code not found in response: ${httpRes}`);
-    }
-
-    const res: operations.ContractQuartersListPagedResponse =
-      new operations.ContractQuartersListPagedResponse({
-        statusCode: httpRes.status,
-        contentType: contentType,
-        rawResponse: httpRes,
-      });
-    switch (true) {
-      case httpRes?.status == 200:
-        if (utils.matchContentType(contentType, `application/json`)) {
-          res.contractQuartersPaged = utils.objectToClass(
-            httpRes?.data,
-            shared.ContractQuartersPaged
-          );
+        const res: operations.ContractMonthsListResponse =
+            new operations.ContractMonthsListResponse({
+                statusCode: httpRes.status,
+                contentType: contentType,
+                rawResponse: httpRes,
+            });
+        switch (true) {
+            case httpRes?.status == 200:
+                if (utils.matchContentType(contentType, `application/json`)) {
+                    res.contractMonthsList = utils.objectToClass(
+                        httpRes?.data,
+                        shared.ContractMonthsList
+                    );
+                }
+                break;
         }
-        break;
+
+        return res;
     }
 
-    return res;
-  }
-
-  /**
-   * Grouped cost fixed hours - Fetch
-   *
-   * @remarks
-   * Retrieve a single grouped cost fixed hours entity by ID.
-   */
-  async groupedCostFixedHoursFetch(
-    req: operations.GroupedCostFixedHoursFetchRequest,
-    config?: AxiosRequestConfig
-  ): Promise<operations.GroupedCostFixedHoursFetchResponse> {
-    if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.GroupedCostFixedHoursFetchRequest(req);
-    }
-
-    const baseURL: string = this._serverURL;
-    const url: string = utils.generateURL(
-      baseURL,
-      "/api/v1/contract/grouped-cost-fixed-hours/{id}",
-      req
-    );
-
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
-
-    const headers = { ...config?.headers };
-    headers["Accept"] = "application/json";
-    headers[
-      "user-agent"
-    ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
-
-    const httpRes: AxiosResponse = await client.request({
-      validateStatus: () => true,
-      url: url,
-      method: "get",
-      headers: headers,
-      ...config,
-    });
-
-    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-    if (httpRes?.status == null) {
-      throw new Error(`status code not found in response: ${httpRes}`);
-    }
-
-    const res: operations.GroupedCostFixedHoursFetchResponse =
-      new operations.GroupedCostFixedHoursFetchResponse({
-        statusCode: httpRes.status,
-        contentType: contentType,
-        rawResponse: httpRes,
-      });
-    switch (true) {
-      case httpRes?.status == 200:
-        if (utils.matchContentType(contentType, `application/json`)) {
-          res.groupedCostFixedHoursResponse = utils.objectToClass(
-            httpRes?.data,
-            shared.GroupedCostFixedHoursResponse
-          );
+    /**
+     * Contract months - Paged
+     *
+     * @remarks
+     * Retrieve a list of contract months entities by page number and page size.
+     */
+    async contractMonthsListPaged(
+        req: operations.ContractMonthsListPagedRequest,
+        config?: AxiosRequestConfig
+    ): Promise<operations.ContractMonthsListPagedResponse> {
+        if (!(req instanceof utils.SpeakeasyBase)) {
+            req = new operations.ContractMonthsListPagedRequest(req);
         }
-        break;
-    }
 
-    return res;
-  }
+        const baseURL: string = this._serverURL;
+        const url: string = baseURL.replace(/\/$/, "") + "/api/v1/contract/months/paged";
 
-  /**
-   * Grouped cost fixed hours - List
-   *
-   * @remarks
-   * Retrieve a list of grouped cost fixed hours entities by continuation token and page size.
-   */
-  async groupedCostFixedHoursList(
-    req: operations.GroupedCostFixedHoursListRequest,
-    config?: AxiosRequestConfig
-  ): Promise<operations.GroupedCostFixedHoursListResponse> {
-    if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.GroupedCostFixedHoursListRequest(req);
-    }
+        const client: AxiosInstance = this._securityClient || this._defaultClient;
 
-    const baseURL: string = this._serverURL;
-    const url: string =
-      baseURL.replace(/\/$/, "") + "/api/v1/contract/grouped-cost-fixed-hours";
+        const headers = { ...config?.headers };
+        const queryParams: string = utils.serializeQueryParams(req);
+        headers["Accept"] = "application/json";
+        headers[
+            "user-agent"
+        ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
 
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
+        const httpRes: AxiosResponse = await client.request({
+            validateStatus: () => true,
+            url: url + queryParams,
+            method: "get",
+            headers: headers,
+            ...config,
+        });
 
-    const headers = { ...config?.headers };
-    const queryParams: string = utils.serializeQueryParams(req);
-    headers["Accept"] = "application/json";
-    headers[
-      "user-agent"
-    ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
+        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-    const httpRes: AxiosResponse = await client.request({
-      validateStatus: () => true,
-      url: url + queryParams,
-      method: "get",
-      headers: headers,
-      ...config,
-    });
-
-    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-    if (httpRes?.status == null) {
-      throw new Error(`status code not found in response: ${httpRes}`);
-    }
-
-    const res: operations.GroupedCostFixedHoursListResponse =
-      new operations.GroupedCostFixedHoursListResponse({
-        statusCode: httpRes.status,
-        contentType: contentType,
-        rawResponse: httpRes,
-      });
-    switch (true) {
-      case httpRes?.status == 200:
-        if (utils.matchContentType(contentType, `application/json`)) {
-          res.groupedCostFixedHoursList = utils.objectToClass(
-            httpRes?.data,
-            shared.GroupedCostFixedHoursList
-          );
+        if (httpRes?.status == null) {
+            throw new Error(`status code not found in response: ${httpRes}`);
         }
-        break;
-    }
 
-    return res;
-  }
-
-  /**
-   * Grouped cost fixed hours - Paged
-   *
-   * @remarks
-   * Retrieve a list of grouped cost fixed hours entities by page number and page size.
-   */
-  async groupedCostFixedHoursListPaged(
-    req: operations.GroupedCostFixedHoursListPagedRequest,
-    config?: AxiosRequestConfig
-  ): Promise<operations.GroupedCostFixedHoursListPagedResponse> {
-    if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.GroupedCostFixedHoursListPagedRequest(req);
-    }
-
-    const baseURL: string = this._serverURL;
-    const url: string =
-      baseURL.replace(/\/$/, "") +
-      "/api/v1/contract/grouped-cost-fixed-hours/paged";
-
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
-
-    const headers = { ...config?.headers };
-    const queryParams: string = utils.serializeQueryParams(req);
-    headers["Accept"] = "application/json";
-    headers[
-      "user-agent"
-    ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
-
-    const httpRes: AxiosResponse = await client.request({
-      validateStatus: () => true,
-      url: url + queryParams,
-      method: "get",
-      headers: headers,
-      ...config,
-    });
-
-    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-    if (httpRes?.status == null) {
-      throw new Error(`status code not found in response: ${httpRes}`);
-    }
-
-    const res: operations.GroupedCostFixedHoursListPagedResponse =
-      new operations.GroupedCostFixedHoursListPagedResponse({
-        statusCode: httpRes.status,
-        contentType: contentType,
-        rawResponse: httpRes,
-      });
-    switch (true) {
-      case httpRes?.status == 200:
-        if (utils.matchContentType(contentType, `application/json`)) {
-          res.groupedCostFixedHoursPaged = utils.objectToClass(
-            httpRes?.data,
-            shared.GroupedCostFixedHoursPaged
-          );
+        const res: operations.ContractMonthsListPagedResponse =
+            new operations.ContractMonthsListPagedResponse({
+                statusCode: httpRes.status,
+                contentType: contentType,
+                rawResponse: httpRes,
+            });
+        switch (true) {
+            case httpRes?.status == 200:
+                if (utils.matchContentType(contentType, `application/json`)) {
+                    res.contractMonthsPaged = utils.objectToClass(
+                        httpRes?.data,
+                        shared.ContractMonthsPaged
+                    );
+                }
+                break;
         }
-        break;
+
+        return res;
     }
 
-    return res;
-  }
-
-  /**
-   * Grouped cost hours - Fetch
-   *
-   * @remarks
-   * Retrieve a single grouped cost hours entity by ID.
-   */
-  async groupedCostHoursFetch(
-    req: operations.GroupedCostHoursFetchRequest,
-    config?: AxiosRequestConfig
-  ): Promise<operations.GroupedCostHoursFetchResponse> {
-    if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.GroupedCostHoursFetchRequest(req);
-    }
-
-    const baseURL: string = this._serverURL;
-    const url: string = utils.generateURL(
-      baseURL,
-      "/api/v1/contract/grouped-cost-hours/{id}",
-      req
-    );
-
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
-
-    const headers = { ...config?.headers };
-    headers["Accept"] = "application/json";
-    headers[
-      "user-agent"
-    ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
-
-    const httpRes: AxiosResponse = await client.request({
-      validateStatus: () => true,
-      url: url,
-      method: "get",
-      headers: headers,
-      ...config,
-    });
-
-    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-    if (httpRes?.status == null) {
-      throw new Error(`status code not found in response: ${httpRes}`);
-    }
-
-    const res: operations.GroupedCostHoursFetchResponse =
-      new operations.GroupedCostHoursFetchResponse({
-        statusCode: httpRes.status,
-        contentType: contentType,
-        rawResponse: httpRes,
-      });
-    switch (true) {
-      case httpRes?.status == 200:
-        if (utils.matchContentType(contentType, `application/json`)) {
-          res.groupedCostHoursResponse = utils.objectToClass(
-            httpRes?.data,
-            shared.GroupedCostHoursResponse
-          );
+    /**
+     * Contract quarters - Fetch
+     *
+     * @remarks
+     * Retrieve a single contract quarters entity by ID.
+     */
+    async contractQuartersFetch(
+        req: operations.ContractQuartersFetchRequest,
+        config?: AxiosRequestConfig
+    ): Promise<operations.ContractQuartersFetchResponse> {
+        if (!(req instanceof utils.SpeakeasyBase)) {
+            req = new operations.ContractQuartersFetchRequest(req);
         }
-        break;
-    }
 
-    return res;
-  }
+        const baseURL: string = this._serverURL;
+        const url: string = utils.generateURL(baseURL, "/api/v1/contract/quarters/{id}", req);
 
-  /**
-   * Grouped cost hours - List
-   *
-   * @remarks
-   * Retrieve a list of grouped cost hours entities by continuation token and page size.
-   */
-  async groupedCostHoursList(
-    req: operations.GroupedCostHoursListRequest,
-    config?: AxiosRequestConfig
-  ): Promise<operations.GroupedCostHoursListResponse> {
-    if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.GroupedCostHoursListRequest(req);
-    }
+        const client: AxiosInstance = this._securityClient || this._defaultClient;
 
-    const baseURL: string = this._serverURL;
-    const url: string =
-      baseURL.replace(/\/$/, "") + "/api/v1/contract/grouped-cost-hours";
+        const headers = { ...config?.headers };
+        headers["Accept"] = "application/json";
+        headers[
+            "user-agent"
+        ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
 
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
+        const httpRes: AxiosResponse = await client.request({
+            validateStatus: () => true,
+            url: url,
+            method: "get",
+            headers: headers,
+            ...config,
+        });
 
-    const headers = { ...config?.headers };
-    const queryParams: string = utils.serializeQueryParams(req);
-    headers["Accept"] = "application/json";
-    headers[
-      "user-agent"
-    ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
+        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-    const httpRes: AxiosResponse = await client.request({
-      validateStatus: () => true,
-      url: url + queryParams,
-      method: "get",
-      headers: headers,
-      ...config,
-    });
-
-    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-    if (httpRes?.status == null) {
-      throw new Error(`status code not found in response: ${httpRes}`);
-    }
-
-    const res: operations.GroupedCostHoursListResponse =
-      new operations.GroupedCostHoursListResponse({
-        statusCode: httpRes.status,
-        contentType: contentType,
-        rawResponse: httpRes,
-      });
-    switch (true) {
-      case httpRes?.status == 200:
-        if (utils.matchContentType(contentType, `application/json`)) {
-          res.groupedCostHoursList = utils.objectToClass(
-            httpRes?.data,
-            shared.GroupedCostHoursList
-          );
+        if (httpRes?.status == null) {
+            throw new Error(`status code not found in response: ${httpRes}`);
         }
-        break;
-    }
 
-    return res;
-  }
-
-  /**
-   * Grouped cost hours - Paged
-   *
-   * @remarks
-   * Retrieve a list of grouped cost hours entities by page number and page size.
-   */
-  async groupedCostHoursListPaged(
-    req: operations.GroupedCostHoursListPagedRequest,
-    config?: AxiosRequestConfig
-  ): Promise<operations.GroupedCostHoursListPagedResponse> {
-    if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.GroupedCostHoursListPagedRequest(req);
-    }
-
-    const baseURL: string = this._serverURL;
-    const url: string =
-      baseURL.replace(/\/$/, "") + "/api/v1/contract/grouped-cost-hours/paged";
-
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
-
-    const headers = { ...config?.headers };
-    const queryParams: string = utils.serializeQueryParams(req);
-    headers["Accept"] = "application/json";
-    headers[
-      "user-agent"
-    ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
-
-    const httpRes: AxiosResponse = await client.request({
-      validateStatus: () => true,
-      url: url + queryParams,
-      method: "get",
-      headers: headers,
-      ...config,
-    });
-
-    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-    if (httpRes?.status == null) {
-      throw new Error(`status code not found in response: ${httpRes}`);
-    }
-
-    const res: operations.GroupedCostHoursListPagedResponse =
-      new operations.GroupedCostHoursListPagedResponse({
-        statusCode: httpRes.status,
-        contentType: contentType,
-        rawResponse: httpRes,
-      });
-    switch (true) {
-      case httpRes?.status == 200:
-        if (utils.matchContentType(contentType, `application/json`)) {
-          res.groupedCostHoursPaged = utils.objectToClass(
-            httpRes?.data,
-            shared.GroupedCostHoursPaged
-          );
+        const res: operations.ContractQuartersFetchResponse =
+            new operations.ContractQuartersFetchResponse({
+                statusCode: httpRes.status,
+                contentType: contentType,
+                rawResponse: httpRes,
+            });
+        switch (true) {
+            case httpRes?.status == 200:
+                if (utils.matchContentType(contentType, `application/json`)) {
+                    res.contractQuartersResponse = utils.objectToClass(
+                        httpRes?.data,
+                        shared.ContractQuartersResponse
+                    );
+                }
+                break;
         }
-        break;
+
+        return res;
     }
 
-    return res;
-  }
-
-  /**
-   * Grouped debt hours - Fetch
-   *
-   * @remarks
-   * Retrieve a single grouped debt hours entity by ID.
-   */
-  async groupedDebtHoursFetch(
-    req: operations.GroupedDebtHoursFetchRequest,
-    config?: AxiosRequestConfig
-  ): Promise<operations.GroupedDebtHoursFetchResponse> {
-    if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.GroupedDebtHoursFetchRequest(req);
-    }
-
-    const baseURL: string = this._serverURL;
-    const url: string = utils.generateURL(
-      baseURL,
-      "/api/v1/contract/grouped-debt-hours/{id}",
-      req
-    );
-
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
-
-    const headers = { ...config?.headers };
-    headers["Accept"] = "application/json";
-    headers[
-      "user-agent"
-    ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
-
-    const httpRes: AxiosResponse = await client.request({
-      validateStatus: () => true,
-      url: url,
-      method: "get",
-      headers: headers,
-      ...config,
-    });
-
-    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-    if (httpRes?.status == null) {
-      throw new Error(`status code not found in response: ${httpRes}`);
-    }
-
-    const res: operations.GroupedDebtHoursFetchResponse =
-      new operations.GroupedDebtHoursFetchResponse({
-        statusCode: httpRes.status,
-        contentType: contentType,
-        rawResponse: httpRes,
-      });
-    switch (true) {
-      case httpRes?.status == 200:
-        if (utils.matchContentType(contentType, `application/json`)) {
-          res.groupedDebtHoursResponse = utils.objectToClass(
-            httpRes?.data,
-            shared.GroupedDebtHoursResponse
-          );
+    /**
+     * Contract quarters - List
+     *
+     * @remarks
+     * Retrieve a list of contract quarters entities by continuation token and page size.
+     */
+    async contractQuartersList(
+        req: operations.ContractQuartersListRequest,
+        config?: AxiosRequestConfig
+    ): Promise<operations.ContractQuartersListResponse> {
+        if (!(req instanceof utils.SpeakeasyBase)) {
+            req = new operations.ContractQuartersListRequest(req);
         }
-        break;
-    }
 
-    return res;
-  }
+        const baseURL: string = this._serverURL;
+        const url: string = baseURL.replace(/\/$/, "") + "/api/v1/contract/quarters";
 
-  /**
-   * Grouped debt hours - List
-   *
-   * @remarks
-   * Retrieve a list of grouped debt hours entities by continuation token and page size.
-   */
-  async groupedDebtHoursList(
-    req: operations.GroupedDebtHoursListRequest,
-    config?: AxiosRequestConfig
-  ): Promise<operations.GroupedDebtHoursListResponse> {
-    if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.GroupedDebtHoursListRequest(req);
-    }
+        const client: AxiosInstance = this._securityClient || this._defaultClient;
 
-    const baseURL: string = this._serverURL;
-    const url: string =
-      baseURL.replace(/\/$/, "") + "/api/v1/contract/grouped-debt-hours";
+        const headers = { ...config?.headers };
+        const queryParams: string = utils.serializeQueryParams(req);
+        headers["Accept"] = "application/json";
+        headers[
+            "user-agent"
+        ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
 
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
+        const httpRes: AxiosResponse = await client.request({
+            validateStatus: () => true,
+            url: url + queryParams,
+            method: "get",
+            headers: headers,
+            ...config,
+        });
 
-    const headers = { ...config?.headers };
-    const queryParams: string = utils.serializeQueryParams(req);
-    headers["Accept"] = "application/json";
-    headers[
-      "user-agent"
-    ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
+        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-    const httpRes: AxiosResponse = await client.request({
-      validateStatus: () => true,
-      url: url + queryParams,
-      method: "get",
-      headers: headers,
-      ...config,
-    });
-
-    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-    if (httpRes?.status == null) {
-      throw new Error(`status code not found in response: ${httpRes}`);
-    }
-
-    const res: operations.GroupedDebtHoursListResponse =
-      new operations.GroupedDebtHoursListResponse({
-        statusCode: httpRes.status,
-        contentType: contentType,
-        rawResponse: httpRes,
-      });
-    switch (true) {
-      case httpRes?.status == 200:
-        if (utils.matchContentType(contentType, `application/json`)) {
-          res.groupedDebtHoursList = utils.objectToClass(
-            httpRes?.data,
-            shared.GroupedDebtHoursList
-          );
+        if (httpRes?.status == null) {
+            throw new Error(`status code not found in response: ${httpRes}`);
         }
-        break;
-    }
 
-    return res;
-  }
-
-  /**
-   * Grouped debt hours - Paged
-   *
-   * @remarks
-   * Retrieve a list of grouped debt hours entities by page number and page size.
-   */
-  async groupedDebtHoursListPaged(
-    req: operations.GroupedDebtHoursListPagedRequest,
-    config?: AxiosRequestConfig
-  ): Promise<operations.GroupedDebtHoursListPagedResponse> {
-    if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.GroupedDebtHoursListPagedRequest(req);
-    }
-
-    const baseURL: string = this._serverURL;
-    const url: string =
-      baseURL.replace(/\/$/, "") + "/api/v1/contract/grouped-debt-hours/paged";
-
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
-
-    const headers = { ...config?.headers };
-    const queryParams: string = utils.serializeQueryParams(req);
-    headers["Accept"] = "application/json";
-    headers[
-      "user-agent"
-    ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
-
-    const httpRes: AxiosResponse = await client.request({
-      validateStatus: () => true,
-      url: url + queryParams,
-      method: "get",
-      headers: headers,
-      ...config,
-    });
-
-    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-    if (httpRes?.status == null) {
-      throw new Error(`status code not found in response: ${httpRes}`);
-    }
-
-    const res: operations.GroupedDebtHoursListPagedResponse =
-      new operations.GroupedDebtHoursListPagedResponse({
-        statusCode: httpRes.status,
-        contentType: contentType,
-        rawResponse: httpRes,
-      });
-    switch (true) {
-      case httpRes?.status == 200:
-        if (utils.matchContentType(contentType, `application/json`)) {
-          res.groupedDebtHoursPaged = utils.objectToClass(
-            httpRes?.data,
-            shared.GroupedDebtHoursPaged
-          );
+        const res: operations.ContractQuartersListResponse =
+            new operations.ContractQuartersListResponse({
+                statusCode: httpRes.status,
+                contentType: contentType,
+                rawResponse: httpRes,
+            });
+        switch (true) {
+            case httpRes?.status == 200:
+                if (utils.matchContentType(contentType, `application/json`)) {
+                    res.contractQuartersList = utils.objectToClass(
+                        httpRes?.data,
+                        shared.ContractQuartersList
+                    );
+                }
+                break;
         }
-        break;
+
+        return res;
     }
 
-    return res;
-  }
-
-  /**
-   * Grouped metric unit hours - Fetch
-   *
-   * @remarks
-   * Retrieve a single grouped metric unit hours entity by ID.
-   */
-  async groupedMetricUnitHoursFetch(
-    req: operations.GroupedMetricUnitHoursFetchRequest,
-    config?: AxiosRequestConfig
-  ): Promise<operations.GroupedMetricUnitHoursFetchResponse> {
-    if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.GroupedMetricUnitHoursFetchRequest(req);
-    }
-
-    const baseURL: string = this._serverURL;
-    const url: string = utils.generateURL(
-      baseURL,
-      "/api/v1/contract/grouped-metric-unit-hours/{id}",
-      req
-    );
-
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
-
-    const headers = { ...config?.headers };
-    headers["Accept"] = "application/json";
-    headers[
-      "user-agent"
-    ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
-
-    const httpRes: AxiosResponse = await client.request({
-      validateStatus: () => true,
-      url: url,
-      method: "get",
-      headers: headers,
-      ...config,
-    });
-
-    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-    if (httpRes?.status == null) {
-      throw new Error(`status code not found in response: ${httpRes}`);
-    }
-
-    const res: operations.GroupedMetricUnitHoursFetchResponse =
-      new operations.GroupedMetricUnitHoursFetchResponse({
-        statusCode: httpRes.status,
-        contentType: contentType,
-        rawResponse: httpRes,
-      });
-    switch (true) {
-      case httpRes?.status == 200:
-        if (utils.matchContentType(contentType, `application/json`)) {
-          res.groupedMetricUnitHoursResponse = utils.objectToClass(
-            httpRes?.data,
-            shared.GroupedMetricUnitHoursResponse
-          );
+    /**
+     * Contract quarters - Paged
+     *
+     * @remarks
+     * Retrieve a list of contract quarters entities by page number and page size.
+     */
+    async contractQuartersListPaged(
+        req: operations.ContractQuartersListPagedRequest,
+        config?: AxiosRequestConfig
+    ): Promise<operations.ContractQuartersListPagedResponse> {
+        if (!(req instanceof utils.SpeakeasyBase)) {
+            req = new operations.ContractQuartersListPagedRequest(req);
         }
-        break;
-    }
 
-    return res;
-  }
+        const baseURL: string = this._serverURL;
+        const url: string = baseURL.replace(/\/$/, "") + "/api/v1/contract/quarters/paged";
 
-  /**
-   * Grouped metric unit hours - List
-   *
-   * @remarks
-   * Retrieve a list of grouped metric unit hours entities by continuation token and page size.
-   */
-  async groupedMetricUnitHoursList(
-    req: operations.GroupedMetricUnitHoursListRequest,
-    config?: AxiosRequestConfig
-  ): Promise<operations.GroupedMetricUnitHoursListResponse> {
-    if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.GroupedMetricUnitHoursListRequest(req);
-    }
+        const client: AxiosInstance = this._securityClient || this._defaultClient;
 
-    const baseURL: string = this._serverURL;
-    const url: string =
-      baseURL.replace(/\/$/, "") + "/api/v1/contract/grouped-metric-unit-hours";
+        const headers = { ...config?.headers };
+        const queryParams: string = utils.serializeQueryParams(req);
+        headers["Accept"] = "application/json";
+        headers[
+            "user-agent"
+        ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
 
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
+        const httpRes: AxiosResponse = await client.request({
+            validateStatus: () => true,
+            url: url + queryParams,
+            method: "get",
+            headers: headers,
+            ...config,
+        });
 
-    const headers = { ...config?.headers };
-    const queryParams: string = utils.serializeQueryParams(req);
-    headers["Accept"] = "application/json";
-    headers[
-      "user-agent"
-    ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
+        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-    const httpRes: AxiosResponse = await client.request({
-      validateStatus: () => true,
-      url: url + queryParams,
-      method: "get",
-      headers: headers,
-      ...config,
-    });
-
-    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-    if (httpRes?.status == null) {
-      throw new Error(`status code not found in response: ${httpRes}`);
-    }
-
-    const res: operations.GroupedMetricUnitHoursListResponse =
-      new operations.GroupedMetricUnitHoursListResponse({
-        statusCode: httpRes.status,
-        contentType: contentType,
-        rawResponse: httpRes,
-      });
-    switch (true) {
-      case httpRes?.status == 200:
-        if (utils.matchContentType(contentType, `application/json`)) {
-          res.groupedMetricUnitHoursList = utils.objectToClass(
-            httpRes?.data,
-            shared.GroupedMetricUnitHoursList
-          );
+        if (httpRes?.status == null) {
+            throw new Error(`status code not found in response: ${httpRes}`);
         }
-        break;
-    }
 
-    return res;
-  }
-
-  /**
-   * Grouped metric unit hours - Paged
-   *
-   * @remarks
-   * Retrieve a list of grouped metric unit hours entities by page number and page size.
-   */
-  async groupedMetricUnitHoursListPaged(
-    req: operations.GroupedMetricUnitHoursListPagedRequest,
-    config?: AxiosRequestConfig
-  ): Promise<operations.GroupedMetricUnitHoursListPagedResponse> {
-    if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.GroupedMetricUnitHoursListPagedRequest(req);
-    }
-
-    const baseURL: string = this._serverURL;
-    const url: string =
-      baseURL.replace(/\/$/, "") +
-      "/api/v1/contract/grouped-metric-unit-hours/paged";
-
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
-
-    const headers = { ...config?.headers };
-    const queryParams: string = utils.serializeQueryParams(req);
-    headers["Accept"] = "application/json";
-    headers[
-      "user-agent"
-    ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
-
-    const httpRes: AxiosResponse = await client.request({
-      validateStatus: () => true,
-      url: url + queryParams,
-      method: "get",
-      headers: headers,
-      ...config,
-    });
-
-    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-    if (httpRes?.status == null) {
-      throw new Error(`status code not found in response: ${httpRes}`);
-    }
-
-    const res: operations.GroupedMetricUnitHoursListPagedResponse =
-      new operations.GroupedMetricUnitHoursListPagedResponse({
-        statusCode: httpRes.status,
-        contentType: contentType,
-        rawResponse: httpRes,
-      });
-    switch (true) {
-      case httpRes?.status == 200:
-        if (utils.matchContentType(contentType, `application/json`)) {
-          res.groupedMetricUnitHoursPaged = utils.objectToClass(
-            httpRes?.data,
-            shared.GroupedMetricUnitHoursPaged
-          );
+        const res: operations.ContractQuartersListPagedResponse =
+            new operations.ContractQuartersListPagedResponse({
+                statusCode: httpRes.status,
+                contentType: contentType,
+                rawResponse: httpRes,
+            });
+        switch (true) {
+            case httpRes?.status == 200:
+                if (utils.matchContentType(contentType, `application/json`)) {
+                    res.contractQuartersPaged = utils.objectToClass(
+                        httpRes?.data,
+                        shared.ContractQuartersPaged
+                    );
+                }
+                break;
         }
-        break;
+
+        return res;
     }
 
-    return res;
-  }
-
-  /**
-   * Grouped use minute hours - Fetch
-   *
-   * @remarks
-   * Retrieve a single grouped use minute hours entity by ID.
-   */
-  async groupedUseMinuteHoursFetch(
-    req: operations.GroupedUseMinuteHoursFetchRequest,
-    config?: AxiosRequestConfig
-  ): Promise<operations.GroupedUseMinuteHoursFetchResponse> {
-    if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.GroupedUseMinuteHoursFetchRequest(req);
-    }
-
-    const baseURL: string = this._serverURL;
-    const url: string = utils.generateURL(
-      baseURL,
-      "/api/v1/contract/grouped-use-minute-hours/{id}",
-      req
-    );
-
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
-
-    const headers = { ...config?.headers };
-    headers["Accept"] = "application/json";
-    headers[
-      "user-agent"
-    ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
-
-    const httpRes: AxiosResponse = await client.request({
-      validateStatus: () => true,
-      url: url,
-      method: "get",
-      headers: headers,
-      ...config,
-    });
-
-    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-    if (httpRes?.status == null) {
-      throw new Error(`status code not found in response: ${httpRes}`);
-    }
-
-    const res: operations.GroupedUseMinuteHoursFetchResponse =
-      new operations.GroupedUseMinuteHoursFetchResponse({
-        statusCode: httpRes.status,
-        contentType: contentType,
-        rawResponse: httpRes,
-      });
-    switch (true) {
-      case httpRes?.status == 200:
-        if (utils.matchContentType(contentType, `application/json`)) {
-          res.groupedUseMinuteHoursResponse = utils.objectToClass(
-            httpRes?.data,
-            shared.GroupedUseMinuteHoursResponse
-          );
+    /**
+     * Grouped cost fixed hours - Fetch
+     *
+     * @remarks
+     * Retrieve a single grouped cost fixed hours entity by ID.
+     */
+    async groupedCostFixedHoursFetch(
+        req: operations.GroupedCostFixedHoursFetchRequest,
+        config?: AxiosRequestConfig
+    ): Promise<operations.GroupedCostFixedHoursFetchResponse> {
+        if (!(req instanceof utils.SpeakeasyBase)) {
+            req = new operations.GroupedCostFixedHoursFetchRequest(req);
         }
-        break;
-    }
 
-    return res;
-  }
+        const baseURL: string = this._serverURL;
+        const url: string = utils.generateURL(
+            baseURL,
+            "/api/v1/contract/grouped-cost-fixed-hours/{id}",
+            req
+        );
 
-  /**
-   * Grouped use minute hours - List
-   *
-   * @remarks
-   * Retrieve a list of grouped use minute hours entities by continuation token and page size.
-   */
-  async groupedUseMinuteHoursList(
-    req: operations.GroupedUseMinuteHoursListRequest,
-    config?: AxiosRequestConfig
-  ): Promise<operations.GroupedUseMinuteHoursListResponse> {
-    if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.GroupedUseMinuteHoursListRequest(req);
-    }
+        const client: AxiosInstance = this._securityClient || this._defaultClient;
 
-    const baseURL: string = this._serverURL;
-    const url: string =
-      baseURL.replace(/\/$/, "") + "/api/v1/contract/grouped-use-minute-hours";
+        const headers = { ...config?.headers };
+        headers["Accept"] = "application/json";
+        headers[
+            "user-agent"
+        ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
 
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
+        const httpRes: AxiosResponse = await client.request({
+            validateStatus: () => true,
+            url: url,
+            method: "get",
+            headers: headers,
+            ...config,
+        });
 
-    const headers = { ...config?.headers };
-    const queryParams: string = utils.serializeQueryParams(req);
-    headers["Accept"] = "application/json";
-    headers[
-      "user-agent"
-    ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
+        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-    const httpRes: AxiosResponse = await client.request({
-      validateStatus: () => true,
-      url: url + queryParams,
-      method: "get",
-      headers: headers,
-      ...config,
-    });
-
-    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-    if (httpRes?.status == null) {
-      throw new Error(`status code not found in response: ${httpRes}`);
-    }
-
-    const res: operations.GroupedUseMinuteHoursListResponse =
-      new operations.GroupedUseMinuteHoursListResponse({
-        statusCode: httpRes.status,
-        contentType: contentType,
-        rawResponse: httpRes,
-      });
-    switch (true) {
-      case httpRes?.status == 200:
-        if (utils.matchContentType(contentType, `application/json`)) {
-          res.groupedUseMinuteHoursList = utils.objectToClass(
-            httpRes?.data,
-            shared.GroupedUseMinuteHoursList
-          );
+        if (httpRes?.status == null) {
+            throw new Error(`status code not found in response: ${httpRes}`);
         }
-        break;
-    }
 
-    return res;
-  }
-
-  /**
-   * Grouped use minute hours - Paged
-   *
-   * @remarks
-   * Retrieve a list of grouped use minute hours entities by page number and page size.
-   */
-  async groupedUseMinuteHoursListPaged(
-    req: operations.GroupedUseMinuteHoursListPagedRequest,
-    config?: AxiosRequestConfig
-  ): Promise<operations.GroupedUseMinuteHoursListPagedResponse> {
-    if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.GroupedUseMinuteHoursListPagedRequest(req);
-    }
-
-    const baseURL: string = this._serverURL;
-    const url: string =
-      baseURL.replace(/\/$/, "") +
-      "/api/v1/contract/grouped-use-minute-hours/paged";
-
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
-
-    const headers = { ...config?.headers };
-    const queryParams: string = utils.serializeQueryParams(req);
-    headers["Accept"] = "application/json";
-    headers[
-      "user-agent"
-    ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
-
-    const httpRes: AxiosResponse = await client.request({
-      validateStatus: () => true,
-      url: url + queryParams,
-      method: "get",
-      headers: headers,
-      ...config,
-    });
-
-    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-    if (httpRes?.status == null) {
-      throw new Error(`status code not found in response: ${httpRes}`);
-    }
-
-    const res: operations.GroupedUseMinuteHoursListPagedResponse =
-      new operations.GroupedUseMinuteHoursListPagedResponse({
-        statusCode: httpRes.status,
-        contentType: contentType,
-        rawResponse: httpRes,
-      });
-    switch (true) {
-      case httpRes?.status == 200:
-        if (utils.matchContentType(contentType, `application/json`)) {
-          res.groupedUseMinuteHoursPaged = utils.objectToClass(
-            httpRes?.data,
-            shared.GroupedUseMinuteHoursPaged
-          );
+        const res: operations.GroupedCostFixedHoursFetchResponse =
+            new operations.GroupedCostFixedHoursFetchResponse({
+                statusCode: httpRes.status,
+                contentType: contentType,
+                rawResponse: httpRes,
+            });
+        switch (true) {
+            case httpRes?.status == 200:
+                if (utils.matchContentType(contentType, `application/json`)) {
+                    res.groupedCostFixedHoursResponse = utils.objectToClass(
+                        httpRes?.data,
+                        shared.GroupedCostFixedHoursResponse
+                    );
+                }
+                break;
         }
-        break;
+
+        return res;
     }
 
-    return res;
-  }
-
-  /**
-   * Grouped value hours - Fetch
-   *
-   * @remarks
-   * Retrieve a single grouped value hours entity by ID.
-   */
-  async groupedValueHoursFetch(
-    req: operations.GroupedValueHoursFetchRequest,
-    config?: AxiosRequestConfig
-  ): Promise<operations.GroupedValueHoursFetchResponse> {
-    if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.GroupedValueHoursFetchRequest(req);
-    }
-
-    const baseURL: string = this._serverURL;
-    const url: string = utils.generateURL(
-      baseURL,
-      "/api/v1/contract/grouped-value-hours/{id}",
-      req
-    );
-
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
-
-    const headers = { ...config?.headers };
-    headers["Accept"] = "application/json";
-    headers[
-      "user-agent"
-    ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
-
-    const httpRes: AxiosResponse = await client.request({
-      validateStatus: () => true,
-      url: url,
-      method: "get",
-      headers: headers,
-      ...config,
-    });
-
-    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-    if (httpRes?.status == null) {
-      throw new Error(`status code not found in response: ${httpRes}`);
-    }
-
-    const res: operations.GroupedValueHoursFetchResponse =
-      new operations.GroupedValueHoursFetchResponse({
-        statusCode: httpRes.status,
-        contentType: contentType,
-        rawResponse: httpRes,
-      });
-    switch (true) {
-      case httpRes?.status == 200:
-        if (utils.matchContentType(contentType, `application/json`)) {
-          res.groupedValueHoursResponse = utils.objectToClass(
-            httpRes?.data,
-            shared.GroupedValueHoursResponse
-          );
+    /**
+     * Grouped cost fixed hours - List
+     *
+     * @remarks
+     * Retrieve a list of grouped cost fixed hours entities by continuation token and page size.
+     */
+    async groupedCostFixedHoursList(
+        req: operations.GroupedCostFixedHoursListRequest,
+        config?: AxiosRequestConfig
+    ): Promise<operations.GroupedCostFixedHoursListResponse> {
+        if (!(req instanceof utils.SpeakeasyBase)) {
+            req = new operations.GroupedCostFixedHoursListRequest(req);
         }
-        break;
-    }
 
-    return res;
-  }
+        const baseURL: string = this._serverURL;
+        const url: string =
+            baseURL.replace(/\/$/, "") + "/api/v1/contract/grouped-cost-fixed-hours";
 
-  /**
-   * Grouped value hours - List
-   *
-   * @remarks
-   * Retrieve a list of grouped value hours entities by continuation token and page size.
-   */
-  async groupedValueHoursList(
-    req: operations.GroupedValueHoursListRequest,
-    config?: AxiosRequestConfig
-  ): Promise<operations.GroupedValueHoursListResponse> {
-    if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.GroupedValueHoursListRequest(req);
-    }
+        const client: AxiosInstance = this._securityClient || this._defaultClient;
 
-    const baseURL: string = this._serverURL;
-    const url: string =
-      baseURL.replace(/\/$/, "") + "/api/v1/contract/grouped-value-hours";
+        const headers = { ...config?.headers };
+        const queryParams: string = utils.serializeQueryParams(req);
+        headers["Accept"] = "application/json";
+        headers[
+            "user-agent"
+        ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
 
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
+        const httpRes: AxiosResponse = await client.request({
+            validateStatus: () => true,
+            url: url + queryParams,
+            method: "get",
+            headers: headers,
+            ...config,
+        });
 
-    const headers = { ...config?.headers };
-    const queryParams: string = utils.serializeQueryParams(req);
-    headers["Accept"] = "application/json";
-    headers[
-      "user-agent"
-    ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
+        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-    const httpRes: AxiosResponse = await client.request({
-      validateStatus: () => true,
-      url: url + queryParams,
-      method: "get",
-      headers: headers,
-      ...config,
-    });
-
-    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-    if (httpRes?.status == null) {
-      throw new Error(`status code not found in response: ${httpRes}`);
-    }
-
-    const res: operations.GroupedValueHoursListResponse =
-      new operations.GroupedValueHoursListResponse({
-        statusCode: httpRes.status,
-        contentType: contentType,
-        rawResponse: httpRes,
-      });
-    switch (true) {
-      case httpRes?.status == 200:
-        if (utils.matchContentType(contentType, `application/json`)) {
-          res.groupedValueHoursList = utils.objectToClass(
-            httpRes?.data,
-            shared.GroupedValueHoursList
-          );
+        if (httpRes?.status == null) {
+            throw new Error(`status code not found in response: ${httpRes}`);
         }
-        break;
-    }
 
-    return res;
-  }
-
-  /**
-   * Grouped value hours - Paged
-   *
-   * @remarks
-   * Retrieve a list of grouped value hours entities by page number and page size.
-   */
-  async groupedValueHoursListPaged(
-    req: operations.GroupedValueHoursListPagedRequest,
-    config?: AxiosRequestConfig
-  ): Promise<operations.GroupedValueHoursListPagedResponse> {
-    if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.GroupedValueHoursListPagedRequest(req);
-    }
-
-    const baseURL: string = this._serverURL;
-    const url: string =
-      baseURL.replace(/\/$/, "") + "/api/v1/contract/grouped-value-hours/paged";
-
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
-
-    const headers = { ...config?.headers };
-    const queryParams: string = utils.serializeQueryParams(req);
-    headers["Accept"] = "application/json";
-    headers[
-      "user-agent"
-    ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
-
-    const httpRes: AxiosResponse = await client.request({
-      validateStatus: () => true,
-      url: url + queryParams,
-      method: "get",
-      headers: headers,
-      ...config,
-    });
-
-    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-    if (httpRes?.status == null) {
-      throw new Error(`status code not found in response: ${httpRes}`);
-    }
-
-    const res: operations.GroupedValueHoursListPagedResponse =
-      new operations.GroupedValueHoursListPagedResponse({
-        statusCode: httpRes.status,
-        contentType: contentType,
-        rawResponse: httpRes,
-      });
-    switch (true) {
-      case httpRes?.status == 200:
-        if (utils.matchContentType(contentType, `application/json`)) {
-          res.groupedValueHoursPaged = utils.objectToClass(
-            httpRes?.data,
-            shared.GroupedValueHoursPaged
-          );
+        const res: operations.GroupedCostFixedHoursListResponse =
+            new operations.GroupedCostFixedHoursListResponse({
+                statusCode: httpRes.status,
+                contentType: contentType,
+                rawResponse: httpRes,
+            });
+        switch (true) {
+            case httpRes?.status == 200:
+                if (utils.matchContentType(contentType, `application/json`)) {
+                    res.groupedCostFixedHoursList = utils.objectToClass(
+                        httpRes?.data,
+                        shared.GroupedCostFixedHoursList
+                    );
+                }
+                break;
         }
-        break;
+
+        return res;
     }
 
-    return res;
-  }
+    /**
+     * Grouped cost fixed hours - Paged
+     *
+     * @remarks
+     * Retrieve a list of grouped cost fixed hours entities by page number and page size.
+     */
+    async groupedCostFixedHoursListPaged(
+        req: operations.GroupedCostFixedHoursListPagedRequest,
+        config?: AxiosRequestConfig
+    ): Promise<operations.GroupedCostFixedHoursListPagedResponse> {
+        if (!(req instanceof utils.SpeakeasyBase)) {
+            req = new operations.GroupedCostFixedHoursListPagedRequest(req);
+        }
+
+        const baseURL: string = this._serverURL;
+        const url: string =
+            baseURL.replace(/\/$/, "") + "/api/v1/contract/grouped-cost-fixed-hours/paged";
+
+        const client: AxiosInstance = this._securityClient || this._defaultClient;
+
+        const headers = { ...config?.headers };
+        const queryParams: string = utils.serializeQueryParams(req);
+        headers["Accept"] = "application/json";
+        headers[
+            "user-agent"
+        ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
+
+        const httpRes: AxiosResponse = await client.request({
+            validateStatus: () => true,
+            url: url + queryParams,
+            method: "get",
+            headers: headers,
+            ...config,
+        });
+
+        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+
+        if (httpRes?.status == null) {
+            throw new Error(`status code not found in response: ${httpRes}`);
+        }
+
+        const res: operations.GroupedCostFixedHoursListPagedResponse =
+            new operations.GroupedCostFixedHoursListPagedResponse({
+                statusCode: httpRes.status,
+                contentType: contentType,
+                rawResponse: httpRes,
+            });
+        switch (true) {
+            case httpRes?.status == 200:
+                if (utils.matchContentType(contentType, `application/json`)) {
+                    res.groupedCostFixedHoursPaged = utils.objectToClass(
+                        httpRes?.data,
+                        shared.GroupedCostFixedHoursPaged
+                    );
+                }
+                break;
+        }
+
+        return res;
+    }
+
+    /**
+     * Grouped cost hours - Fetch
+     *
+     * @remarks
+     * Retrieve a single grouped cost hours entity by ID.
+     */
+    async groupedCostHoursFetch(
+        req: operations.GroupedCostHoursFetchRequest,
+        config?: AxiosRequestConfig
+    ): Promise<operations.GroupedCostHoursFetchResponse> {
+        if (!(req instanceof utils.SpeakeasyBase)) {
+            req = new operations.GroupedCostHoursFetchRequest(req);
+        }
+
+        const baseURL: string = this._serverURL;
+        const url: string = utils.generateURL(
+            baseURL,
+            "/api/v1/contract/grouped-cost-hours/{id}",
+            req
+        );
+
+        const client: AxiosInstance = this._securityClient || this._defaultClient;
+
+        const headers = { ...config?.headers };
+        headers["Accept"] = "application/json";
+        headers[
+            "user-agent"
+        ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
+
+        const httpRes: AxiosResponse = await client.request({
+            validateStatus: () => true,
+            url: url,
+            method: "get",
+            headers: headers,
+            ...config,
+        });
+
+        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+
+        if (httpRes?.status == null) {
+            throw new Error(`status code not found in response: ${httpRes}`);
+        }
+
+        const res: operations.GroupedCostHoursFetchResponse =
+            new operations.GroupedCostHoursFetchResponse({
+                statusCode: httpRes.status,
+                contentType: contentType,
+                rawResponse: httpRes,
+            });
+        switch (true) {
+            case httpRes?.status == 200:
+                if (utils.matchContentType(contentType, `application/json`)) {
+                    res.groupedCostHoursResponse = utils.objectToClass(
+                        httpRes?.data,
+                        shared.GroupedCostHoursResponse
+                    );
+                }
+                break;
+        }
+
+        return res;
+    }
+
+    /**
+     * Grouped cost hours - List
+     *
+     * @remarks
+     * Retrieve a list of grouped cost hours entities by continuation token and page size.
+     */
+    async groupedCostHoursList(
+        req: operations.GroupedCostHoursListRequest,
+        config?: AxiosRequestConfig
+    ): Promise<operations.GroupedCostHoursListResponse> {
+        if (!(req instanceof utils.SpeakeasyBase)) {
+            req = new operations.GroupedCostHoursListRequest(req);
+        }
+
+        const baseURL: string = this._serverURL;
+        const url: string = baseURL.replace(/\/$/, "") + "/api/v1/contract/grouped-cost-hours";
+
+        const client: AxiosInstance = this._securityClient || this._defaultClient;
+
+        const headers = { ...config?.headers };
+        const queryParams: string = utils.serializeQueryParams(req);
+        headers["Accept"] = "application/json";
+        headers[
+            "user-agent"
+        ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
+
+        const httpRes: AxiosResponse = await client.request({
+            validateStatus: () => true,
+            url: url + queryParams,
+            method: "get",
+            headers: headers,
+            ...config,
+        });
+
+        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+
+        if (httpRes?.status == null) {
+            throw new Error(`status code not found in response: ${httpRes}`);
+        }
+
+        const res: operations.GroupedCostHoursListResponse =
+            new operations.GroupedCostHoursListResponse({
+                statusCode: httpRes.status,
+                contentType: contentType,
+                rawResponse: httpRes,
+            });
+        switch (true) {
+            case httpRes?.status == 200:
+                if (utils.matchContentType(contentType, `application/json`)) {
+                    res.groupedCostHoursList = utils.objectToClass(
+                        httpRes?.data,
+                        shared.GroupedCostHoursList
+                    );
+                }
+                break;
+        }
+
+        return res;
+    }
+
+    /**
+     * Grouped cost hours - Paged
+     *
+     * @remarks
+     * Retrieve a list of grouped cost hours entities by page number and page size.
+     */
+    async groupedCostHoursListPaged(
+        req: operations.GroupedCostHoursListPagedRequest,
+        config?: AxiosRequestConfig
+    ): Promise<operations.GroupedCostHoursListPagedResponse> {
+        if (!(req instanceof utils.SpeakeasyBase)) {
+            req = new operations.GroupedCostHoursListPagedRequest(req);
+        }
+
+        const baseURL: string = this._serverURL;
+        const url: string =
+            baseURL.replace(/\/$/, "") + "/api/v1/contract/grouped-cost-hours/paged";
+
+        const client: AxiosInstance = this._securityClient || this._defaultClient;
+
+        const headers = { ...config?.headers };
+        const queryParams: string = utils.serializeQueryParams(req);
+        headers["Accept"] = "application/json";
+        headers[
+            "user-agent"
+        ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
+
+        const httpRes: AxiosResponse = await client.request({
+            validateStatus: () => true,
+            url: url + queryParams,
+            method: "get",
+            headers: headers,
+            ...config,
+        });
+
+        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+
+        if (httpRes?.status == null) {
+            throw new Error(`status code not found in response: ${httpRes}`);
+        }
+
+        const res: operations.GroupedCostHoursListPagedResponse =
+            new operations.GroupedCostHoursListPagedResponse({
+                statusCode: httpRes.status,
+                contentType: contentType,
+                rawResponse: httpRes,
+            });
+        switch (true) {
+            case httpRes?.status == 200:
+                if (utils.matchContentType(contentType, `application/json`)) {
+                    res.groupedCostHoursPaged = utils.objectToClass(
+                        httpRes?.data,
+                        shared.GroupedCostHoursPaged
+                    );
+                }
+                break;
+        }
+
+        return res;
+    }
+
+    /**
+     * Grouped debt hours - Fetch
+     *
+     * @remarks
+     * Retrieve a single grouped debt hours entity by ID.
+     */
+    async groupedDebtHoursFetch(
+        req: operations.GroupedDebtHoursFetchRequest,
+        config?: AxiosRequestConfig
+    ): Promise<operations.GroupedDebtHoursFetchResponse> {
+        if (!(req instanceof utils.SpeakeasyBase)) {
+            req = new operations.GroupedDebtHoursFetchRequest(req);
+        }
+
+        const baseURL: string = this._serverURL;
+        const url: string = utils.generateURL(
+            baseURL,
+            "/api/v1/contract/grouped-debt-hours/{id}",
+            req
+        );
+
+        const client: AxiosInstance = this._securityClient || this._defaultClient;
+
+        const headers = { ...config?.headers };
+        headers["Accept"] = "application/json";
+        headers[
+            "user-agent"
+        ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
+
+        const httpRes: AxiosResponse = await client.request({
+            validateStatus: () => true,
+            url: url,
+            method: "get",
+            headers: headers,
+            ...config,
+        });
+
+        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+
+        if (httpRes?.status == null) {
+            throw new Error(`status code not found in response: ${httpRes}`);
+        }
+
+        const res: operations.GroupedDebtHoursFetchResponse =
+            new operations.GroupedDebtHoursFetchResponse({
+                statusCode: httpRes.status,
+                contentType: contentType,
+                rawResponse: httpRes,
+            });
+        switch (true) {
+            case httpRes?.status == 200:
+                if (utils.matchContentType(contentType, `application/json`)) {
+                    res.groupedDebtHoursResponse = utils.objectToClass(
+                        httpRes?.data,
+                        shared.GroupedDebtHoursResponse
+                    );
+                }
+                break;
+        }
+
+        return res;
+    }
+
+    /**
+     * Grouped debt hours - List
+     *
+     * @remarks
+     * Retrieve a list of grouped debt hours entities by continuation token and page size.
+     */
+    async groupedDebtHoursList(
+        req: operations.GroupedDebtHoursListRequest,
+        config?: AxiosRequestConfig
+    ): Promise<operations.GroupedDebtHoursListResponse> {
+        if (!(req instanceof utils.SpeakeasyBase)) {
+            req = new operations.GroupedDebtHoursListRequest(req);
+        }
+
+        const baseURL: string = this._serverURL;
+        const url: string = baseURL.replace(/\/$/, "") + "/api/v1/contract/grouped-debt-hours";
+
+        const client: AxiosInstance = this._securityClient || this._defaultClient;
+
+        const headers = { ...config?.headers };
+        const queryParams: string = utils.serializeQueryParams(req);
+        headers["Accept"] = "application/json";
+        headers[
+            "user-agent"
+        ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
+
+        const httpRes: AxiosResponse = await client.request({
+            validateStatus: () => true,
+            url: url + queryParams,
+            method: "get",
+            headers: headers,
+            ...config,
+        });
+
+        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+
+        if (httpRes?.status == null) {
+            throw new Error(`status code not found in response: ${httpRes}`);
+        }
+
+        const res: operations.GroupedDebtHoursListResponse =
+            new operations.GroupedDebtHoursListResponse({
+                statusCode: httpRes.status,
+                contentType: contentType,
+                rawResponse: httpRes,
+            });
+        switch (true) {
+            case httpRes?.status == 200:
+                if (utils.matchContentType(contentType, `application/json`)) {
+                    res.groupedDebtHoursList = utils.objectToClass(
+                        httpRes?.data,
+                        shared.GroupedDebtHoursList
+                    );
+                }
+                break;
+        }
+
+        return res;
+    }
+
+    /**
+     * Grouped debt hours - Paged
+     *
+     * @remarks
+     * Retrieve a list of grouped debt hours entities by page number and page size.
+     */
+    async groupedDebtHoursListPaged(
+        req: operations.GroupedDebtHoursListPagedRequest,
+        config?: AxiosRequestConfig
+    ): Promise<operations.GroupedDebtHoursListPagedResponse> {
+        if (!(req instanceof utils.SpeakeasyBase)) {
+            req = new operations.GroupedDebtHoursListPagedRequest(req);
+        }
+
+        const baseURL: string = this._serverURL;
+        const url: string =
+            baseURL.replace(/\/$/, "") + "/api/v1/contract/grouped-debt-hours/paged";
+
+        const client: AxiosInstance = this._securityClient || this._defaultClient;
+
+        const headers = { ...config?.headers };
+        const queryParams: string = utils.serializeQueryParams(req);
+        headers["Accept"] = "application/json";
+        headers[
+            "user-agent"
+        ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
+
+        const httpRes: AxiosResponse = await client.request({
+            validateStatus: () => true,
+            url: url + queryParams,
+            method: "get",
+            headers: headers,
+            ...config,
+        });
+
+        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+
+        if (httpRes?.status == null) {
+            throw new Error(`status code not found in response: ${httpRes}`);
+        }
+
+        const res: operations.GroupedDebtHoursListPagedResponse =
+            new operations.GroupedDebtHoursListPagedResponse({
+                statusCode: httpRes.status,
+                contentType: contentType,
+                rawResponse: httpRes,
+            });
+        switch (true) {
+            case httpRes?.status == 200:
+                if (utils.matchContentType(contentType, `application/json`)) {
+                    res.groupedDebtHoursPaged = utils.objectToClass(
+                        httpRes?.data,
+                        shared.GroupedDebtHoursPaged
+                    );
+                }
+                break;
+        }
+
+        return res;
+    }
+
+    /**
+     * Grouped metric unit hours - Fetch
+     *
+     * @remarks
+     * Retrieve a single grouped metric unit hours entity by ID.
+     */
+    async groupedMetricUnitHoursFetch(
+        req: operations.GroupedMetricUnitHoursFetchRequest,
+        config?: AxiosRequestConfig
+    ): Promise<operations.GroupedMetricUnitHoursFetchResponse> {
+        if (!(req instanceof utils.SpeakeasyBase)) {
+            req = new operations.GroupedMetricUnitHoursFetchRequest(req);
+        }
+
+        const baseURL: string = this._serverURL;
+        const url: string = utils.generateURL(
+            baseURL,
+            "/api/v1/contract/grouped-metric-unit-hours/{id}",
+            req
+        );
+
+        const client: AxiosInstance = this._securityClient || this._defaultClient;
+
+        const headers = { ...config?.headers };
+        headers["Accept"] = "application/json";
+        headers[
+            "user-agent"
+        ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
+
+        const httpRes: AxiosResponse = await client.request({
+            validateStatus: () => true,
+            url: url,
+            method: "get",
+            headers: headers,
+            ...config,
+        });
+
+        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+
+        if (httpRes?.status == null) {
+            throw new Error(`status code not found in response: ${httpRes}`);
+        }
+
+        const res: operations.GroupedMetricUnitHoursFetchResponse =
+            new operations.GroupedMetricUnitHoursFetchResponse({
+                statusCode: httpRes.status,
+                contentType: contentType,
+                rawResponse: httpRes,
+            });
+        switch (true) {
+            case httpRes?.status == 200:
+                if (utils.matchContentType(contentType, `application/json`)) {
+                    res.groupedMetricUnitHoursResponse = utils.objectToClass(
+                        httpRes?.data,
+                        shared.GroupedMetricUnitHoursResponse
+                    );
+                }
+                break;
+        }
+
+        return res;
+    }
+
+    /**
+     * Grouped metric unit hours - List
+     *
+     * @remarks
+     * Retrieve a list of grouped metric unit hours entities by continuation token and page size.
+     */
+    async groupedMetricUnitHoursList(
+        req: operations.GroupedMetricUnitHoursListRequest,
+        config?: AxiosRequestConfig
+    ): Promise<operations.GroupedMetricUnitHoursListResponse> {
+        if (!(req instanceof utils.SpeakeasyBase)) {
+            req = new operations.GroupedMetricUnitHoursListRequest(req);
+        }
+
+        const baseURL: string = this._serverURL;
+        const url: string =
+            baseURL.replace(/\/$/, "") + "/api/v1/contract/grouped-metric-unit-hours";
+
+        const client: AxiosInstance = this._securityClient || this._defaultClient;
+
+        const headers = { ...config?.headers };
+        const queryParams: string = utils.serializeQueryParams(req);
+        headers["Accept"] = "application/json";
+        headers[
+            "user-agent"
+        ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
+
+        const httpRes: AxiosResponse = await client.request({
+            validateStatus: () => true,
+            url: url + queryParams,
+            method: "get",
+            headers: headers,
+            ...config,
+        });
+
+        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+
+        if (httpRes?.status == null) {
+            throw new Error(`status code not found in response: ${httpRes}`);
+        }
+
+        const res: operations.GroupedMetricUnitHoursListResponse =
+            new operations.GroupedMetricUnitHoursListResponse({
+                statusCode: httpRes.status,
+                contentType: contentType,
+                rawResponse: httpRes,
+            });
+        switch (true) {
+            case httpRes?.status == 200:
+                if (utils.matchContentType(contentType, `application/json`)) {
+                    res.groupedMetricUnitHoursList = utils.objectToClass(
+                        httpRes?.data,
+                        shared.GroupedMetricUnitHoursList
+                    );
+                }
+                break;
+        }
+
+        return res;
+    }
+
+    /**
+     * Grouped metric unit hours - Paged
+     *
+     * @remarks
+     * Retrieve a list of grouped metric unit hours entities by page number and page size.
+     */
+    async groupedMetricUnitHoursListPaged(
+        req: operations.GroupedMetricUnitHoursListPagedRequest,
+        config?: AxiosRequestConfig
+    ): Promise<operations.GroupedMetricUnitHoursListPagedResponse> {
+        if (!(req instanceof utils.SpeakeasyBase)) {
+            req = new operations.GroupedMetricUnitHoursListPagedRequest(req);
+        }
+
+        const baseURL: string = this._serverURL;
+        const url: string =
+            baseURL.replace(/\/$/, "") + "/api/v1/contract/grouped-metric-unit-hours/paged";
+
+        const client: AxiosInstance = this._securityClient || this._defaultClient;
+
+        const headers = { ...config?.headers };
+        const queryParams: string = utils.serializeQueryParams(req);
+        headers["Accept"] = "application/json";
+        headers[
+            "user-agent"
+        ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
+
+        const httpRes: AxiosResponse = await client.request({
+            validateStatus: () => true,
+            url: url + queryParams,
+            method: "get",
+            headers: headers,
+            ...config,
+        });
+
+        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+
+        if (httpRes?.status == null) {
+            throw new Error(`status code not found in response: ${httpRes}`);
+        }
+
+        const res: operations.GroupedMetricUnitHoursListPagedResponse =
+            new operations.GroupedMetricUnitHoursListPagedResponse({
+                statusCode: httpRes.status,
+                contentType: contentType,
+                rawResponse: httpRes,
+            });
+        switch (true) {
+            case httpRes?.status == 200:
+                if (utils.matchContentType(contentType, `application/json`)) {
+                    res.groupedMetricUnitHoursPaged = utils.objectToClass(
+                        httpRes?.data,
+                        shared.GroupedMetricUnitHoursPaged
+                    );
+                }
+                break;
+        }
+
+        return res;
+    }
+
+    /**
+     * Grouped use minute hours - Fetch
+     *
+     * @remarks
+     * Retrieve a single grouped use minute hours entity by ID.
+     */
+    async groupedUseMinuteHoursFetch(
+        req: operations.GroupedUseMinuteHoursFetchRequest,
+        config?: AxiosRequestConfig
+    ): Promise<operations.GroupedUseMinuteHoursFetchResponse> {
+        if (!(req instanceof utils.SpeakeasyBase)) {
+            req = new operations.GroupedUseMinuteHoursFetchRequest(req);
+        }
+
+        const baseURL: string = this._serverURL;
+        const url: string = utils.generateURL(
+            baseURL,
+            "/api/v1/contract/grouped-use-minute-hours/{id}",
+            req
+        );
+
+        const client: AxiosInstance = this._securityClient || this._defaultClient;
+
+        const headers = { ...config?.headers };
+        headers["Accept"] = "application/json";
+        headers[
+            "user-agent"
+        ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
+
+        const httpRes: AxiosResponse = await client.request({
+            validateStatus: () => true,
+            url: url,
+            method: "get",
+            headers: headers,
+            ...config,
+        });
+
+        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+
+        if (httpRes?.status == null) {
+            throw new Error(`status code not found in response: ${httpRes}`);
+        }
+
+        const res: operations.GroupedUseMinuteHoursFetchResponse =
+            new operations.GroupedUseMinuteHoursFetchResponse({
+                statusCode: httpRes.status,
+                contentType: contentType,
+                rawResponse: httpRes,
+            });
+        switch (true) {
+            case httpRes?.status == 200:
+                if (utils.matchContentType(contentType, `application/json`)) {
+                    res.groupedUseMinuteHoursResponse = utils.objectToClass(
+                        httpRes?.data,
+                        shared.GroupedUseMinuteHoursResponse
+                    );
+                }
+                break;
+        }
+
+        return res;
+    }
+
+    /**
+     * Grouped use minute hours - List
+     *
+     * @remarks
+     * Retrieve a list of grouped use minute hours entities by continuation token and page size.
+     */
+    async groupedUseMinuteHoursList(
+        req: operations.GroupedUseMinuteHoursListRequest,
+        config?: AxiosRequestConfig
+    ): Promise<operations.GroupedUseMinuteHoursListResponse> {
+        if (!(req instanceof utils.SpeakeasyBase)) {
+            req = new operations.GroupedUseMinuteHoursListRequest(req);
+        }
+
+        const baseURL: string = this._serverURL;
+        const url: string =
+            baseURL.replace(/\/$/, "") + "/api/v1/contract/grouped-use-minute-hours";
+
+        const client: AxiosInstance = this._securityClient || this._defaultClient;
+
+        const headers = { ...config?.headers };
+        const queryParams: string = utils.serializeQueryParams(req);
+        headers["Accept"] = "application/json";
+        headers[
+            "user-agent"
+        ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
+
+        const httpRes: AxiosResponse = await client.request({
+            validateStatus: () => true,
+            url: url + queryParams,
+            method: "get",
+            headers: headers,
+            ...config,
+        });
+
+        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+
+        if (httpRes?.status == null) {
+            throw new Error(`status code not found in response: ${httpRes}`);
+        }
+
+        const res: operations.GroupedUseMinuteHoursListResponse =
+            new operations.GroupedUseMinuteHoursListResponse({
+                statusCode: httpRes.status,
+                contentType: contentType,
+                rawResponse: httpRes,
+            });
+        switch (true) {
+            case httpRes?.status == 200:
+                if (utils.matchContentType(contentType, `application/json`)) {
+                    res.groupedUseMinuteHoursList = utils.objectToClass(
+                        httpRes?.data,
+                        shared.GroupedUseMinuteHoursList
+                    );
+                }
+                break;
+        }
+
+        return res;
+    }
+
+    /**
+     * Grouped use minute hours - Paged
+     *
+     * @remarks
+     * Retrieve a list of grouped use minute hours entities by page number and page size.
+     */
+    async groupedUseMinuteHoursListPaged(
+        req: operations.GroupedUseMinuteHoursListPagedRequest,
+        config?: AxiosRequestConfig
+    ): Promise<operations.GroupedUseMinuteHoursListPagedResponse> {
+        if (!(req instanceof utils.SpeakeasyBase)) {
+            req = new operations.GroupedUseMinuteHoursListPagedRequest(req);
+        }
+
+        const baseURL: string = this._serverURL;
+        const url: string =
+            baseURL.replace(/\/$/, "") + "/api/v1/contract/grouped-use-minute-hours/paged";
+
+        const client: AxiosInstance = this._securityClient || this._defaultClient;
+
+        const headers = { ...config?.headers };
+        const queryParams: string = utils.serializeQueryParams(req);
+        headers["Accept"] = "application/json";
+        headers[
+            "user-agent"
+        ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
+
+        const httpRes: AxiosResponse = await client.request({
+            validateStatus: () => true,
+            url: url + queryParams,
+            method: "get",
+            headers: headers,
+            ...config,
+        });
+
+        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+
+        if (httpRes?.status == null) {
+            throw new Error(`status code not found in response: ${httpRes}`);
+        }
+
+        const res: operations.GroupedUseMinuteHoursListPagedResponse =
+            new operations.GroupedUseMinuteHoursListPagedResponse({
+                statusCode: httpRes.status,
+                contentType: contentType,
+                rawResponse: httpRes,
+            });
+        switch (true) {
+            case httpRes?.status == 200:
+                if (utils.matchContentType(contentType, `application/json`)) {
+                    res.groupedUseMinuteHoursPaged = utils.objectToClass(
+                        httpRes?.data,
+                        shared.GroupedUseMinuteHoursPaged
+                    );
+                }
+                break;
+        }
+
+        return res;
+    }
+
+    /**
+     * Grouped value hours - Fetch
+     *
+     * @remarks
+     * Retrieve a single grouped value hours entity by ID.
+     */
+    async groupedValueHoursFetch(
+        req: operations.GroupedValueHoursFetchRequest,
+        config?: AxiosRequestConfig
+    ): Promise<operations.GroupedValueHoursFetchResponse> {
+        if (!(req instanceof utils.SpeakeasyBase)) {
+            req = new operations.GroupedValueHoursFetchRequest(req);
+        }
+
+        const baseURL: string = this._serverURL;
+        const url: string = utils.generateURL(
+            baseURL,
+            "/api/v1/contract/grouped-value-hours/{id}",
+            req
+        );
+
+        const client: AxiosInstance = this._securityClient || this._defaultClient;
+
+        const headers = { ...config?.headers };
+        headers["Accept"] = "application/json";
+        headers[
+            "user-agent"
+        ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
+
+        const httpRes: AxiosResponse = await client.request({
+            validateStatus: () => true,
+            url: url,
+            method: "get",
+            headers: headers,
+            ...config,
+        });
+
+        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+
+        if (httpRes?.status == null) {
+            throw new Error(`status code not found in response: ${httpRes}`);
+        }
+
+        const res: operations.GroupedValueHoursFetchResponse =
+            new operations.GroupedValueHoursFetchResponse({
+                statusCode: httpRes.status,
+                contentType: contentType,
+                rawResponse: httpRes,
+            });
+        switch (true) {
+            case httpRes?.status == 200:
+                if (utils.matchContentType(contentType, `application/json`)) {
+                    res.groupedValueHoursResponse = utils.objectToClass(
+                        httpRes?.data,
+                        shared.GroupedValueHoursResponse
+                    );
+                }
+                break;
+        }
+
+        return res;
+    }
+
+    /**
+     * Grouped value hours - List
+     *
+     * @remarks
+     * Retrieve a list of grouped value hours entities by continuation token and page size.
+     */
+    async groupedValueHoursList(
+        req: operations.GroupedValueHoursListRequest,
+        config?: AxiosRequestConfig
+    ): Promise<operations.GroupedValueHoursListResponse> {
+        if (!(req instanceof utils.SpeakeasyBase)) {
+            req = new operations.GroupedValueHoursListRequest(req);
+        }
+
+        const baseURL: string = this._serverURL;
+        const url: string = baseURL.replace(/\/$/, "") + "/api/v1/contract/grouped-value-hours";
+
+        const client: AxiosInstance = this._securityClient || this._defaultClient;
+
+        const headers = { ...config?.headers };
+        const queryParams: string = utils.serializeQueryParams(req);
+        headers["Accept"] = "application/json";
+        headers[
+            "user-agent"
+        ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
+
+        const httpRes: AxiosResponse = await client.request({
+            validateStatus: () => true,
+            url: url + queryParams,
+            method: "get",
+            headers: headers,
+            ...config,
+        });
+
+        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+
+        if (httpRes?.status == null) {
+            throw new Error(`status code not found in response: ${httpRes}`);
+        }
+
+        const res: operations.GroupedValueHoursListResponse =
+            new operations.GroupedValueHoursListResponse({
+                statusCode: httpRes.status,
+                contentType: contentType,
+                rawResponse: httpRes,
+            });
+        switch (true) {
+            case httpRes?.status == 200:
+                if (utils.matchContentType(contentType, `application/json`)) {
+                    res.groupedValueHoursList = utils.objectToClass(
+                        httpRes?.data,
+                        shared.GroupedValueHoursList
+                    );
+                }
+                break;
+        }
+
+        return res;
+    }
+
+    /**
+     * Grouped value hours - Paged
+     *
+     * @remarks
+     * Retrieve a list of grouped value hours entities by page number and page size.
+     */
+    async groupedValueHoursListPaged(
+        req: operations.GroupedValueHoursListPagedRequest,
+        config?: AxiosRequestConfig
+    ): Promise<operations.GroupedValueHoursListPagedResponse> {
+        if (!(req instanceof utils.SpeakeasyBase)) {
+            req = new operations.GroupedValueHoursListPagedRequest(req);
+        }
+
+        const baseURL: string = this._serverURL;
+        const url: string =
+            baseURL.replace(/\/$/, "") + "/api/v1/contract/grouped-value-hours/paged";
+
+        const client: AxiosInstance = this._securityClient || this._defaultClient;
+
+        const headers = { ...config?.headers };
+        const queryParams: string = utils.serializeQueryParams(req);
+        headers["Accept"] = "application/json";
+        headers[
+            "user-agent"
+        ] = `speakeasy-sdk/${this._language} ${this._sdkVersion} ${this._genVersion}`;
+
+        const httpRes: AxiosResponse = await client.request({
+            validateStatus: () => true,
+            url: url + queryParams,
+            method: "get",
+            headers: headers,
+            ...config,
+        });
+
+        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+
+        if (httpRes?.status == null) {
+            throw new Error(`status code not found in response: ${httpRes}`);
+        }
+
+        const res: operations.GroupedValueHoursListPagedResponse =
+            new operations.GroupedValueHoursListPagedResponse({
+                statusCode: httpRes.status,
+                contentType: contentType,
+                rawResponse: httpRes,
+            });
+        switch (true) {
+            case httpRes?.status == 200:
+                if (utils.matchContentType(contentType, `application/json`)) {
+                    res.groupedValueHoursPaged = utils.objectToClass(
+                        httpRes?.data,
+                        shared.GroupedValueHoursPaged
+                    );
+                }
+                break;
+        }
+
+        return res;
+    }
 }

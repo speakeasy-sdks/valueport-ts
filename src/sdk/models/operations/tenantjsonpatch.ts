@@ -7,40 +7,38 @@ import * as shared from "../shared";
 import { AxiosResponse } from "axios";
 
 export class TenantJsonPatchRequest extends SpeakeasyBase {
-  /**
-   * Request body with tenant details as a JSON Patch.
-   */
-  @SpeakeasyMetadata({
-    data: "request, media_type=application/json-patch+json",
-  })
-  tenantJsonPatchBody: shared.TenantJsonPatchBody;
+    /**
+     * Request body with tenant details as a JSON Patch.
+     */
+    @SpeakeasyMetadata({ data: "request, media_type=application/json-patch+json" })
+    tenantJsonPatchBody: shared.TenantJsonPatchBody;
 
-  /**
-   * Tenant ID.
-   */
-  @SpeakeasyMetadata({ data: "pathParam, style=simple;explode=false;name=id" })
-  id: string;
+    /**
+     * Tenant ID.
+     */
+    @SpeakeasyMetadata({ data: "pathParam, style=simple;explode=false;name=id" })
+    id: string;
 }
 
 export class TenantJsonPatchResponse extends SpeakeasyBase {
-  @SpeakeasyMetadata()
-  contentType: string;
+    @SpeakeasyMetadata()
+    contentType: string;
 
-  /**
-   * Unprocessable Entity
-   */
-  @SpeakeasyMetadata()
-  errorDetailResponse?: shared.ErrorDetailResponse;
+    /**
+     * Unprocessable Entity
+     */
+    @SpeakeasyMetadata()
+    errorDetailResponse?: shared.ErrorDetailResponse;
 
-  @SpeakeasyMetadata()
-  statusCode: number;
+    @SpeakeasyMetadata()
+    statusCode: number;
 
-  @SpeakeasyMetadata()
-  rawResponse?: AxiosResponse;
+    @SpeakeasyMetadata()
+    rawResponse?: AxiosResponse;
 
-  /**
-   * Success
-   */
-  @SpeakeasyMetadata()
-  tenantResponse?: shared.TenantResponse;
+    /**
+     * Success
+     */
+    @SpeakeasyMetadata()
+    tenantResponse?: shared.TenantResponse;
 }

@@ -11,139 +11,139 @@ import { Expose, Transform, Type } from "class-transformer";
  * Summary of the contract month.
  */
 export class ContractMonthsContractMonthsSummary extends SpeakeasyBase {
-  /**
-   * Amount incurred by base (fixed) usage.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "base_amount" })
-  baseAmount?: number;
+    /**
+     * Amount incurred by base (fixed) usage.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "base_amount" })
+    baseAmount?: number;
 
-  /**
-   * Billed amount.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "billed_amount" })
-  billedAmount?: number;
+    /**
+     * Billed amount.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "billed_amount" })
+    billedAmount?: number;
 
-  /**
-   * Currency code (ISO 4217) of billed amount.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "billed_currency_code" })
-  billedCurrencyCode?: string;
+    /**
+     * Currency code (ISO 4217) of billed amount.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "billed_currency_code" })
+    billedCurrencyCode?: string;
 
-  /**
-   * Amount incurred by consumption (variable) usage.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "consumption_amount" })
-  consumptionAmount?: number;
+    /**
+     * Amount incurred by consumption (variable) usage.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "consumption_amount" })
+    consumptionAmount?: number;
 
-  /**
-   * Amount of variable metric used.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "consumption_units" })
-  consumptionUnits?: number;
+    /**
+     * Amount of variable metric used.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "consumption_units" })
+    consumptionUnits?: number;
 
-  /**
-   * End-customer has signed-off for this entry.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "customer_signoff" })
-  customerSignoff?: boolean;
+    /**
+     * End-customer has signed-off for this entry.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "customer_signoff" })
+    customerSignoff?: boolean;
 
-  /**
-   * Quarterly period start in timezone of record.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "period_start_in_timezone" })
-  @Transform(({ value }) => new Date(value), { toClassOnly: true })
-  periodStartInTimezone?: Date;
+    /**
+     * Quarterly period start in timezone of record.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "period_start_in_timezone" })
+    @Transform(({ value }) => new Date(value), { toClassOnly: true })
+    periodStartInTimezone?: Date;
 
-  /**
-   * Quarterly period start in UTC.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "period_start_utc" })
-  @Transform(({ value }) => new Date(value), { toClassOnly: true })
-  periodStartUtc?: Date;
+    /**
+     * Quarterly period start in UTC.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "period_start_utc" })
+    @Transform(({ value }) => new Date(value), { toClassOnly: true })
+    periodStartUtc?: Date;
 
-  /**
-   * Equipment remote ID at period end.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "recorded_remote_id" })
-  recordedRemoteId?: string;
+    /**
+     * Equipment remote ID at period end.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "recorded_remote_id" })
+    recordedRemoteId?: string;
 
-  /**
-   * Tax ID of record at period end.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "recorded_tax_id" })
-  recordedTaxId?: string;
+    /**
+     * Tax ID of record at period end.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "recorded_tax_id" })
+    recordedTaxId?: string;
 
-  /**
-   * Timezone (IANA tz) of record at period end.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "recorded_timezone" })
-  recordedTimezone?: string;
+    /**
+     * Timezone (IANA tz) of record at period end.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "recorded_timezone" })
+    recordedTimezone?: string;
 
-  /**
-   * Residual value of equipment at period end.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "residual_value" })
-  residualValue?: number;
+    /**
+     * Residual value of equipment at period end.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "residual_value" })
+    residualValue?: number;
 
-  /**
-   * Currency code (ISO 4217) of residual value.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "residual_value_currency_code" })
-  residualValueCurrencyCode?: string;
+    /**
+     * Currency code (ISO 4217) of residual value.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "residual_value_currency_code" })
+    residualValueCurrencyCode?: string;
 }
 
 export class ContractMonths extends SpeakeasyBase {
-  @SpeakeasyMetadata()
-  @Expose({ name: "customer" })
-  @Type(() => CustomersIdOnly)
-  customer?: CustomersIdOnly;
+    @SpeakeasyMetadata()
+    @Expose({ name: "customer" })
+    @Type(() => CustomersIdOnly)
+    customer?: CustomersIdOnly;
 
-  /**
-   * Soft-delete timestamp.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "deleted_at" })
-  @Transform(({ value }) => new Date(value), { toClassOnly: true })
-  deletedAt?: Date;
+    /**
+     * Soft-delete timestamp.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "deleted_at" })
+    @Transform(({ value }) => new Date(value), { toClassOnly: true })
+    deletedAt?: Date;
 
-  @SpeakeasyMetadata()
-  @Expose({ name: "equipment" })
-  @Type(() => EquipmentIdOnly)
-  equipment?: EquipmentIdOnly;
+    @SpeakeasyMetadata()
+    @Expose({ name: "equipment" })
+    @Type(() => EquipmentIdOnly)
+    equipment?: EquipmentIdOnly;
 
-  /**
-   * ContractMonths ID.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "id" })
-  id?: string;
+    /**
+     * ContractMonths ID.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "id" })
+    id?: string;
 
-  /**
-   * Current and historical months summary.
-   */
-  @SpeakeasyMetadata({ elemType: ContractMonthsContractMonthsSummary })
-  @Expose({ name: "summary_months" })
-  @Type(() => ContractMonthsContractMonthsSummary)
-  summaryMonths: ContractMonthsContractMonthsSummary[];
+    /**
+     * Current and historical months summary.
+     */
+    @SpeakeasyMetadata({ elemType: ContractMonthsContractMonthsSummary })
+    @Expose({ name: "summary_months" })
+    @Type(() => ContractMonthsContractMonthsSummary)
+    summaryMonths: ContractMonthsContractMonthsSummary[];
 
-  /**
-   * Last updated timestamp.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "updated_at" })
-  @Transform(({ value }) => new Date(value), { toClassOnly: true })
-  updatedAt?: Date;
+    /**
+     * Last updated timestamp.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "updated_at" })
+    @Transform(({ value }) => new Date(value), { toClassOnly: true })
+    updatedAt?: Date;
 }

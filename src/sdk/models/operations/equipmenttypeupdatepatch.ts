@@ -7,38 +7,38 @@ import * as shared from "../shared";
 import { AxiosResponse } from "axios";
 
 export class EquipmentTypeUpdatePatchRequest extends SpeakeasyBase {
-  /**
-   * Request body with equipment type details.
-   */
-  @SpeakeasyMetadata({ data: "request, media_type=application/json" })
-  equipmentTypeUpdateBody: shared.EquipmentTypeUpdateBody;
+    /**
+     * Request body with equipment type details.
+     */
+    @SpeakeasyMetadata({ data: "request, media_type=application/json" })
+    equipmentTypeUpdateBody: shared.EquipmentTypeUpdateBody;
 
-  /**
-   * Equipment type ID.
-   */
-  @SpeakeasyMetadata({ data: "pathParam, style=simple;explode=false;name=id" })
-  id: string;
+    /**
+     * Equipment type ID.
+     */
+    @SpeakeasyMetadata({ data: "pathParam, style=simple;explode=false;name=id" })
+    id: string;
 }
 
 export class EquipmentTypeUpdatePatchResponse extends SpeakeasyBase {
-  @SpeakeasyMetadata()
-  contentType: string;
+    @SpeakeasyMetadata()
+    contentType: string;
 
-  /**
-   * Success
-   */
-  @SpeakeasyMetadata()
-  equipmentTypeResponse?: shared.EquipmentTypeResponse;
+    /**
+     * Success
+     */
+    @SpeakeasyMetadata()
+    equipmentTypeResponse?: shared.EquipmentTypeResponse;
 
-  /**
-   * Unprocessable Entity
-   */
-  @SpeakeasyMetadata()
-  errorDetailResponse?: shared.ErrorDetailResponse;
+    /**
+     * Unprocessable Entity
+     */
+    @SpeakeasyMetadata()
+    errorDetailResponse?: shared.ErrorDetailResponse;
 
-  @SpeakeasyMetadata()
-  statusCode: number;
+    @SpeakeasyMetadata()
+    statusCode: number;
 
-  @SpeakeasyMetadata()
-  rawResponse?: AxiosResponse;
+    @SpeakeasyMetadata()
+    rawResponse?: AxiosResponse;
 }

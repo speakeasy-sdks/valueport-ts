@@ -7,50 +7,44 @@ import * as shared from "../shared";
 import { AxiosResponse } from "axios";
 
 export class GroupedMetricUnitHoursListRequest extends SpeakeasyBase {
-  /**
-   * List continuation token.
-   */
-  @SpeakeasyMetadata({
-    data: "queryParam, style=form;explode=true;name=continuation_token",
-  })
-  continuationToken?: string;
+    /**
+     * List continuation token.
+     */
+    @SpeakeasyMetadata({ data: "queryParam, style=form;explode=true;name=continuation_token" })
+    continuationToken?: string;
 
-  /**
-   * Results size limit.
-   */
-  @SpeakeasyMetadata({ data: "queryParam, style=form;explode=true;name=limit" })
-  limit?: string;
+    /**
+     * Results size limit.
+     */
+    @SpeakeasyMetadata({ data: "queryParam, style=form;explode=true;name=limit" })
+    limit?: string;
 
-  /**
-   * Earliest timestamp.
-   */
-  @SpeakeasyMetadata({
-    data: "queryParam, style=form;explode=true;name=timestamp_from",
-  })
-  timestampFrom?: Date;
+    /**
+     * Earliest timestamp.
+     */
+    @SpeakeasyMetadata({ data: "queryParam, style=form;explode=true;name=timestamp_from" })
+    timestampFrom?: Date;
 
-  /**
-   * Latest timestamp.
-   */
-  @SpeakeasyMetadata({
-    data: "queryParam, style=form;explode=true;name=timestamp_to",
-  })
-  timestampTo?: Date;
+    /**
+     * Latest timestamp.
+     */
+    @SpeakeasyMetadata({ data: "queryParam, style=form;explode=true;name=timestamp_to" })
+    timestampTo?: Date;
 }
 
 export class GroupedMetricUnitHoursListResponse extends SpeakeasyBase {
-  @SpeakeasyMetadata()
-  contentType: string;
+    @SpeakeasyMetadata()
+    contentType: string;
 
-  /**
-   * Success
-   */
-  @SpeakeasyMetadata()
-  groupedMetricUnitHoursList?: shared.GroupedMetricUnitHoursList;
+    /**
+     * Success
+     */
+    @SpeakeasyMetadata()
+    groupedMetricUnitHoursList?: shared.GroupedMetricUnitHoursList;
 
-  @SpeakeasyMetadata()
-  statusCode: number;
+    @SpeakeasyMetadata()
+    statusCode: number;
 
-  @SpeakeasyMetadata()
-  rawResponse?: AxiosResponse;
+    @SpeakeasyMetadata()
+    rawResponse?: AxiosResponse;
 }

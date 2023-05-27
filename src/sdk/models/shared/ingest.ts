@@ -6,25 +6,25 @@ import { SpeakeasyBase, SpeakeasyMetadata } from "../../../internal/utils";
 import { Expose, Transform } from "class-transformer";
 
 export class Ingest extends SpeakeasyBase {
-  /**
-   * Soft-delete timestamp.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "deleted_at" })
-  @Transform(({ value }) => new Date(value), { toClassOnly: true })
-  deletedAt?: Date;
+    /**
+     * Soft-delete timestamp.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "deleted_at" })
+    @Transform(({ value }) => new Date(value), { toClassOnly: true })
+    deletedAt?: Date;
 
-  /**
-   * Encoded data as stringified JSON or binary data that is base64 encoded.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "encoded" })
-  encoded: string;
+    /**
+     * Encoded data as stringified JSON or binary data that is base64 encoded.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "encoded" })
+    encoded: string;
 
-  /**
-   * Ingest ID.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "id" })
-  id?: string;
+    /**
+     * Ingest ID.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "id" })
+    id?: string;
 }

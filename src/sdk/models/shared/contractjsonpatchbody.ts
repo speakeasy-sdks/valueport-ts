@@ -10,11 +10,11 @@ import { Expose, Type } from "class-transformer";
  * Request body for updating a single contract.
  */
 export class ContractJsonPatchBody extends SpeakeasyBase {
-  /**
-   * JSON Patch document for schema `Contract`.
-   */
-  @SpeakeasyMetadata({ elemType: JsonPatchElement })
-  @Expose({ name: "contract" })
-  @Type(() => JsonPatchElement)
-  contract: JsonPatchElement[];
+    /**
+     * JSON Patch document for schema `Contract`.
+     */
+    @SpeakeasyMetadata({ elemType: JsonPatchElement })
+    @Expose({ name: "contract" })
+    @Type(() => JsonPatchElement)
+    contract: JsonPatchElement[];
 }

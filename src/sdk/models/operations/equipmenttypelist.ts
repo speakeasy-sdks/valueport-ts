@@ -7,34 +7,32 @@ import * as shared from "../shared";
 import { AxiosResponse } from "axios";
 
 export class EquipmentTypeListRequest extends SpeakeasyBase {
-  /**
-   * List continuation token.
-   */
-  @SpeakeasyMetadata({
-    data: "queryParam, style=form;explode=true;name=continuation_token",
-  })
-  continuationToken?: string;
+    /**
+     * List continuation token.
+     */
+    @SpeakeasyMetadata({ data: "queryParam, style=form;explode=true;name=continuation_token" })
+    continuationToken?: string;
 
-  /**
-   * Results size limit.
-   */
-  @SpeakeasyMetadata({ data: "queryParam, style=form;explode=true;name=limit" })
-  limit?: string;
+    /**
+     * Results size limit.
+     */
+    @SpeakeasyMetadata({ data: "queryParam, style=form;explode=true;name=limit" })
+    limit?: string;
 }
 
 export class EquipmentTypeListResponse extends SpeakeasyBase {
-  @SpeakeasyMetadata()
-  contentType: string;
+    @SpeakeasyMetadata()
+    contentType: string;
 
-  /**
-   * Success
-   */
-  @SpeakeasyMetadata()
-  equipmentTypesList?: shared.EquipmentTypesList;
+    /**
+     * Success
+     */
+    @SpeakeasyMetadata()
+    equipmentTypesList?: shared.EquipmentTypesList;
 
-  @SpeakeasyMetadata()
-  statusCode: number;
+    @SpeakeasyMetadata()
+    statusCode: number;
 
-  @SpeakeasyMetadata()
-  rawResponse?: AxiosResponse;
+    @SpeakeasyMetadata()
+    rawResponse?: AxiosResponse;
 }

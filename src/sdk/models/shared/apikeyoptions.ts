@@ -7,72 +7,72 @@ import { TenantsIdOnly } from "./tenantsidonly";
 import { Expose, Transform, Type } from "class-transformer";
 
 export class ApiKeyOptions extends SpeakeasyBase {
-  /**
-   * Soft-delete timestamp.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "deleted_at" })
-  @Transform(({ value }) => new Date(value), { toClassOnly: true })
-  deletedAt?: Date;
+    /**
+     * Soft-delete timestamp.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "deleted_at" })
+    @Transform(({ value }) => new Date(value), { toClassOnly: true })
+    deletedAt?: Date;
 
-  /**
-   * Granted permissions by this key.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "granted_permissions" })
-  grantedPermissions: string[];
+    /**
+     * Granted permissions by this key.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "granted_permissions" })
+    grantedPermissions: string[];
 
-  /**
-   * ApiKey ID.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "id" })
-  id?: string;
+    /**
+     * ApiKey ID.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "id" })
+    id?: string;
 
-  /**
-   * Restrict to use by a single specified tenant.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "is_single_tenant" })
-  isSingleTenant: boolean;
+    /**
+     * Restrict to use by a single specified tenant.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "is_single_tenant" })
+    isSingleTenant: boolean;
 
-  /**
-   * API authorization key.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "key" })
-  key: string;
+    /**
+     * API authorization key.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "key" })
+    key: string;
 
-  /**
-   * Display name.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "name" })
-  name: string;
+    /**
+     * Display name.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "name" })
+    name: string;
 
-  @SpeakeasyMetadata()
-  @Expose({ name: "single_tenant_receiver" })
-  @Type(() => TenantsIdOnly)
-  singleTenantReceiver?: TenantsIdOnly;
+    @SpeakeasyMetadata()
+    @Expose({ name: "single_tenant_receiver" })
+    @Type(() => TenantsIdOnly)
+    singleTenantReceiver?: TenantsIdOnly;
 
-  /**
-   * Start date for use.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "start_date" })
-  @Transform(({ value }) => new Date(value), { toClassOnly: true })
-  startDate: Date;
+    /**
+     * Start date for use.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "start_date" })
+    @Transform(({ value }) => new Date(value), { toClassOnly: true })
+    startDate: Date;
 
-  @SpeakeasyMetadata()
-  @Expose({ name: "tenant" })
-  @Type(() => TenantsIdOnly)
-  tenant?: TenantsIdOnly;
+    @SpeakeasyMetadata()
+    @Expose({ name: "tenant" })
+    @Type(() => TenantsIdOnly)
+    tenant?: TenantsIdOnly;
 
-  /**
-   * Last updated timestamp.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "updated_at" })
-  @Transform(({ value }) => new Date(value), { toClassOnly: true })
-  updatedAt?: Date;
+    /**
+     * Last updated timestamp.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "updated_at" })
+    @Transform(({ value }) => new Date(value), { toClassOnly: true })
+    updatedAt?: Date;
 }

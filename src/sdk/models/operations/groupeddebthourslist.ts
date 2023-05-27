@@ -7,50 +7,44 @@ import * as shared from "../shared";
 import { AxiosResponse } from "axios";
 
 export class GroupedDebtHoursListRequest extends SpeakeasyBase {
-  /**
-   * List continuation token.
-   */
-  @SpeakeasyMetadata({
-    data: "queryParam, style=form;explode=true;name=continuation_token",
-  })
-  continuationToken?: string;
+    /**
+     * List continuation token.
+     */
+    @SpeakeasyMetadata({ data: "queryParam, style=form;explode=true;name=continuation_token" })
+    continuationToken?: string;
 
-  /**
-   * Results size limit.
-   */
-  @SpeakeasyMetadata({ data: "queryParam, style=form;explode=true;name=limit" })
-  limit?: string;
+    /**
+     * Results size limit.
+     */
+    @SpeakeasyMetadata({ data: "queryParam, style=form;explode=true;name=limit" })
+    limit?: string;
 
-  /**
-   * Earliest timestamp.
-   */
-  @SpeakeasyMetadata({
-    data: "queryParam, style=form;explode=true;name=timestamp_from",
-  })
-  timestampFrom?: Date;
+    /**
+     * Earliest timestamp.
+     */
+    @SpeakeasyMetadata({ data: "queryParam, style=form;explode=true;name=timestamp_from" })
+    timestampFrom?: Date;
 
-  /**
-   * Latest timestamp.
-   */
-  @SpeakeasyMetadata({
-    data: "queryParam, style=form;explode=true;name=timestamp_to",
-  })
-  timestampTo?: Date;
+    /**
+     * Latest timestamp.
+     */
+    @SpeakeasyMetadata({ data: "queryParam, style=form;explode=true;name=timestamp_to" })
+    timestampTo?: Date;
 }
 
 export class GroupedDebtHoursListResponse extends SpeakeasyBase {
-  @SpeakeasyMetadata()
-  contentType: string;
+    @SpeakeasyMetadata()
+    contentType: string;
 
-  /**
-   * Success
-   */
-  @SpeakeasyMetadata()
-  groupedDebtHoursList?: shared.GroupedDebtHoursList;
+    /**
+     * Success
+     */
+    @SpeakeasyMetadata()
+    groupedDebtHoursList?: shared.GroupedDebtHoursList;
 
-  @SpeakeasyMetadata()
-  statusCode: number;
+    @SpeakeasyMetadata()
+    statusCode: number;
 
-  @SpeakeasyMetadata()
-  rawResponse?: AxiosResponse;
+    @SpeakeasyMetadata()
+    rawResponse?: AxiosResponse;
 }

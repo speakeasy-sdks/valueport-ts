@@ -7,38 +7,38 @@ import * as shared from "../shared";
 import { AxiosResponse } from "axios";
 
 export class CustomerUpdatePutRequest extends SpeakeasyBase {
-  /**
-   * Request body with customer details.
-   */
-  @SpeakeasyMetadata({ data: "request, media_type=application/json" })
-  customerUpdateBody: shared.CustomerUpdateBody;
+    /**
+     * Request body with customer details.
+     */
+    @SpeakeasyMetadata({ data: "request, media_type=application/json" })
+    customerUpdateBody: shared.CustomerUpdateBody;
 
-  /**
-   * Customer ID.
-   */
-  @SpeakeasyMetadata({ data: "pathParam, style=simple;explode=false;name=id" })
-  id: string;
+    /**
+     * Customer ID.
+     */
+    @SpeakeasyMetadata({ data: "pathParam, style=simple;explode=false;name=id" })
+    id: string;
 }
 
 export class CustomerUpdatePutResponse extends SpeakeasyBase {
-  @SpeakeasyMetadata()
-  contentType: string;
+    @SpeakeasyMetadata()
+    contentType: string;
 
-  /**
-   * Success
-   */
-  @SpeakeasyMetadata()
-  customerResponse?: shared.CustomerResponse;
+    /**
+     * Success
+     */
+    @SpeakeasyMetadata()
+    customerResponse?: shared.CustomerResponse;
 
-  /**
-   * Unprocessable Entity
-   */
-  @SpeakeasyMetadata()
-  errorDetailResponse?: shared.ErrorDetailResponse;
+    /**
+     * Unprocessable Entity
+     */
+    @SpeakeasyMetadata()
+    errorDetailResponse?: shared.ErrorDetailResponse;
 
-  @SpeakeasyMetadata()
-  statusCode: number;
+    @SpeakeasyMetadata()
+    statusCode: number;
 
-  @SpeakeasyMetadata()
-  rawResponse?: AxiosResponse;
+    @SpeakeasyMetadata()
+    rawResponse?: AxiosResponse;
 }

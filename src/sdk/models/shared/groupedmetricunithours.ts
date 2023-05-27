@@ -6,40 +6,40 @@ import { SpeakeasyBase, SpeakeasyMetadata } from "../../../internal/utils";
 import { Expose, Transform } from "class-transformer";
 
 export class GroupedMetricUnitHours extends SpeakeasyBase {
-  /**
-   * Soft-delete timestamp.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "deleted_at" })
-  @Transform(({ value }) => new Date(value), { toClassOnly: true })
-  deletedAt?: Date;
+    /**
+     * Soft-delete timestamp.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "deleted_at" })
+    @Transform(({ value }) => new Date(value), { toClassOnly: true })
+    deletedAt?: Date;
 
-  /**
-   * GroupedMetricUnitHours ID.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "id" })
-  id?: string;
+    /**
+     * GroupedMetricUnitHours ID.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "id" })
+    id?: string;
 
-  /**
-   * Timestamps in unix epoch ms.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "timestamps_ms" })
-  timestampsMs: number[];
+    /**
+     * Timestamps in unix epoch ms.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "timestamps_ms" })
+    timestampsMs: number[];
 
-  /**
-   * Last updated timestamp.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "updated_at" })
-  @Transform(({ value }) => new Date(value), { toClassOnly: true })
-  updatedAt?: Date;
+    /**
+     * Last updated timestamp.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "updated_at" })
+    @Transform(({ value }) => new Date(value), { toClassOnly: true })
+    updatedAt?: Date;
 
-  /**
-   * Hourly group metric units.
-   */
-  @SpeakeasyMetadata()
-  @Expose({ name: "values" })
-  values: number[];
+    /**
+     * Hourly group metric units.
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "values" })
+    values: number[];
 }

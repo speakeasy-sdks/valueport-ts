@@ -10,8 +10,8 @@ import { Expose, Type } from "class-transformer";
  * Request body for updating a single contract.
  */
 export class ContractUpdateBody extends SpeakeasyBase {
-  @SpeakeasyMetadata()
-  @Expose({ name: "contract" })
-  @Type(() => ContractOptions)
-  contract: ContractOptions;
+    @SpeakeasyMetadata()
+    @Expose({ name: "contract" })
+    @Type(() => ContractOptions)
+    contract: ContractOptions;
 }

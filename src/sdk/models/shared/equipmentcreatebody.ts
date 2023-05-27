@@ -10,8 +10,8 @@ import { Expose, Type } from "class-transformer";
  * Request body for creating a single equipment.
  */
 export class EquipmentCreateBody extends SpeakeasyBase {
-  @SpeakeasyMetadata()
-  @Expose({ name: "equipment" })
-  @Type(() => Equipment)
-  equipment: Equipment;
+    @SpeakeasyMetadata()
+    @Expose({ name: "equipment" })
+    @Type(() => Equipment)
+    equipment: Equipment;
 }

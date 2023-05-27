@@ -10,8 +10,8 @@ import { Expose, Type } from "class-transformer";
  * Request body for updating a single customer.
  */
 export class CustomerUpdateBody extends SpeakeasyBase {
-  @SpeakeasyMetadata()
-  @Expose({ name: "customer" })
-  @Type(() => CustomerOptions)
-  customer: CustomerOptions;
+    @SpeakeasyMetadata()
+    @Expose({ name: "customer" })
+    @Type(() => CustomerOptions)
+    customer: CustomerOptions;
 }

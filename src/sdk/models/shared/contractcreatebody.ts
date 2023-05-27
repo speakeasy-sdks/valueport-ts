@@ -10,8 +10,8 @@ import { Expose, Type } from "class-transformer";
  * Request body for creating a single contract.
  */
 export class ContractCreateBody extends SpeakeasyBase {
-  @SpeakeasyMetadata()
-  @Expose({ name: "contract" })
-  @Type(() => Contract)
-  contract: Contract;
+    @SpeakeasyMetadata()
+    @Expose({ name: "contract" })
+    @Type(() => Contract)
+    contract: Contract;
 }

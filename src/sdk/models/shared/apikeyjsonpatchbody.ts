@@ -10,11 +10,11 @@ import { Expose, Type } from "class-transformer";
  * Request body for updating a single API key.
  */
 export class ApiKeyJsonPatchBody extends SpeakeasyBase {
-  /**
-   * JSON Patch document for schema `ApiKey`.
-   */
-  @SpeakeasyMetadata({ elemType: JsonPatchElement })
-  @Expose({ name: "api_key" })
-  @Type(() => JsonPatchElement)
-  apiKey: JsonPatchElement[];
+    /**
+     * JSON Patch document for schema `ApiKey`.
+     */
+    @SpeakeasyMetadata({ elemType: JsonPatchElement })
+    @Expose({ name: "api_key" })
+    @Type(() => JsonPatchElement)
+    apiKey: JsonPatchElement[];
 }
