@@ -3,6 +3,7 @@ src/sdk/data.ts
 src/sdk/manage.ts
 src/sdk/sdk.ts
 .eslintrc.yml
+.gitignore
 jest.config.js
 package-lock.json
 package.json
