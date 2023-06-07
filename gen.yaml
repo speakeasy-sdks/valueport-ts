@@ -2,14 +2,14 @@ configVersion: 1.0.0
 management:
   docChecksum: e5bd064ae07bc69c726e0f6702d8127a
   docVersion: v1
-  speakeasyVersion: 1.43.0
-  generationVersion: 2.35.3
+  speakeasyVersion: 1.44.2
+  generationVersion: 2.35.9
 generation:
   sdkClassName: SDK
   singleTagPerOp: false
   telemetryEnabled: false
 typescript:
-  version: 1.13.0
+  version: 1.13.1
   author: Valueport
   maxMethodParams: 0
   packageName: valueport

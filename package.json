@@ -1,6 +1,6 @@
 {
   "name": "valueport",
-  "version": "1.13.0",
+  "version": "1.13.1",
   "author": "Valueport",
   "scripts": {
     "prepare": "tsc --build"

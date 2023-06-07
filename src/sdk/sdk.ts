@@ -45,8 +45,8 @@ export class SDKConfiguration {
     serverURL: string;
     serverDefaults: any;
     language = "typescript";
-    sdkVersion = "1.13.0";
-    genVersion = "2.35.3";
+    sdkVersion = "1.13.1";
+    genVersion = "2.35.9";
 
     public constructor(init?: Partial<SDKConfiguration>) {
         Object.assign(this, init);
@@ -54,7 +54,7 @@ export class SDKConfiguration {
 }
 
 /**
- * # Introduction
+ * Valueport.io API: # Introduction
  *
  * @remarks
  * The Valueport.io API is organized around REST ([wikipedia](http://en.wikipedia.org/wiki/Representational_State_Transfer)). Our API has predictable resource-oriented URLs, accepts JSON-encoded ([json.org](http://www.json.org)) request bodies, returns JSON-encoded responses, and uses standard HTTP response codes, authentication, and verbs.

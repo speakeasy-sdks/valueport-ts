@@ -2,7 +2,7 @@
 
 ## Overview
 
-# Introduction
+Valueport.io API: # Introduction
 The Valueport.io API is organized around REST ([wikipedia](http://en.wikipedia.org/wiki/Representational_State_Transfer)). Our API has predictable resource-oriented URLs, accepts JSON-encoded ([json.org](http://www.json.org)) request bodies, returns JSON-encoded responses, and uses standard HTTP response codes, authentication, and verbs.
 
 You can use the Valueport.io API in test mode, which does not affect your live data. The API key you use to authenticate the request determines whether the request is live mode or test mode.
