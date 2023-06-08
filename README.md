@@ -24,7 +24,7 @@ import { ContractMonthsFetchResponse } from "valueport/dist/sdk/models/operation
 
 const sdk = new SDK({
   security: {
-    bearer: "YOUR_BEARER_TOKEN_HERE",
+    bearer: "",
   },
 });
 

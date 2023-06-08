@@ -43,7 +43,7 @@ import { ContractMonthsFetchResponse } from "valueport/dist/sdk/models/operation
 
 const sdk = new SDK({
   security: {
-    bearer: "YOUR_BEARER_TOKEN_HERE",
+    bearer: "",
   },
 });
 
@@ -68,7 +68,7 @@ import { ContractMonthsListResponse } from "valueport/dist/sdk/models/operations
 
 const sdk = new SDK({
   security: {
-    bearer: "YOUR_BEARER_TOKEN_HERE",
+    bearer: "",
   },
 });
 
@@ -94,7 +94,7 @@ import { ContractMonthsListPagedResponse } from "valueport/dist/sdk/models/opera
 
 const sdk = new SDK({
   security: {
-    bearer: "YOUR_BEARER_TOKEN_HERE",
+    bearer: "",
   },
 });
 
@@ -120,7 +120,7 @@ import { ContractQuartersFetchResponse } from "valueport/dist/sdk/models/operati
 
 const sdk = new SDK({
   security: {
-    bearer: "YOUR_BEARER_TOKEN_HERE",
+    bearer: "",
   },
 });
 
@@ -145,7 +145,7 @@ import { ContractQuartersListResponse } from "valueport/dist/sdk/models/operatio
 
 const sdk = new SDK({
   security: {
-    bearer: "YOUR_BEARER_TOKEN_HERE",
+    bearer: "",
   },
 });
 
@@ -171,7 +171,7 @@ import { ContractQuartersListPagedResponse } from "valueport/dist/sdk/models/ope
 
 const sdk = new SDK({
   security: {
-    bearer: "YOUR_BEARER_TOKEN_HERE",
+    bearer: "",
   },
 });
 
@@ -197,7 +197,7 @@ import { GroupedCostFixedHoursFetchResponse } from "valueport/dist/sdk/models/op
 
 const sdk = new SDK({
   security: {
-    bearer: "YOUR_BEARER_TOKEN_HERE",
+    bearer: "",
   },
 });
 
@@ -222,7 +222,7 @@ import { GroupedCostFixedHoursListResponse } from "valueport/dist/sdk/models/ope
 
 const sdk = new SDK({
   security: {
-    bearer: "YOUR_BEARER_TOKEN_HERE",
+    bearer: "",
   },
 });
 
@@ -250,7 +250,7 @@ import { GroupedCostFixedHoursListPagedResponse } from "valueport/dist/sdk/model
 
 const sdk = new SDK({
   security: {
-    bearer: "YOUR_BEARER_TOKEN_HERE",
+    bearer: "",
   },
 });
 
@@ -278,7 +278,7 @@ import { GroupedCostHoursFetchResponse } from "valueport/dist/sdk/models/operati
 
 const sdk = new SDK({
   security: {
-    bearer: "YOUR_BEARER_TOKEN_HERE",
+    bearer: "",
   },
 });
 
@@ -303,7 +303,7 @@ import { GroupedCostHoursListResponse } from "valueport/dist/sdk/models/operatio
 
 const sdk = new SDK({
   security: {
-    bearer: "YOUR_BEARER_TOKEN_HERE",
+    bearer: "",
   },
 });
 
@@ -331,7 +331,7 @@ import { GroupedCostHoursListPagedResponse } from "valueport/dist/sdk/models/ope
 
 const sdk = new SDK({
   security: {
-    bearer: "YOUR_BEARER_TOKEN_HERE",
+    bearer: "",
   },
 });
 
@@ -359,7 +359,7 @@ import { GroupedDebtHoursFetchResponse } from "valueport/dist/sdk/models/operati
 
 const sdk = new SDK({
   security: {
-    bearer: "YOUR_BEARER_TOKEN_HERE",
+    bearer: "",
   },
 });
 
@@ -384,7 +384,7 @@ import { GroupedDebtHoursListResponse } from "valueport/dist/sdk/models/operatio
 
 const sdk = new SDK({
   security: {
-    bearer: "YOUR_BEARER_TOKEN_HERE",
+    bearer: "",
   },
 });
 
@@ -412,7 +412,7 @@ import { GroupedDebtHoursListPagedResponse } from "valueport/dist/sdk/models/ope
 
 const sdk = new SDK({
   security: {
-    bearer: "YOUR_BEARER_TOKEN_HERE",
+    bearer: "",
   },
 });
 
@@ -440,7 +440,7 @@ import { GroupedMetricUnitHoursFetchResponse } from "valueport/dist/sdk/models/o
 
 const sdk = new SDK({
   security: {
-    bearer: "YOUR_BEARER_TOKEN_HERE",
+    bearer: "",
   },
 });
 
@@ -465,7 +465,7 @@ import { GroupedMetricUnitHoursListResponse } from "valueport/dist/sdk/models/op
 
 const sdk = new SDK({
   security: {
-    bearer: "YOUR_BEARER_TOKEN_HERE",
+    bearer: "",
   },
 });
 
@@ -493,7 +493,7 @@ import { GroupedMetricUnitHoursListPagedResponse } from "valueport/dist/sdk/mode
 
 const sdk = new SDK({
   security: {
-    bearer: "YOUR_BEARER_TOKEN_HERE",
+    bearer: "",
   },
 });
 
@@ -521,7 +521,7 @@ import { GroupedUseMinuteHoursFetchResponse } from "valueport/dist/sdk/models/op
 
 const sdk = new SDK({
   security: {
-    bearer: "YOUR_BEARER_TOKEN_HERE",
+    bearer: "",
   },
 });
 
@@ -546,7 +546,7 @@ import { GroupedUseMinuteHoursListResponse } from "valueport/dist/sdk/models/ope
 
 const sdk = new SDK({
   security: {
-    bearer: "YOUR_BEARER_TOKEN_HERE",
+    bearer: "",
   },
 });
 
@@ -574,7 +574,7 @@ import { GroupedUseMinuteHoursListPagedResponse } from "valueport/dist/sdk/model
 
 const sdk = new SDK({
   security: {
-    bearer: "YOUR_BEARER_TOKEN_HERE",
+    bearer: "",
   },
 });
 
@@ -602,7 +602,7 @@ import { GroupedValueHoursFetchResponse } from "valueport/dist/sdk/models/operat
 
 const sdk = new SDK({
   security: {
-    bearer: "YOUR_BEARER_TOKEN_HERE",
+    bearer: "",
   },
 });
 
@@ -627,7 +627,7 @@ import { GroupedValueHoursListResponse } from "valueport/dist/sdk/models/operati
 
 const sdk = new SDK({
   security: {
-    bearer: "YOUR_BEARER_TOKEN_HERE",
+    bearer: "",
   },
 });
 
@@ -655,7 +655,7 @@ import { GroupedValueHoursListPagedResponse } from "valueport/dist/sdk/models/op
 
 const sdk = new SDK({
   security: {
-    bearer: "YOUR_BEARER_TOKEN_HERE",
+    bearer: "",
   },
 });
 
