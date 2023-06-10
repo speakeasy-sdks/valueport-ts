@@ -1,0 +1,11 @@
+# GroupedUseMinuteHoursListPagedRequest
+
+
+## Fields
+
+| Field                                                                                         | Type                                                                                          | Required                                                                                      | Description                                                                                   |
+| --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `page`                                                                                        | *string*                                                                                      | :heavy_minus_sign:                                                                            | Page number.                                                                                  |
+| `pageSize`                                                                                    | *string*                                                                                      | :heavy_minus_sign:                                                                            | Page size.                                                                                    |
+| `timestampFrom`                                                                               | [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) | :heavy_minus_sign:                                                                            | Earliest timestamp.                                                                           |
+| `timestampTo`                                                                                 | [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) | :heavy_minus_sign:                                                                            | Latest timestamp.                                                                             |

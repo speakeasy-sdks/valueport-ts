@@ -1,0 +1,13 @@
+# JsonPatchElement
+
+JSON Patch element.
+
+
+## Fields
+
+| Field                                                                                                   | Type                                                                                                    | Required                                                                                                | Description                                                                                             |
+| ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `from`                                                                                                  | *string*                                                                                                | :heavy_minus_sign:                                                                                      | A JSON Pointer path.                                                                                    |
+| `op`                                                                                                    | *string*                                                                                                | :heavy_check_mark:                                                                                      | The operation to perform. One of 'add', 'replace', 'test', 'remove', 'move', 'copy'.                    |
+| `path`                                                                                                  | *string*                                                                                                | :heavy_check_mark:                                                                                      | A JSON Pointer path.                                                                                    |
+| `value`                                                                                                 | *string*                                                                                                | :heavy_minus_sign:                                                                                      | The value to add, replace or test. Here typed as a string, but other primitive types are also accepted. |

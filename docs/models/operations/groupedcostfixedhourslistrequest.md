@@ -1,0 +1,11 @@
+# GroupedCostFixedHoursListRequest
+
+
+## Fields
+
+| Field                                                                                         | Type                                                                                          | Required                                                                                      | Description                                                                                   |
+| --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `continuationToken`                                                                           | *string*                                                                                      | :heavy_minus_sign:                                                                            | List continuation token.                                                                      |
+| `limit`                                                                                       | *string*                                                                                      | :heavy_minus_sign:                                                                            | Results size limit.                                                                           |
+| `timestampFrom`                                                                               | [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) | :heavy_minus_sign:                                                                            | Earliest timestamp.                                                                           |
+| `timestampTo`                                                                                 | [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) | :heavy_minus_sign:                                                                            | Latest timestamp.                                                                             |

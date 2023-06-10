@@ -1,0 +1,11 @@
+# Tenant
+
+
+## Fields
+
+| Field                                                                                         | Type                                                                                          | Required                                                                                      | Description                                                                                   |
+| --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `deletedAt`                                                                                   | [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) | :heavy_minus_sign:                                                                            | Soft-delete timestamp.                                                                        |
+| `id`                                                                                          | *string*                                                                                      | :heavy_minus_sign:                                                                            | Tenant ID.                                                                                    |
+| `name`                                                                                        | *string*                                                                                      | :heavy_check_mark:                                                                            | OEM tenant name.                                                                              |
+| `updatedAt`                                                                                   | [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) | :heavy_minus_sign:                                                                            | Last updated timestamp.                                                                       |
